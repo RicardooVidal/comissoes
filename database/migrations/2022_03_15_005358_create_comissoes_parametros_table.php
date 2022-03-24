@@ -29,6 +29,6 @@ class CreateComissoesParametrosTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('comissoes_parametros');
+        Schema::dropIfExists('comissoes_parametros');
     }
 }
