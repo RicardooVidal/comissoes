@@ -18,7 +18,7 @@ class CreateIndicadoresTable extends Migration
             $table->unsignedBigInteger('revendedor_id');
 
             //foreign key (constraints)
-            $table->foreign('revendedor_id')->references('id')->on('revendedores');
+            $table->foreign('revendedor_id')->references('id')->on('revendedores')->onDelete('cascade');
         });
     }
 

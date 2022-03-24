@@ -24,8 +24,9 @@ class FormaPagamentoRequest extends DefaultRequest
     public function rules()
     {
         $this->validateMethod();
+
         return [
-            'descricao' => 'required|unique:forma_pagamento,descricao,' . $this->id
+            'descricao' => 'required|unique:forma_pagamentos,descricao,' . $this->id
         ];
     }
 

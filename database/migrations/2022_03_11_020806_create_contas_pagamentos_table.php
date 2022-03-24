@@ -25,7 +25,7 @@ class CreateContasPagamentosTable extends Migration
             $table->string('pix')->nullable();
 
             //foreign key (constraints)
-            $table->foreign('revendedor_id')->references('id')->on('revendedores');
+            $table->foreign('revendedor_id')->references('id')->on('revendedores')->onDelete('cascade');
             $table->foreign('banco_id')->references('id')->on('bancos');
         });
     }

@@ -23,7 +23,7 @@ class CreateComissoesTable extends Migration
             
             //foreign key (constraints)
             $table->foreign('vendas_lucros_id')->references('id')->on('vendas_lucros')->onDelete('cascade');
-            $table->foreign('forma_pagamento_id')->references('id')->on('forma_pagamento');
+            $table->foreign('forma_pagamento_id')->references('id')->on('forma_pagamentos');
         });
     }
 

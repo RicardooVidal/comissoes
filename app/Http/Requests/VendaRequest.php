@@ -28,7 +28,7 @@ class VendaRequest extends DefaultRequest
         return [
             'revendedor_id' => 'required|exists:revendedores,id',
             'taxa_parametro_id' => 'required|exists:taxas_parametros,id',
-            'comissao_parametro_id' => 'required|exists:taxas_parametros,id',
+            'comissao_parametro_id' => 'required|exists:comissoes_parametros,id',
             'outras_despesas_valor' => 'numeric',
             'descricao' => 'required',
             'preco_unitario' => 'required|numeric',

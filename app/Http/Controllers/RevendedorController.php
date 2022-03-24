@@ -124,6 +124,11 @@ class RevendedorController extends Controller
      */
     public function update(RevendedorRequest $request, $id)
     {
+        // Validar CPF
+        if (!Document::validateCPF($request->cpf)) {
+            return $this->error('CPF Inválido', 422);
+        }
+
         //Verificar se tentou alterar o indicador
         if ($request->indicador_id) {
             return $this->error('Não é possível alterar o indicador');

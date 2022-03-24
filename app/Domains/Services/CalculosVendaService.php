@@ -53,7 +53,7 @@ class CalculosVendaService
     {
         // Recuperar taxa parâmetro
         $id = $this->taxa_parametro_id;
-        $percentual = TaxaParametro::find($id)->taxa_percentual;
+        $percentual = TaxaParametro::findOrFail($id)->taxa_percentual;
 
         // Calcular a taxa
         $taxa = $this->total_bruto * ($percentual / 100);
@@ -73,7 +73,7 @@ class CalculosVendaService
         // Recuperar parâmetro de comissões
         $id = $this->comissao_parametro_id;
 
-        $parametro = ComissaoParametro::find($id);
+        $parametro = ComissaoParametro::findOrFail($id);
 
         // Recuperar percentuais
         $percentual_revendedor = $parametro->comissao_percentual;

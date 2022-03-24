@@ -24,7 +24,7 @@ class ConfiguracaoRequest extends DefaultRequest
     public function rules()
     {
         return [
-            'validade_comissao_indicado' => 'required|integer|max:3',
+            'validade_comissao_indicado' => 'required|integer|numeric',
             'recuperar_descricao_compra' => 'required|boolean',
         ];
     }

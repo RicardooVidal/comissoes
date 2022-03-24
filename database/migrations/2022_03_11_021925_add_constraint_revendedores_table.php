@@ -21,7 +21,7 @@ class AddConstraintRevendedoresTable extends Migration
 
             //foreign key (constraints)
             $table->foreign('indicador_id')->references('id')->on('indicadores')->onDelete('cascade');
-            $table->foreign('conta_pagamento_id')->references('id')->on('contas_pagamentos')->onDelete('cascade');
+            $table->foreign('conta_pagamento_id')->references('id')->on('contas_pagamentos');
         });
     }
 

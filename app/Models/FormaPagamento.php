@@ -9,6 +9,6 @@ class FormaPagamento extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'forma_pagamento';
+    protected $table = 'forma_pagamentos';
     protected $fillable = ['descricao'];
 }

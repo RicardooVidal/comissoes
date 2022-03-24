@@ -78,7 +78,7 @@ class IndicadorController extends Controller
      */
     public function update(Request $request, Indicador $indicador)
     {
-        //
+        return $this->error('Não é possível editar um indicador');
     }
 
     /**

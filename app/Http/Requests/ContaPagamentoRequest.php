@@ -25,11 +25,7 @@ class ContaPagamentoRequest extends DefaultRequest
     {
         return [
             'revendedor_id' => 'required|exists:revendedores,id',
-            'banco_id' => 'exists:bancos,id',
-            'agencia' => 'digits_between:2,5',
-            'digito_agencia' => 'digits:1',
-            'conta' => 'digits_between:4,8',
-            'digito_conta' => 'digits:1',
+            'banco_id' => 'exists:bancos,id'
         ];
     }
 

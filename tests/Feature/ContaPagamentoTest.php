@@ -67,7 +67,7 @@ class ContaPagamentoTest extends TestCase
         $params['banco_id'] = Banco::create(['id' => '999', 'descricao' => $this->faker->title()])->id;
         $params['revendedor_id'] = $id;
 
-        $response = $this->postJson('/api/conta_pagamento', $params);
+        $response = $this->postJson('/api/conta_pagamentos', $params);
 
         //Recuperar o id
         $idConta = $response['result']['id'];
@@ -102,12 +102,12 @@ class ContaPagamentoTest extends TestCase
         $params['banco_id'] = Banco::create(['id' => '999', 'descricao' => $this->faker->title()])->id;
         $params['revendedor_id'] = $id;
 
-        $response = $this->postJson('/api/conta_pagamento', $params);
+        $response = $this->postJson('/api/conta_pagamentos', $params);
 
         //Recuperar o id
         $idConta = $response['result']['id'];
 
-        $this->putJson("/api/conta_pagamento/$idConta", $params)
+        $this->putJson("/api/conta_pagamentos/$idConta", $params)
             ->assertJson(['result' => 'Não é possível alterar o revendedor']);
 
     }
