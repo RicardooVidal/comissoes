@@ -14,12 +14,12 @@ class CreateRevendedoresTable extends Migration
     public function up()
     {
         Schema::create('revendedores', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('cpf')->nullable();
+            $table->bigInteger('id')->unique();
+            $table->string('rg')->unique()->nullable();
             $table->string('nome');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('celular')->nullable();
-            $table->boolean('ativo');
+            $table->boolean('ativo')->default(1);
         });
     }
 

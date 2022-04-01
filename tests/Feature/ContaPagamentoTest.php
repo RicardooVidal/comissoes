@@ -51,13 +51,13 @@ class ContaPagamentoTest extends TestCase
         $response = $this->postJson('/api/revendedor', [
             'indicador_id' => '',
             'conta_pagamento_id' => '',
-            'cpf' => '71245831011',
+            'id' => '71245831011',
             'nome' => $this->faker->name(),
             'email' => $this->faker->email(),
             'celular' => '(11) 99999-9999',
             'ativo' => 1
         ]);
-        
+
         //Recuperar o id
         $id = $response['result']['id'];
 
@@ -86,7 +86,7 @@ class ContaPagamentoTest extends TestCase
         $response = $this->postJson('/api/revendedor', [
             'indicador_id' => '',
             'conta_pagamento_id' => '',
-            'cpf' => '71245831011',
+            'id' => '71245831011',
             'nome' => $this->faker->name(),
             'email' => $this->faker->email(),
             'celular' => '(11) 99999-9999',

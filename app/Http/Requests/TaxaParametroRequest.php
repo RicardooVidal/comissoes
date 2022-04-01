@@ -27,7 +27,7 @@ class TaxaParametroRequest extends DefaultRequest
         
         return [
             'descricao' => 'required|unique:taxas_parametros,descricao,' . $this->id,
-            'taxa_percentual' => 'numeric',
+            'taxa_percentual' => 'between:0,99.99',
             'ativo' => 'required|boolean'
         ];
     }

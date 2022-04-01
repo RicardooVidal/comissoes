@@ -12,17 +12,17 @@ class IndicadorTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Testa o calculo de dias para uma indicação
+     * Testa a soma de dias para uma indicação
      *
      * @return void
      */
-    public function test_calcular_quantidade_de_dias_para_indicacao()
+    public function test_somar_quantidade_de_dias_para_indicacao()
     {
         // Alterar a quantidade de dias para 5
-        $numeroDias = 5;
+        $numeroDias = 60;
 
         $agora = date('Y-m-d');
-        $hojeSomadoComDias = date('Y-m-d', strtotime($agora. " + $numeroDias days"));
+        $hojeSomadoComDias = date('Y-m-d', strtotime($agora . " + $numeroDias days"));
 
         $params = [
             'validade_comissao_indicado' => $numeroDias, // Quantidade de dias para um indicador receber comissão de venda de seus revendedores.

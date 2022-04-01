@@ -26,7 +26,7 @@ class RevendedorRequest extends DefaultRequest
         $this->validateMethod();
 
         $rules = [
-            'cpf' => 'integer|unique:revendedores,cpf, ' . $this->id . '|digits:11',
+            'id' => 'integer|unique:revendedores,id, ' . $this->id . '|digits:11',
             'nome' => 'required|unique:revendedores,nome, ' . $this->id,
             'email' => 'email|required|unique:revendedores,email,' . $this->id,
             'celular' => 'required|unique:revendedores,celular,' . $this->id,
@@ -48,7 +48,7 @@ class RevendedorRequest extends DefaultRequest
             'integer' => 'O campo :attribute não é válido',
             'digits' => 'O campo :attribute não é válido',
             'nome.unique' => 'Nome já cadastrado. DICA: adicione uma abreviação ou apelido para diferenciar.',
-            'cpf.unique' => 'Cpf já cadastrado',
+            'id.unique' => 'Cpf já cadastrado',
             'email.unique' => 'Email já cadastrado',
             'celular.unique' => 'Celular já cadastrado',
             'email.email' => 'O campo :attribute não é um e-mail válido',

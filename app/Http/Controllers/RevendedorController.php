@@ -49,7 +49,7 @@ class RevendedorController extends Controller
     public function store(RevendedorRequest $request)
     {
         // Validar CPF
-        if (!Document::validateCPF($request->cpf)) {
+        if (!Document::validateCPF($request->id)) {
             return $this->error('CPF Inválido', 422);
         }
 
@@ -74,7 +74,7 @@ class RevendedorController extends Controller
 
         //Cadastrar o revendedor
         $params = [
-            'cpf' => $request->get('cpf'),
+            'id' => $request->get('id'),
             'nome' => $request->get('nome'),
             'email' => $request->get('email'),
             'celular' => $request->get('celular'),
@@ -125,7 +125,7 @@ class RevendedorController extends Controller
     public function update(RevendedorRequest $request, $id)
     {
         // Validar CPF
-        if (!Document::validateCPF($request->cpf)) {
+        if (!Document::validateCPF($request->id)) {
             return $this->error('CPF Inválido', 422);
         }
 

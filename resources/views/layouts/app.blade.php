@@ -25,15 +25,50 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
+                    - Gestão de Comissões
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <loading></loading>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        @auth
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Parâmetros</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('parametros.taxas.index')}}">Taxas</a>
+                                <a class="dropdown-item" href="#">Comissões</a>
+                            </div>
+                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Vendas</a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Comissões</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Revendedores</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Cadastro de Revendedores</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Consulta de Indicadores</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Outros</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Bancos</a>
+                                    <a class="dropdown-item" href="#">Forma de Pagamento</a>
+                                </div>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

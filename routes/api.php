@@ -49,4 +49,5 @@ Route::middleware('jwt.auth')->group(function() {
 });
 
 Route::post('login', 'App\Http\Controllers\AuthController@login');
+Route::get('me', 'App\Http\Controllers\AuthController@me');
 Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');

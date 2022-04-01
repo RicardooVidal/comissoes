@@ -1,7 +1,9 @@
 window._ = require('lodash');
+window.$ = window.jQuery = require('jquery')
 
 try {
     require('bootstrap');
+    // require('jquery-mask-plugin');
 } catch (e) {}
 
 /**
@@ -13,6 +15,63 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/** interceptar os requests da aplicação */
+axios.interceptors.request.use(
+    config => {
+        $('#loading').css("visibility", "visible");
+        let token = (() => {
+            let token = document.cookie.split(';').find(indice => {
+                return indice.includes('token=');
+            });
+
+            token = token.split('=')[1];
+            token = 'Bearer ' + token;
+
+            return token;
+        });
+
+        //definir para todas as requisições os parâmetros de accept e authorization
+        config.headers['Accept'] = 'application/json';
+        config.headers['Authorization'] = token();
+
+        // console.log('interceptando o request antes do envio', request);
+        return config;
+    },
+    error => {
+        console.log('Erro na requisição:', error);
+        return Promise.reject(error);
+    },
+);
+
+/** interceptar os responses da aplicação */
+axios.interceptors.response.use(
+    response => {
+        $('#loading').css("visibility", "hidden");
+        // console.log('interceptando a resposta antes da aplicação', response);
+        return response;
+    },
+    error => {
+        console.log('Erro na resposta:', error.response);
+        $('#loading').css("visibility", "hidden");
+        if(error.response.status == 401 && error.response.data.message == 'Token has expired') {
+            axios.post('http://localhost:8000/api/refresh')
+                .then((response) => {
+                    console.log('Refresh com sucesso', response);
+
+                    if(response.data.token) {
+                        document.cookie = 'token=' + response.data.token + ';SameSite=Lax';
+                        console.log('Token atualizado:', response.data.token);
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+        return Promise.reject(error);
+    }
+);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

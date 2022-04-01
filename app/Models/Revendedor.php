@@ -15,11 +15,12 @@ class Revendedor extends Model
      * @var bool
      */
     public $timestamps = false;
+    public $incrementing = false;
     protected $table = 'revendedores';
     protected $fillable = [
+        'id',
         'indicador_id',
         'conta_pagamento_id',
-        'cpf',
         'nome',
         'email',
         'celular',

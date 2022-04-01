@@ -15,7 +15,7 @@ class TaxaParametroFactory extends Factory
     {
         return [
             'descricao' => $this->faker->text(20),
-            'taxa_percentual' => 8.0,
+            'taxa_percentual' => 0.08,
             'ativo' => 1
         ];
     }

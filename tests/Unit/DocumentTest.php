@@ -14,6 +14,6 @@ class DocumentTest extends TestCase
      */
     public function test_cpf_invalido_retorna_false(): void
     {
-        $this->assertFalse(Document::validateCPF(44075834523));
+        $this->assertFalse(Document::validateCPF('44075834523'));
     }
 }

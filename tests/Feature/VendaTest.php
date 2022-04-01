@@ -31,7 +31,7 @@ class VendaTest extends TestCase
         // Dessa forma a comissão para o indicador NÃO deve ser considerada.
         $params = [
             'validade_comissao_indicado' => -1,
-            'recuperar_descricao_compra' => 1
+            'recuperar_descricao_compra' => 1  //DESCONSIDERAR
         ];
 
         $this->putJson('/api/configuracoes', $params)
@@ -51,7 +51,7 @@ class VendaTest extends TestCase
         $params['indicador_id'] = $idIndicador;
 
         // Alterar alguns parâmetros para não retornar como duplicado
-        $params['cpf'] = '97154580097';
+        $params['id'] = '97154580097';
         $params['celular'] = '(11) 88888-8888';
 
         // Criar o revendedor
@@ -64,16 +64,16 @@ class VendaTest extends TestCase
             'revendedor_id' => $idRevendedor,
             'taxa_parametro_id' => (TaxaParametro::create(TaxaParametro::factory()->make()->getAttributes()))->id, // taxa 8%
             'comissao_parametro_id' => (ComissaoParametro::create(ComissaoParametro::factory()->make()->getAttributes()))->id, // comissao revendedor 10%
-            'outras_despesas_valor' => 11.50,
+            'outras_despesas_valor' => 30.00,
             'descricao' => $this->faker->text(),
-            'preco_unitario' => 30.00,
+            'preco_unitario' => 79.90,
             'quantidade' => 1
         ];
 
         // Criar venda
         $response = $this->postJson('/api/venda', $params);
         $idVenda = $response['result']['id'];
-        $response->assertStatus(201);
+        $response->assertCreated();
 
         // Verificar se tabela venda_lucros foi populada com calculos da venda criada
         $vendaLucro = VendaLucro::where('venda_id', $idVenda)->first();
@@ -84,12 +84,12 @@ class VendaTest extends TestCase
         // Taxa no parâmetro criado acima é de 8%
         // Conta: (30,00 * 0,08 = 2,40)
         // Taxa em vendas_lucro deve ser 2,40
-        $this->assertEquals(2.40, $vendaLucro->taxa);
+        $this->assertEquals(6.39, $vendaLucro->taxa);
 
         // Revendedor recebe 10% de comissão do valor bruto de acordo com a parametrização de exemplo
         // Conta: (30,00 * 0,10 = 3,00)
         // Comissao para o revendedor em vendas_lucro deve ser 3,00
-        $this->assertEquals(3.00, $vendaLucro->comissao);
+        $this->assertEquals(7.99, $vendaLucro->comissao);
 
         // Revendedor não tem indicador (ou data de validação expirou)
         // Conta: (30,00 * 0,00 = 0)
@@ -97,7 +97,7 @@ class VendaTest extends TestCase
         $this->assertEquals(0.00, $vendaLucro->comissao_indicado);
 
         // Outras despesas está como 11,50. O valor passado por parâmetro é inserido direto na tabela
-        $this->assertEquals(11.50, $vendaLucro->outras_despesas);
+        $this->assertEquals(30.00, $vendaLucro->outras_despesas);
 
         // Conta do Lucro Geral
         // Conta: 
@@ -110,7 +110,7 @@ class VendaTest extends TestCase
         //        13,10 <- LUCRO GERAL
 
         // Campo lucro geral deve ser igual a 13,10
-        $this->assertEquals(13.10, $vendaLucro->lucro_geral);
+        $this->assertEquals(35.52, $vendaLucro->lucro_geral);
     }
 
     /**
@@ -143,7 +143,7 @@ class VendaTest extends TestCase
         $params['indicador_id'] = $idIndicador;
 
         // Alterar alguns parâmetros para não retornar como duplicado
-        $params['cpf'] = '97154580097';
+        $params['id'] = '97154580097';
         $params['celular'] = '(11) 88888-8888';
 
         // Criar o revendedor
@@ -157,13 +157,13 @@ class VendaTest extends TestCase
             'taxa_parametro_id' => (TaxaParametro::create(TaxaParametro::factory()->make()->getAttributes()))->id, // taxa 8%
             // comissao revendedor 10% e indicador recebe 3%
             'comissao_parametro_id' => (ComissaoParametro::create(ComissaoParametro::factory()->make()->getAttributes()))->id, 
-            'outras_despesas_valor' => 11.50,
+            'outras_despesas_valor' => 30.00,
             'descricao' => $this->faker->text(),
-            'preco_unitario' => 30.00,
+            'preco_unitario' => 79.90,
             'quantidade' => 1
         ];
 
-        // Criar venda
+        // Criar venda e recuperar o id
         $response = $this->postJson('/api/venda', $params);
         $idVenda = $response['result']['id'];
         $response->assertStatus(201);
@@ -177,20 +177,20 @@ class VendaTest extends TestCase
         // Taxa no parâmetro criado acima é de 8%
         // Conta: (30,00 * 0,08 = 2,40)
         // Taxa em vendas_lucro deve ser 2,40
-        $this->assertEquals(2.40, $vendaLucro->taxa);
+        $this->assertEquals(6.39, $vendaLucro->taxa);
 
         // Revendedor recebe 10% de comissão do valor bruto de acordo com a parametrização de exemplo
         // Conta: (30,00 * 0,10 = 3,00)
         // Comissao para o revendedor em vendas_lucro deve ser 3,00
-        $this->assertEquals(3.00, $vendaLucro->comissao);
+        $this->assertEquals(7.99, $vendaLucro->comissao);
 
         // Revendedor POSSUI indicador data de validade ainda em andamento
         // Conta: (30,00 * 0,03 = 0,90)
         // Comissao para indicador deve ser 0,90
-        $this->assertEquals(0.90, $vendaLucro->comissao_indicado);
+        $this->assertEquals(2.40, $vendaLucro->comissao_indicado);
 
         // Outras despesas está como 11,50. O valor passado por parâmetro é inserido direto na tabela
-        $this->assertEquals(11.50, $vendaLucro->outras_despesas);
+        $this->assertEquals(30.00, $vendaLucro->outras_despesas);
 
         // Conta do Lucro Geral
         // Conta: 
@@ -203,7 +203,7 @@ class VendaTest extends TestCase
         //        12,20 <- LUCRO GERAL
 
         // Campo lucro geral deve ser igual a 12,20
-        $this->assertEquals(12.20, $vendaLucro->lucro_geral);
+        $this->assertEquals(33.12, $vendaLucro->lucro_geral);
     }
 
     public function test_inclusao_de_venda_deve_popular_tabela_comissoes()
@@ -220,19 +220,20 @@ class VendaTest extends TestCase
             'revendedor_id' => $idRevendedor,
             'taxa_parametro_id' => (TaxaParametro::create(TaxaParametro::factory()->make()->getAttributes()))->id,
             'comissao_parametro_id' => (ComissaoParametro::create(ComissaoParametro::factory()->make()->getAttributes()))->id, 
-            'outras_despesas_valor' => 11.50,
+            'outras_despesas_valor' => 30.00,
             'descricao' => $this->faker->text(),
-            'preco_unitario' => 30.00,
+            'preco_unitario' => 79.90,
             'quantidade' => 1
         ];
 
-        // Criar venda
+        // Criar venda e recuperar o id
         $response = $this->postJson('/api/venda', $params);
         $idVenda = $response['result']['id'];
         $response->assertCreated();
 
         // Verificar se tabela venda_lucros foi populada com calculos da venda criada
         $vendaLucro = VendaLucro::where('venda_id', $idVenda)->first();
+
         $this->assertNotEmpty($vendaLucro);
 
         // Verificar se foi criado registro na tabela comissões referenciando o id do registro em vendas_lucro
@@ -245,7 +246,7 @@ class VendaTest extends TestCase
         return [
             'indicador_id' => '',
             'conta_pagamento_id' => '',
-            'cpf' => '71245831011',
+            'id' => '71245831011',
             'nome' => $this->faker->name(),
             'email' => $this->faker->email(),
             'celular' => '(11) 99999-9999',

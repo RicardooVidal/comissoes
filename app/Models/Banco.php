@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Banco extends Model
 {
     use HasFactory;
+    public $incrementing = false;
     protected $table = 'bancos';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'id',
         'descricao'

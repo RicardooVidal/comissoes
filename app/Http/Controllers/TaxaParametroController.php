@@ -22,7 +22,11 @@ class TaxaParametroController extends Controller
      */
     public function index()
     {
-        return $this->success($this->taxaParametro->paginate(10));
+        return $this->success(
+            $this->taxaParametro
+                ->orderBy('id', 'desc')
+                ->paginate(10)
+        );
     }
 
     /**

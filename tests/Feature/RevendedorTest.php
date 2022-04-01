@@ -34,7 +34,7 @@ class RevendedorTest extends TestCase
         $params = $this->postParams;
 
         //CPF Inválido
-        $params['cpf'] = 44072829839;
+        $params['id'] = '44072829839';
  
         $this->postJson('/api/revendedor', $params)
             ->assertUnprocessable();
@@ -61,7 +61,7 @@ class RevendedorTest extends TestCase
 
         $params = $this->postParams;
 
-        $params['cpf'] = '65405788066';
+        $params['id'] = '65405788066';
         $params['indicador_id'] = $id;
         $params['celular'] = '(11) 88888-8888';
         $params['ativo'] = 1;
@@ -107,7 +107,7 @@ class RevendedorTest extends TestCase
         $params = $this->postParams;
 
         // Tentando atualizar o indicador
-        $params['cpf'] = '22169006052';
+        $params['id'] = '22169006052';
         $params['indicador_id'] = 999;
 
         $this->putJson("/api/revendedor/$id", $params)
@@ -135,7 +135,7 @@ class RevendedorTest extends TestCase
         $params = $this->postParams;
 
         // Tentando atualizar o indicador
-        $params['cpf'] = '22169006052';
+        $params['id'] = '22169006052';
         $params['conta_pagamento_id'] = 999;
 
         $this->putJson("/api/revendedor/$id", $params)
@@ -167,7 +167,7 @@ class RevendedorTest extends TestCase
         $params = $this->postParams;
 
         // Inserir outro revendedor com o parâmetro indicador_id com o id do revendedor acima
-        $params['cpf'] = '65811329008';
+        $params['id'] = '65811329008';
         $params['celular'] = '(11) 88888-8888';
         $params['indicador_id'] = $id;
 
@@ -185,7 +185,7 @@ class RevendedorTest extends TestCase
         $this->postParams = [
             'indicador_id' => '',
             'conta_pagamento_id' => '',
-            'cpf' => '44072829838',
+            'id' => '44072829838',
             'nome' => $this->faker->name(),
             'email' => $this->faker->email(),
             'celular' => '(11) 99999-9999',
