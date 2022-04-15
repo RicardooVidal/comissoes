@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card mt-2 mb-2">
         <div class="card-header">{{title}}</div>
             <div style="width: 100%">
                 <slot name="header"></slot>

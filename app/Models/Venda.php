@@ -34,8 +34,13 @@ class Venda extends Model
         return $this->hasOne('App\Models\TaxaParametro', 'id', 'taxa_parametro_id');
     }
 
-    public function comissao_paramero()
+    public function comissao_parametro()
     {
         return $this->hasOne('App\Models\ComissaoParametro', 'id', 'comissao_parametro_id');
+    }
+
+    public function calculos()
+    {
+        return $this->hasOne('App\Models\VendaLucro', 'venda_id', 'id');
     }
 }

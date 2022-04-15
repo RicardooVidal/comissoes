@@ -15,8 +15,8 @@ class ComissaoParametroFactory extends Factory
     {
         return [
             'descricao' => $this->faker->text(20),
-            'comissao_percentual' => 10.00,
-            'comissao_indicado_percentual' => 3.00,
+            'comissao_percentual' => 0.10,
+            'comissao_indicado_percentual' => 0.03,
             'ativo' => 1
         ];
     }

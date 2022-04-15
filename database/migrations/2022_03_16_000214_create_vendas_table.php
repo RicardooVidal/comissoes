@@ -19,7 +19,7 @@ class CreateVendasTable extends Migration
             $table->unsignedBigInteger('taxa_parametro_id');
             $table->unsignedBigInteger('comissao_parametro_id');
             $table->decimal('outras_despesas_valor')->nullable();
-            $table->decimal('outras_despesas_descricao')->nullable();
+            $table->string('outras_despesas_descricao')->nullable();
             $table->string('descricao');
             $table->decimal('preco_unitario');
             $table->integer('quantidade');

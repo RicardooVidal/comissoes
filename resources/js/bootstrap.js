@@ -3,7 +3,7 @@ window.$ = window.jQuery = require('jquery')
 
 try {
     require('bootstrap');
-    // require('jquery-mask-plugin');
+    require('jquery-mask-plugin');
 } catch (e) {}
 
 /**

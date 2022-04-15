@@ -14,11 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('jwt.auth')->group(function() {
-    ## Revendedores
+    ## Comissão de revendedor por venda
+    Route::prefix('/comissao')->group(function() {
+        Route::get('/', 'App\Http\Controllers\ComissaoController@index');
+        Route::get('/getComissoesByVenda', 'App\Http\Controllers\ComissaoController@getComissoesByVenda');
+        Route::get('/getAllComissoesByRevendedor', 'App\Http\Controllers\ComissaoController@getAllComissoesByRevendedor');
+        Route::post('/baixar', 'App\Http\Controllers\ComissaoController@baixar');
+        Route::post('/estornar', 'App\Http\Controllers\ComissaoController@estornar');
+    });
+
+    ## Vendas
     Route::apiResource('venda', 'App\Http\Controllers\VendaController');
 
     ## Revendedores
     Route::apiResource('revendedor', 'App\Http\Controllers\RevendedorController');
+    Route::get('revendedor/{id}/indicados', 'App\Http\Controllers\RevendedorController@getRevendedoresIndicados');
+    Route::get('revendedor/{id}/dados_bancarios', 'App\Http\Controllers\RevendedorController@getDadosBancarios');
 
     ## Conta Pagamento
     Route::apiResource('/conta_pagamentos', 'App\Http\Controllers\ContaPagamentoController');

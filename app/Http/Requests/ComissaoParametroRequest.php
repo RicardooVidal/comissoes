@@ -26,8 +26,8 @@ class ComissaoParametroRequest extends DefaultRequest
        
        return [
            'descricao' => 'required|unique:comissoes_parametros,descricao,' . $this->id,
-           'comissao_percentual' => 'numeric',
-           'comissao_indicado_percentual' => 'numeric',
+           'comissao_percentual' => 'between:0,99.99',
+           'comissao_indicado_percentual' => 'between:0,99.99',
            'ativo' => 'required|boolean'
        ];
    }

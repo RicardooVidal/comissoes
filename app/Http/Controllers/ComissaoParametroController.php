@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ComissaoParametroRequest;
 use App\Models\ComissaoParametro;
-use App\Traits\ResponseTrait;
+use App\Repositories\ComissaoParametroRepository;
 use Illuminate\Http\Request;
 
 class ComissaoParametroController extends Controller
@@ -21,9 +21,19 @@ class ComissaoParametroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->success($this->comissaoParametro->paginate(10));    
+        $comissaoParametroRepository = new ComissaoParametroRepository($this->comissaoParametro);
+
+        $comissaoParametroRepository->model = $comissaoParametroRepository->model->orderBy('id', 'desc');
+
+        if($request->has('filter')) {
+            $comissaoParametroRepository->filter($request->filter);
+        }
+
+        return $this->success(
+            $comissaoParametroRepository->getResultPaginated(10)
+        ); 
     }
 
     /**

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Domains\Services\VendaService;
 use App\Http\Requests\VendaRequest;
+use App\Models\Comissao;
+use App\Models\Revendedor;
 use App\Models\Venda;
+use App\Repositories\VendaFactory;
 use Illuminate\Http\Request;
 
 class VendaController extends Controller
@@ -21,17 +24,30 @@ class VendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $vendaRepository = new VendaFactory($this->venda);
+
+        $vendaRepository->model = $vendaRepository->model
+            ->with([
+                'taxa_parametro',
+                'comissao_parametro',
+                'calculos'
+            ])
+            ->with('revendedor', function($q) {
+                $q->with('indicador', function($q) {
+                    $q->select(['indicadores.id', 'revendedores.id AS id_revendedor', 'revendedores.nome'])
+                        ->join('revendedores', 'indicadores.revendedor_id', '=', 'revendedores.id');
+                });
+            })
+            ->orderBy('data_venda', 'desc');
+
+        if($request->has('filter')) {
+            $vendaRepository->filter($request->filter);
+        }
+
         return $this->success(
-            $this->venda
-                ->with([
-                    'revendedor',
-                    'taxa_parametro',
-                    'comissao_paramero'
-                ])
-                ->orderBy('data_venda', 'desc')
-                ->paginate(10)
+            $vendaRepository->getResultPaginated(10)
         );
     }
 

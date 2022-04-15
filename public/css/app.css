@@ -11309,3 +11309,24 @@ textarea.form-control-lg {
 .reverse {
     direction: rtl
 }
+
+.pointer-function {
+    color: blue;
+    cursor: pointer;
+}
+
+#modalRevendedorSelect td {
+    cursor: pointer;
+}
+
+#modalRevendedorIndicados td {
+    cursor: pointer;
+}
+
+#modalVendaComissoes td {
+    cursor: pointer;
+}
+
+#modalRevendedorComissoes td {
+    cursor: pointer;
+}

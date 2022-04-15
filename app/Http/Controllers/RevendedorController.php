@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Document;
 use App\Http\Requests\RevendedorRequest;
-use App\Models\Configuracao;
+use App\Models\ContaPagamento;
 use App\Models\Indicador;
 use App\Models\Revendedor;
-use App\Traits\ResponseTrait;
+use App\Repositories\RevendedorRepository;
+use Illuminate\Http\Request;
 
 class RevendedorController extends Controller
 {
@@ -21,12 +22,24 @@ class RevendedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $revendedorRepository = new RevendedorRepository($this->revendedor);
+
+        $revendedorRepository->model = $revendedorRepository->model
+            ->orderBy('nome')
+            ->with(['indicador' => function($q) {
+                $q->select(['indicadores.id', 'revendedor_id', 'nome'])
+                    ->join('revendedores', 'indicadores.revendedor_id', '=', 'revendedores.id');
+                }])
+            ->with('conta_pagamento');
+
+        if($request->has('filter')) {
+            $revendedorRepository->filter($request->filter);
+        }
+
         return $this->success(
-            $this->revendedor
-                ->with('indicador')
-                ->paginate(10)
+            $revendedorRepository->getResultPaginated(10)
         );
     }
 
@@ -72,17 +85,39 @@ class RevendedorController extends Controller
             $indicador_dados = $this->indicadorProcess($indicador_id);            
         }
 
-        //Cadastrar o revendedor
+        // Parâmetros do revendedor
         $params = [
             'id' => $request->get('id'),
+            'rg' => $request->get('rg'),
             'nome' => $request->get('nome'),
             'email' => $request->get('email'),
             'celular' => $request->get('celular'),
             'ativo' => $request->get('ativo')
         ];
 
+        // Cadastrada o revendedor
         $params = array_merge($params, $indicador_dados);
         $revendedor = $this->revendedor->create($params);
+
+        if ($revendedor) {
+            // Parâmetros da conta
+            $paramsConta = [
+                'revendedor_id' => $revendedor->id,
+                'banco_id' => $request->get('banco_id'),
+                'agencia' => $request->get('agencia'),
+                'conta' => $request->get('conta'),
+                'digito_conta' => $request->get('digito_conta'),
+                'tipo' => $request->get('tipo'),
+                'pix' => $request->get('pix')
+            ];
+
+            // Criar conta
+            $contaPagamento = ContaPagamento::create($paramsConta);
+
+            //Cadastrar id da conta de pagamento no revendedor
+            $this->revendedor->where('id', $revendedor->id,)
+                ->update(['conta_pagamento_id' => $contaPagamento->id]);
+        }
 
         return $this->success($revendedor, 201);
     }
@@ -125,8 +160,10 @@ class RevendedorController extends Controller
     public function update(RevendedorRequest $request, $id)
     {
         // Validar CPF
-        if (!Document::validateCPF($request->id)) {
-            return $this->error('CPF Inválido', 422);
+        if ($request->id) {
+            if (!Document::validateCPF($request->id)) {
+                return $this->error('CPF Inválido', 422);
+            }
         }
 
         //Verificar se tentou alterar o indicador
@@ -139,17 +176,40 @@ class RevendedorController extends Controller
             return $this->error('Não é possível alterar o id das informações de pagamento');
         }
 
-        $revendedor = $this->revendedor->find($id);
+        $revendedor = $this->revendedor->findOrFail($id);
 
         if (empty($revendedor)) {
             return $this->error('Revendedor não existe', 404);
         }
 
-        $revendedor->fill($request->all());
+        // Parâmetros do revendedor
+        $params = [
+            'nome' => $request->get('nome'),
+            'email' => $request->get('email'),
+            'celular' => $request->get('celular'),
+            'ativo' => $request->get('ativo')
+        ];
 
-        $revendedor->save();
+        // Alterar o revendedor
+        $revendedor->fill($params);
         
-        return $this->success($revendedor);
+        if ($revendedor->save()) {
+            $paramsConta = [
+                'banco_id' => $request->get('banco_id'),
+                'agencia' => $request->get('agencia'),
+                'conta' => $request->get('conta'),
+                'digito_conta' => $request->get('digito_conta'),
+                'tipo' => $request->get('tipo'),
+                'pix' => $request->get('pix')
+            ];
+            
+            ContaPagamento::where('revendedor_id', $id)
+                ->update($paramsConta);
+
+            return $this->success($revendedor);
+        }
+
+        return $this->error('Não foi possível atualizar o revendedor.');
     }
 
     /**
@@ -207,5 +267,55 @@ class RevendedorController extends Controller
         }
 
         return [];
+    }
+
+    /**
+     * Recuperar revendedores indicados por id
+     */
+    public function getRevendedoresIndicados(Request $request, $revendedor_id)
+    {
+        // Recuperar o id de indicador do revendedor
+        $indicador = Indicador::where('revendedor_id', $revendedor_id)->first();
+
+        if (empty($indicador)) {
+            return $this->error('Revendedor não possui indicados');
+        }
+
+        // Recuperar revendedores indicados
+        $revendedorRepository = new RevendedorRepository($this->revendedor);
+        $revendedorRepository->model = $revendedorRepository->model->where('indicador_id', $indicador->id);
+        
+        if ($revendedorRepository->model->get()->isEmpty()) {
+            return $this->error('Revendedor não possui indicados');
+        }
+
+        if($request->has('filter')) {
+            $revendedorRepository->filter($request->filter);
+        }
+
+        return $this->success(
+            $revendedorRepository->getResultPaginated(5)
+        );
+    }
+
+    /**
+     * Retorna somente os dados bancários do revendedor
+     */
+    public function getDadosBancarios($revendedor_id)
+    {
+        $dados_bancarios = ContaPagamento::where('revendedor_id', $revendedor_id)
+            ->select([
+                'bancos.id AS banco_id',
+                'bancos.descricao AS banco_nome',
+                'agencia',
+                'conta',
+                'digito_conta',
+                'tipo',
+                'pix'
+            ])
+            ->join('bancos', 'contas_pagamentos.banco_id', '=', 'bancos.id')
+            ->get();
+        
+        return $this->success($dados_bancarios);
     }
 }

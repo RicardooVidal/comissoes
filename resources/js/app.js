@@ -5,17 +5,16 @@
  */
 
 require('./bootstrap');
-require('./jquery.mask');
 
 import masks from'./masks';
 
-$(document).ready(function(){
+$(document).ready(function($){
     $('.date').mask('00/00/0000');
     $('.time').mask('00:00:00');
     $('.date_time').mask('00/00/0000 00:00:00');
     $('.cep').mask('00000-000');
     $('.phone').mask('0000-0000');
-    $('.phone_with_ddd').mask('(00) 0000-0000');
+    $('.phone_with_ddd').mask('(00) 00000-0000');
     $('.phone_us').mask('(000) 000-0000');
     $('.mixed').mask('AAA 000-S0S');
     $('.cpf').mask('000.000.000-00', {reverse: true});
@@ -43,6 +42,10 @@ $(document).ready(function(){
         }
       });
     $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+    $('.agencia').mask("0000");
+    $('.digito').mask("0");
+    $('.conta_banco').mask("00000000000");
+    $('.rg').mask('00.000.000-A');
   });
 
 window.Vue = require('vue').default;
@@ -57,6 +60,7 @@ Vue.use(Vuex);
 Vue.prototype.$store = new Vuex.Store({
     state: {
         item: {},
+        select: { id: '', nome: ''},
         transaction: {status: '', message: '', data: ''}
     }
 })
@@ -88,15 +92,25 @@ Vue.prototype.$verifyBooleanString = (bool) => {
     return bool === "true" ? 1 : 0;
 }
 
-Vue.prototype.$convertPercentToDecimal = (percent) => {
-    return parseFloat(percent) / 100;
+Vue.prototype.$convertToDecimal = (value) => {
+    let parsed = (parseFloat(value) / 100).toFixed(2)
+
+    if (isNaN(parsed)) {
+      return 0;
+    }
+
+    return parsed;
+}
+
+Vue.prototype.$toPercentage = (value) => {
+  return parseInt(value * 100);
 }
 
 // Tratamento para corrigir bug quando se utiliza mask e store
 Vue.prototype.$getInputValueWithMask = (objId, maskName) => {
   let maskInput = masks[maskName];
   $(objId).mask(maskInput[0], {reverse: [maskInput[1]]});
-  return  $(objId).val();
+  return $(objId).val();
 }
 
 Vue.prototype.$showLoading = () => {
@@ -110,6 +124,95 @@ Vue.prototype.$hideLoading = () => {
 Vue.prototype.$closeModal = (modal) => {
     $(modal).modal('hide');
 }
+
+Vue.prototype.$getFilter = (field, filter) => {
+  if (
+    field == 'id' 
+    || field == 'ativo'
+    || field == 'venda_id'
+  ) {
+    return `${filter}`
+  }
+
+  return `${filter}%`
+}
+
+Vue.prototype.$emptySelect = () => {
+  Vue.prototype.$store.state.select = {
+    id: '',
+    nome: ''
+  }
+}
+
+Vue.prototype.$emptyUrlFilter = () => {
+  Vue.prototype.$store.state.select = {
+    updateUrlFilter: '',
+  }
+}
+
+Vue.prototype.$emptyObject = (obj) => {
+  return Object.keys(obj).length === 0;
+}
+
+
+Vue.prototype.$activateBancoFields = () => {
+  $('#inputAgencia').attr('disabled', false);
+  $('#inputConta').attr('disabled', false);
+  $('#inputDigito').attr('disabled', false);
+  $('#selectTipoConta').attr('disabled', false);
+  $('#inputDigitoAgencia').attr('disabled', false);
+}
+
+Vue.prototype.$deactivateBancoFields = (operation) => {
+  $('#inputAgencia' + operation).val('').attr('disabled', true);
+  $('#inputConta' + operation).val('').attr('disabled', true);
+  $('#inputDigito' + operation).val('').attr('disabled', true);
+  $('#selectTipoConta' + operation).val('').attr('disabled', true);
+  $('#inputDigitoAgencia' + operation).val('').attr('disabled', true);
+}
+
+Vue.prototype.$verifyValidadeIndicacao = (data_indicacao, validade_indicacao) => {
+  if (data_indicacao > validade_indicacao) {
+    return 'EXPIRADO';
+  }
+
+  return 'ATIVO';
+}
+
+Vue.prototype.$formatDate = (dateToFormat) => {
+    if (!dateToFormat) {
+      return '  /  /    '
+    }
+    let date = new Date(dateToFormat.replace(/-/g, '\/').replace(/T.+/, ''));
+    let day  = date.getDate().toString().padStart(2, '0');
+    let month  = (date.getMonth()+1).toString().padStart(2, '0');
+    let year  = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+Vue.prototype.$formatDateToUS = (dateToFormat) => {
+  if (!dateToFormat) {
+    return '  /  /    '
+  }
+  let date = new Date(dateToFormat.replace(/-/g, '\/').replace(/T.+/, ''));
+  let day  = date.getDate().toString().padStart(2, '0');
+  let month  = (date.getMonth()+1).toString().padStart(2, '0');
+  let year  = date.getFullYear();
+  return `${year}-${month}-${day}`;
+}
+
+Vue.prototype.$errorTreatment = (errors) => {
+  let message = errors.response.data.message ? errors.response.data.message : errors.response.data.result;
+  let data = errors.response.data.errors ? errors.response.data.errors : '';
+  Vue.prototype.$store.state.transaction.status = 'error';
+  Vue.prototype.$store.state.transaction.message =  message;
+  Vue.prototype.$store.state.transaction.data =  data;
+}
+
+Vue.filter('removeNullProps',function(object) {
+  // sorry for using lodash and ES2015 arrow functions :-P
+  return _.reject(object, (value) => value === null)
+})
 
 /**
  * The following block of code may be used to automatically register your
@@ -139,6 +242,26 @@ Vue.component('input-container-component', require('./components/InputContainerC
 
 // Parâmetros
 Vue.component('taxa-parametro-component', require('./components/parametros/TaxaComponent.vue').default);
+Vue.component('comissao-parametro-component', require('./components/parametros/ComissaoComponent.vue').default);
+
+// Outros
+Vue.component('configuracao-component', require('./components/outros/ConfiguracaoComponent.vue').default);
+
+// Revendedores
+Vue.component('revendedor-component', require('./components/revendedor/RevendedorComponent.vue').default);
+Vue.component('revendedor-create-component', require('./components/revendedor/InsertRevendedorComponent.vue').default);
+Vue.component('select-revendedor-component', require('./components/revendedor/SelectRevendedorComponent.vue').default);
+Vue.component('view-indicados-component', require('./components/revendedor/ViewIndicadosComponent.vue').default);
+Vue.component('view-comissoes-revendedor-component', require('./components/revendedor/ViewComissoesRevendedorComponent.vue').default);
+
+// Vendas
+Vue.component('venda-component', require('./components/venda/VendaComponent.vue').default);
+Vue.component('venda-create-component', require('./components/venda/InsertVendaComponent.vue').default);
+Vue.component('view-comissoes-venda-component', require('./components/venda/ViewComissoesVendaComponent.vue').default);
+
+// Comissões
+Vue.component('comissao-component', require('./components/comissao/ComissaoComponent.vue').default);
+Vue.component('baixar-comissao-component', require('./components/comissao/BaixarComissaoComponent.vue').default);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 

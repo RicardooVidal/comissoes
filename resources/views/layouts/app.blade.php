@@ -41,21 +41,21 @@
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Parâmetros</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{route('parametros.taxas.index')}}">Taxas</a>
-                                <a class="dropdown-item" href="#">Comissões</a>
+                                <a class="dropdown-item" href="{{route('parametros.comissoes.index')}}">Comissões</a>
                             </div>
                         </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Vendas</a>
+                                <a class="nav-link" href="{{route('vendas.index')}}">Vendas</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Comissões</a>
+                                <a class="nav-link" href="{{route('comissoes.index')}}">Comissões</a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Revendedores</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Cadastro de Revendedores</a>
+                                    <a class="dropdown-item" href="{{route('revendedores.index')}}">Cadastro de Revendedores</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Consulta de Indicadores</a>
                                 </div>
@@ -66,6 +66,7 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Bancos</a>
                                     <a class="dropdown-item" href="#">Forma de Pagamento</a>
+                                    <a class="dropdown-item" href="{{route('outros.configuracoes.index')}}">Outras configurações</a>
                                 </div>
                             </li>
                         @endauth

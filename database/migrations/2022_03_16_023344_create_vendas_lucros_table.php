@@ -16,11 +16,14 @@ class CreateVendasLucrosTable extends Migration
         Schema::create('vendas_lucros', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('venda_id');
-            $table->decimal('taxa')->nullable();
-            $table->decimal('comissao')->nullable();
-            $table->decimal('comissao_indicado')->nullable();
-            $table->decimal('outras_despesas')->nullable();
-            $table->decimal('lucro_geral');
+            $table->decimal('taxa_percentual')->nullable();
+            $table->decimal('taxa_calculado')->nullable();
+            $table->decimal('comissao_percentual')->nullable();
+            $table->decimal('comissao_calculado')->nullable();
+            $table->decimal('comissao_indicado_percentual')->nullable();
+            $table->decimal('comissao_indicado_calculado')->nullable();
+            $table->decimal('outras_despesas_bruto')->nullable();
+            $table->decimal('lucro_geral_calculado');
 
             //foreign key (constraints)
             $table->foreign('venda_id')->references('id')->on('vendas')->onDelete('cascade');

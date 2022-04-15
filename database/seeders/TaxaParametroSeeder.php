@@ -13,6 +13,6 @@ class TaxaParametroSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\TaxaParametro::factory(500)->create();
+        \App\Models\TaxaParametro::factory(30)->create();
     }
 }

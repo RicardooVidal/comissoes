@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaxaParametroRequest;
 use App\Models\TaxaParametro;
+use App\Repositories\TaxaParametroRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 
@@ -20,12 +21,18 @@ class TaxaParametroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $taxaParametroRepository = new TaxaParametroRepository($this->taxaParametro);
+
+        $taxaParametroRepository->model = $taxaParametroRepository->model->orderBy('id', 'desc');
+
+        if($request->has('filter')) {
+            $taxaParametroRepository->filter($request->filter);
+        }
+
         return $this->success(
-            $this->taxaParametro
-                ->orderBy('id', 'desc')
-                ->paginate(10)
+            $taxaParametroRepository->getResultPaginated(10)
         );
     }
 

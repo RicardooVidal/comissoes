@@ -56,7 +56,7 @@ class CalculosVendaService
         $percentual = TaxaParametro::findOrFail($id)->taxa_percentual;
 
         // Calcular a taxa
-        $taxa = $this->total_bruto * ($percentual / 100);
+        $taxa = $this->total_bruto * ($percentual );
 
         $this->setTotalLiquido($this->total_liquido - $taxa);
 
@@ -81,8 +81,8 @@ class CalculosVendaService
 
         // Calcular comissões sobre o valor bruto
         $total_bruto = $this->total_bruto;
-        $comissao_revendedor = $total_bruto * ($percentual_revendedor / 100);
-        $comissao_indicador = $total_bruto * ($percentual_indicador / 100);
+        $comissao_revendedor = $total_bruto * ($percentual_revendedor );
+        $comissao_indicador = $total_bruto * ($percentual_indicador );
 
         $this->setTotalLiquido(
             $this->total_liquido - ($comissao_revendedor + $comissao_indicador)

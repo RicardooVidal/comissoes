@@ -2,9 +2,50 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
+                <!-- Início do card de buscas -->
+                <card-component :title="'Busca de taxas'">
+                    <template v-slot:header>
+                    </template>
+                    <template v-slot:body>
+                        <div class="row">
+                            <div class="col-md-2 mb-3">
+                                <input-container-component titulo="ID" id="inputId" id-help="idHelp" texto-ajuda="Opcional. Informe o ID da taxa"> 
+                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID" v-model="search.id">
+                                </input-container-component>
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <input-container-component titulo="Percentual" id="inputPercentual" id-help="percentualHelp" texto-ajuda="Opcional. Informe a percentual da taxa"> 
+                                    <input type="text" class="form-control percent" id="inputPercentual" aria-describedby="percentualHelp" placeholder="Percentual da taxa" 
+                                        v-model="search.taxa_percentual"
+                                        @blur="search.taxa_percentual = $getInputValueWithMask('#inputPercentual', 'percent')" required>
+                                </input-container-component>
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <input-container-component titulo="Ativo" id="selectAtivo" id-help="ativoHelp" texto-ajuda="Opcional. Informe a situação"> 
+                                    {{search.ativo}}
+                                    <select class="form-select" v-model="search.ativo" required>
+                                        <option value="true">SIM</option>
+                                        <option value="false">NÃO</option>
+                                    </select>
+                                </input-container-component>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <input-container-component titulo="Descrição" id="inputDescricao" id-help="descricaoHelp" texto-ajuda="Opcional. Informe a descrição da taxa"> 
+                                    <input type="text" class="form-control" id="inputDescricao" aria-describedby="descricaoHelp" placeholder="Descrição da taxa" v-model="search.descricao">
+                                </input-container-component>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template v-slot:footer>
+                        <button type="button" class="btn btn-primary btn-sm float-end" @click="searchTerms()">Pesquisar</button>
+                    </template>
+                </card-component>
+                <!-- fim do card de buscas -->
+                <br>
                 <card-component :title="'Parâmetro de taxas'">
                     <template v-slot:header>
-                        <button class="btn btn-primary float-end me-2 mt-2" data-bs-toggle="modal" data-bs-target="#modalTaxaInsert" @click="$setStore({descricao: '', taxa_percentual: 0, ativo: true})">Inserir Taxa</button>
+                        <button class="btn btn-primary float-end me-2 mt-2" data-bs-toggle="modal" data-bs-target="#modalTaxaInsert" @click="$setStore({descricao: '', taxa_percentual: 0, ativo: 1})">Inserir Taxa</button>
                     </template>
                     <template v-slot:alert>
                         <alert-component type="success" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'ok'"></alert-component>
@@ -38,7 +79,7 @@
             </div>
         </div>
 
-        <!-- Inicio do modal de visualização de marca -->
+        <!-- Inicio do modal de inclusão de taxa -->
         <modal-component id="modalTaxaInsert" titulo="Incluir taxa">
             <template v-slot:alert>
                 <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
@@ -65,9 +106,9 @@
                 <button type="button" class="btn btn-primary" @click="insert()">Incluir</button>
             </template>
         </modal-component>
-        <!-- Fim do modal de visualização de marca -->
+        <!-- Fim do modal de inclusão de taxa -->
     
-        <!-- Inicio do modal de atualização de marca -->
+        <!-- Inicio do modal de atualização de taxa -->
         <modal-component id="modalTaxaUpdate" titulo="Atualizar taxa">
             <template v-slot:alert>
                 <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
@@ -97,9 +138,9 @@
                 <button type="button" class="btn btn-primary" @click="update()">Atualizar</button>
             </template>
         </modal-component>
-        <!-- Fim do modal de atualização de marca -->
+        <!-- Fim do modal de atualização de taxa -->
 
-        <!-- Inicio do modal de remoção de marca -->
+        <!-- Inicio do modal de remoção de taxa -->
         <modal-component id="modalTaxaRemove" titulo="Remover taxa">
             <template v-slot:alert>
                 <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
@@ -110,7 +151,7 @@
                     <input type="text" class="form-control" :value="$store.state.item.id" disabled>
                 </input-container-component>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da taxa" v-model="$store.state.item.descricao" disabled>
+                    <input type="text" class="form-control" id="deleteDescricao" aria-describedby="deleteDescricaoHelp" placeholder="Descrição da taxa" v-model="$store.state.item.descricao" disabled>
                 </input-container-component>
             </template>
 
@@ -119,19 +160,25 @@
                 <button type="button" class="btn btn-danger" @click="remove()">Remover</button>
             </template>
         </modal-component>
-        <!-- Fim do modal de remoção de marca -->
+        <!-- Fim do modal de remoção de taxa -->
     </div>
 </template>
 
 <script>
-import CardComponent from '../CardComponent.vue';
     export default {
-  components: { CardComponent },
         data() {
             return {
                 taxas: { data: [] },
                 modal: '',
-                urlPaginate: ''
+                url: 'parametros/taxas_parametros',
+                urlPaginate: 'page=1',
+                urlFilter: '',
+                search: {
+                    id: '',
+                    descricao: '',
+                    taxa_percentual: '',
+                    ativo: ''
+                }
             }
         },
         computed: {
@@ -148,8 +195,41 @@ import CardComponent from '../CardComponent.vue';
                     this.loadContent();
                 }
             },
+            searchTerms() {
+                let filter = '';
+
+                for(let key in this.search) {
+                    if (this.search[key]) {
+                        // Primeira pagina padrão
+                        if (filter != '') {
+                            this.urlPaginate = 'page=1';
+                            filter += ";";
+                        }
+                        switch (key) {
+                            case 'taxa_percentual':
+                                this.search[key] = this.$convertToDecimal($('#inputPercentual').cleanVal());
+                                break;
+                        }
+                        filter += key + ':ilike:' + this.$getFilter(key, this.search[key]);
+                        // filter += key + ':like:' + `%${this.search[key]}%`;
+                    }
+                }
+
+                this.urlFilter = '';
+
+                if (filter != '') {
+                    this.urlFilter = '&filter=' + filter 
+                }
+                console.log(this.urlFilter);
+                this.loadContent();
+
+                for(let key in this.search) {
+                    this.search[key] = '';
+                }
+            },
             async loadContent() {
-                let url = `${this.$urlBase}/parametros/taxas_parametros?` + this.urlPaginate;
+                let url = `${this.$urlBase}/${this.url}?` + this.urlPaginate + this.urlFilter;
+                console.log(url);
                 await axios.get(url)
                     .then(response => {
                         this.taxas = response.data.result;
@@ -164,10 +244,10 @@ import CardComponent from '../CardComponent.vue';
                 this.$showLoading();
                 let formData = new FormData();
                 formData.append('descricao', this.$store.state.item.descricao);
-                formData.append('taxa_percentual', this.$convertPercentToDecimal(this.$store.state.item.taxa_percentual));
+                formData.append('taxa_percentual', this.$convertToDecimal(this.$store.state.item.taxa_percentual));
                 formData.append('ativo', this.$verifyBooleanString(this.$store.state.item.ativo));
 
-                let url = `${this.$urlBase}/parametros/taxas_parametros`;
+                let url = `${this.$urlBase}/${this.url}`;
 
                 axios.post(url, formData)
                     .then((response) => {
@@ -190,11 +270,11 @@ import CardComponent from '../CardComponent.vue';
                 this.$showLoading();
                 let formData = new FormData();
                 formData.append('_method', 'put');
-                formData.append('taxa_percentual', this.$convertPercentToDecimal(this.$store.state.item.taxa_percentual));
+                formData.append('taxa_percentual', this.$convertToDecimal(this.$store.state.item.taxa_percentual));
                 formData.append('descricao', this.$store.state.item.descricao);
                 formData.append('ativo', this.$verifyBooleanString(this.$store.state.item.ativo));
 
-                let url = `${this.$urlBase}/parametros/taxas_parametros/${this.$store.state.item.id}`;
+                let url = `${this.$urlBase}/${this.url}/${this.$store.state.item.id}`;
 
                 axios.post(url, formData)
                     .then((response) => {
@@ -209,14 +289,13 @@ import CardComponent from '../CardComponent.vue';
                         this.$store.state.transaction.status = 'error';
                         this.$store.state.transaction.message =  errors.response.data.message;
                         this.$store.state.transaction.data =  errors.response.data.errors;
-                        document.querySelector('.btn-close').click();
                     })
             },
             remove() {
                 this.modal = '#modalTaxaRemove';
                 let formData = new FormData();
                 formData.append('_method', 'delete');
-                let url = `${this.$urlBase}/parametros/taxas_parametros/${this.$store.state.item.id}`;
+                let url = `${this.$urlBase}/${this.url}/${this.$store.state.item.id}`;
 
                 axios.post(url, formData)
                     .then((response) => {
@@ -231,7 +310,8 @@ import CardComponent from '../CardComponent.vue';
                         this.$store.state.transaction.status = 'error';
                         this.$store.state.transaction.message =  errors.response.data.message;
                         this.$store.state.transaction.data =  errors.response.data.errors;
-                    })            }
+                    })
+            }
         },
         mounted() {
             this.loadContent();

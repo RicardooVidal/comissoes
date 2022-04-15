@@ -19,6 +19,7 @@ class Revendedor extends Model
     protected $table = 'revendedores';
     protected $fillable = [
         'id',
+        'rg',
         'indicador_id',
         'conta_pagamento_id',
         'nome',
