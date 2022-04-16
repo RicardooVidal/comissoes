@@ -84,20 +84,20 @@ class VendaTest extends TestCase
         // Taxa no parâmetro criado acima é de 8%
         // Conta: (30,00 * 0,08 = 2,40)
         // Taxa em vendas_lucro deve ser 2,40
-        $this->assertEquals(6.39, $vendaLucro->taxa);
+        $this->assertEquals(6.39, $vendaLucro->taxa_calculado);
 
         // Revendedor recebe 10% de comissão do valor bruto de acordo com a parametrização de exemplo
         // Conta: (30,00 * 0,10 = 3,00)
         // Comissao para o revendedor em vendas_lucro deve ser 3,00
-        $this->assertEquals(7.99, $vendaLucro->comissao);
+        $this->assertEquals(7.99, $vendaLucro->comissao_calculado);
 
         // Revendedor não tem indicador (ou data de validação expirou)
         // Conta: (30,00 * 0,00 = 0)
         // Comissao para indicador deve ser 0
-        $this->assertEquals(0.00, $vendaLucro->comissao_indicado);
+        $this->assertEquals(0.00, $vendaLucro->comissao_indicado_calculado);
 
         // Outras despesas está como 11,50. O valor passado por parâmetro é inserido direto na tabela
-        $this->assertEquals(30.00, $vendaLucro->outras_despesas);
+        $this->assertEquals(30.00, $vendaLucro->outras_despesas_bruto);
 
         // Conta do Lucro Geral
         // Conta: 
@@ -110,7 +110,7 @@ class VendaTest extends TestCase
         //        13,10 <- LUCRO GERAL
 
         // Campo lucro geral deve ser igual a 13,10
-        $this->assertEquals(35.52, $vendaLucro->lucro_geral);
+        $this->assertEquals(35.52, $vendaLucro->lucro_geral_calculado);
     }
 
     /**
@@ -177,20 +177,20 @@ class VendaTest extends TestCase
         // Taxa no parâmetro criado acima é de 8%
         // Conta: (30,00 * 0,08 = 2,40)
         // Taxa em vendas_lucro deve ser 2,40
-        $this->assertEquals(6.39, $vendaLucro->taxa);
+        $this->assertEquals(6.39, $vendaLucro->taxa_calculado);
 
         // Revendedor recebe 10% de comissão do valor bruto de acordo com a parametrização de exemplo
         // Conta: (30,00 * 0,10 = 3,00)
         // Comissao para o revendedor em vendas_lucro deve ser 3,00
-        $this->assertEquals(7.99, $vendaLucro->comissao);
+        $this->assertEquals(7.99, $vendaLucro->comissao_calculado);
 
         // Revendedor POSSUI indicador data de validade ainda em andamento
         // Conta: (30,00 * 0,03 = 0,90)
         // Comissao para indicador deve ser 0,90
-        $this->assertEquals(2.40, $vendaLucro->comissao_indicado);
+        $this->assertEquals(2.40, $vendaLucro->comissao_indicado_calculado);
 
         // Outras despesas está como 11,50. O valor passado por parâmetro é inserido direto na tabela
-        $this->assertEquals(30.00, $vendaLucro->outras_despesas);
+        $this->assertEquals(30.00, $vendaLucro->outras_despesas_bruto);
 
         // Conta do Lucro Geral
         // Conta: 
@@ -203,7 +203,7 @@ class VendaTest extends TestCase
         //        12,20 <- LUCRO GERAL
 
         // Campo lucro geral deve ser igual a 12,20
-        $this->assertEquals(33.12, $vendaLucro->lucro_geral);
+        $this->assertEquals(33.12, $vendaLucro->lucro_geral_calculado);
     }
 
     public function test_inclusao_de_venda_deve_popular_tabela_comissoes()
@@ -237,7 +237,7 @@ class VendaTest extends TestCase
         $this->assertNotEmpty($vendaLucro);
 
         // Verificar se foi criado registro na tabela comissões referenciando o id do registro em vendas_lucro
-        $this->assertNotEmpty(Comissao::find($vendaLucro->id));
+        $this->assertNotEmpty(Comissao::where('vendas_lucros_id', $vendaLucro->id)->get());
     }
 
 
