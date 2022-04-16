@@ -137,7 +137,8 @@
                       <div class="col-md-12 mb-3">
                             <input-container-component titulo="Link anúncio" id="viewId" id-help="viewIdHelp" texto-ajuda=""> 
                                 <input type="text" class="form-control" id="viewId" aria-describedby="viewCpfHelp"
-                                    :value="$store.state.item.link_venda" disabled>
+                                    :value="$store.state.item.link_venda"
+                                    disabled>
                             </input-container-component>
                         </div>
                         <div class="col-md-6 mb-3">

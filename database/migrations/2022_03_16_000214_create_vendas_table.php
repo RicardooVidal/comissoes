@@ -24,7 +24,7 @@ class CreateVendasTable extends Migration
             $table->decimal('preco_unitario');
             $table->integer('quantidade');
             $table->decimal('preco_total');
-            $table->string('link_venda')->nullable();
+            $table->longText('link_venda')->nullable();
             $table->date('data_venda');
 
             //foreign key (constraints)

@@ -52,6 +52,9 @@ Route::middleware('jwt.auth')->group(function() {
        Route::apiResource('/comissoes_parametros', 'App\Http\Controllers\ComissaoParametroController');
     });
 
+    ## Crawlers
+    Route::get('/crawler', 'App\Http\Controllers\CrawlerController@get');
+
     ## Configuracoes
     Route::prefix('/configuracoes')->group(function() {
         Route::get('/', 'App\Http\Controllers\ConfiguracaoController@index');

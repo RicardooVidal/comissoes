@@ -84,6 +84,14 @@ class VendaController extends Controller
             'data_venda' => date('Y-m-d')
         ];
 
+        if ($request->quantidade == 0) {
+            return $this->error('Quantidade não informada'. 422);
+        }
+
+        if ($request->preco_unitario == 0) {
+            return $this->error('Preço não informado'. 422);
+        }
+
         $revendedor = Revendedor::find($params['revendedor_id']);
 
         if ($revendedor->ativo === false) {

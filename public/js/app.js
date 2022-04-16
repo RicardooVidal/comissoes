@@ -10355,6 +10355,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10367,6 +10368,7 @@ __webpack_require__.r(__webpack_exports__);
       modal: '',
       url: 'venda',
       urlRevendedor: 'revendedor',
+      urlCrawler: 'crawler',
       urlTaxasParametro: 'parametros/taxas_parametros',
       urlComissoesParametro: 'parametros/comissoes_parametros'
     };
@@ -10389,6 +10391,28 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    carregarInformacoesAnuncio: function carregarInformacoesAnuncio() {
+      var _this = this;
+
+      var url = "".concat(this.$urlBase, "/crawler?plataforma=mercado_livre&url=").concat(this.$store.state.item.link_venda);
+      axios.get(url).then(function (response) {
+        if (response.data.result == "") {
+          return;
+        }
+
+        _this.$store.state.item.descricao = response.data.result.titulo;
+        _this.$store.state.item.quantidade = 1;
+        _this.$store.state.item.preco_unitario = response.data.result.valor;
+        _this.$store.state.transaction.status = 'ok';
+        _this.$store.state.transaction.message = 'Informações recuperadas com sucesso';
+        _this.$store.state.transaction.data = '';
+        $('#inputQuantidade').focus();
+
+        _this.calculateTotal();
+      })["catch"](function (errors) {
+        _this.$errorTreatment(errors);
+      });
+    },
     calculateTotal: function calculateTotal() {
       var quantidade = parseInt(this.$store.state.item.quantidade);
 
@@ -10410,28 +10434,27 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     loadTaxasParametros: function loadTaxasParametros() {
-      var _this = this;
+      var _this2 = this;
 
       var url = "".concat(this.$urlBase, "/").concat(this.urlTaxasParametro, "?ativo=true");
       axios.get(url).then(function (response) {
-        _this.taxas_parametros = response.data.result;
-      })["catch"](function (errors) {
-        _this.$errorTreatment(errors);
-      });
-    },
-    loadComissoesParametros: function loadComissoesParametros() {
-      var _this2 = this;
-
-      var url = "".concat(this.$urlBase, "/").concat(this.urlComissoesParametro, "?ativo=true");
-      axios.get(url).then(function (response) {
-        console.log(response);
-        _this2.comissoes_parametros = response.data.result;
+        _this2.taxas_parametros = response.data.result;
       })["catch"](function (errors) {
         _this2.$errorTreatment(errors);
       });
     },
-    insert: function insert() {
+    loadComissoesParametros: function loadComissoesParametros() {
       var _this3 = this;
+
+      var url = "".concat(this.$urlBase, "/").concat(this.urlComissoesParametro, "?ativo=true");
+      axios.get(url).then(function (response) {
+        _this3.comissoes_parametros = response.data.result;
+      })["catch"](function (errors) {
+        _this3.$errorTreatment(errors);
+      });
+    },
+    insert: function insert() {
+      var _this4 = this;
 
       this.$store.state.item.outras_despesas_valor = $('#inputValorOutrasDespesas').cleanVal();
       this.$store.state.item.preco_unitario = $('#inputValorUnitario').cleanVal();
@@ -10455,18 +10478,18 @@ __webpack_require__.r(__webpack_exports__);
       var url = "".concat(this.$urlBase, "/").concat(this.url);
       axios.post(url, formData).then(function (response) {
         if (response.status == 201) {
-          _this3.$setStore(_this3.emptyObject);
+          _this4.$setStore(_this4.emptyObject);
 
-          _this3.$store.state.transaction.status = 'ok';
-          _this3.$store.state.transaction.message = 'Venda incluída com sucesso. Você será redirecionado em 5 (cinco) segundos.';
-          _this3.$store.state.transaction.data = '';
+          _this4.$store.state.transaction.status = 'ok';
+          _this4.$store.state.transaction.message = 'Venda incluída com sucesso. Você será redirecionado em 5 (cinco) segundos.';
+          _this4.$store.state.transaction.data = '';
           $('#buttonInsert').attr('disabled', true);
           setTimeout(function () {
             window.location.href = "/vendas";
           }, 5000);
         }
       })["catch"](function (errors) {
-        _this3.$errorTreatment(errors);
+        _this4.$errorTreatment(errors);
       });
     }
   },
@@ -10499,6 +10522,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -57378,6 +57402,9 @@ var render = function () {
                                   value: _vm.$store.state.item.link_venda,
                                 },
                                 on: {
+                                  change: function ($event) {
+                                    return _vm.carregarInformacoesAnuncio()
+                                  },
                                   input: function ($event) {
                                     if ($event.target.composing) {
                                       return

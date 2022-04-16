@@ -54,7 +54,8 @@
                             <div class="col-md-8 mb-3">
                                 <input-container-component titulo="Link anúncio" id="inputAnuncio" id-help="anuncioHelp" texto-ajuda=""> 
                                     <input type="text" class="form-control" id="inputAnuncio" aria-describedby="anuncioHelp" placeholder="Link do anúncio"
-                                    v-model="$store.state.item.link_venda">
+                                        v-model="$store.state.item.link_venda"
+                                        @change="carregarInformacoesAnuncio()">
                                 </input-container-component>
                             </div>
                             <div class="col-md-12 mb-3">
@@ -111,6 +112,7 @@
                 modal: '',
                 url: 'venda',
                 urlRevendedor: 'revendedor',
+                urlCrawler: 'crawler',
                 urlTaxasParametro: 'parametros/taxas_parametros',
                 urlComissoesParametro: 'parametros/comissoes_parametros',
             }
@@ -133,6 +135,27 @@
             },
         },
         methods: {
+            carregarInformacoesAnuncio() {
+                let url = `${this.$urlBase}/crawler?plataforma=mercado_livre&url=${this.$store.state.item.link_venda}`;
+
+                axios.get(url)
+                    .then((response) => {
+                        if (response.data.result == "") {
+                            return;
+                        }
+                        this.$store.state.item.descricao = response.data.result.titulo;
+                        this.$store.state.item.quantidade = 1;
+                        this.$store.state.item.preco_unitario = response.data.result.valor;
+                        this.$store.state.transaction.status = 'ok';
+                        this.$store.state.transaction.message = 'Informações recuperadas com sucesso';
+                        this.$store.state.transaction.data =  '';
+                        $('#inputQuantidade').focus();
+                        this.calculateTotal();
+                    })
+                    .catch(errors => {
+                        this.$errorTreatment(errors);
+                    })
+            },
             calculateTotal() {
                 let quantidade = parseInt(this.$store.state.item.quantidade);
 
@@ -166,7 +189,6 @@
                 let url = `${this.$urlBase}/${this.urlComissoesParametro}?ativo=true`;
                 axios.get(url)
                     .then((response) => {
-                        console.log(response);
                         this.comissoes_parametros = response.data.result;
                     })
                     .catch(errors => {
