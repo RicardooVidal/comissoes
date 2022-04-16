@@ -16,6 +16,7 @@ class VendaLucro extends Model
         'comissao_indicado_calculado',
         'taxa_calculado',
         'comissao_calculado',
+        'comissao_indicado_percentual',
         'comissao_indicado_calculado',
         'outras_despesas_bruto',
         'lucro_geral_calculado'

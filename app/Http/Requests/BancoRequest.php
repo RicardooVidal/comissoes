@@ -25,7 +25,7 @@ class BancoRequest extends DefaultRequest
     {
         $this->validateMethod();
         $rules = [
-            'id' => 'integer|min:3|unique:bancos,id,' . $this->id,
+            'id' => 'numeric|unique:bancos,id,' . $this->id,
             'descricao' => 'required|min:2|unique:bancos,descricao,' . $this->id,
         ];
 
@@ -41,8 +41,8 @@ class BancoRequest extends DefaultRequest
     {
         return [
             'required' => 'O campo :attribute é obrigatório',
-            'integer' => 'O campo :attribute deve ser um número',
-            'id.min' => 'O campo :attribute deve ter no mínimo 3 números',
+            'numeric' => 'O campo :attribute deve ser um número',
+            'id.digits' => 'O campo :attribute deve ter no mínimo 3 números',
             'id.unique' => 'Banco já cadastrado',
             'descricao.required' => 'O campo :attribute é obrigatório',
             'descricao.min' => 'O campo :attribute deve ter no mínimo 2 caracteres',

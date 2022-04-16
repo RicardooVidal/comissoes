@@ -153,20 +153,21 @@
                 }
             },
             loadTaxasParametros() {
-                let url = `${this.$urlBase}/${this.urlTaxasParametro}`;
+                let url = `${this.$urlBase}/${this.urlTaxasParametro}?ativo=true`;
                 axios.get(url)
                     .then((response) => {
-                        this.taxas_parametros = response.data.result.data;
+                        this.taxas_parametros = response.data.result;
                     })
                     .catch(errors => {
                         this.$errorTreatment(errors);
                     })
             },
             loadComissoesParametros() {
-                let url = `${this.$urlBase}/${this.urlComissoesParametro}`;
+                let url = `${this.$urlBase}/${this.urlComissoesParametro}?ativo=true`;
                 axios.get(url)
                     .then((response) => {
-                        this.comissoes_parametros = response.data.result.data;
+                        console.log(response);
+                        this.comissoes_parametros = response.data.result;
                     })
                     .catch(errors => {
                         this.$errorTreatment(errors);

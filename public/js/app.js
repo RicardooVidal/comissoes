@@ -7492,6 +7492,254 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/BancoComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/BancoComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      bancos: {
+        data: []
+      },
+      modal: '',
+      url: 'parametros/bancos',
+      search: {
+        id: '',
+        descricao: ''
+      }
+    };
+  },
+  computed: {
+    bancosTreatment: function bancosTreatment() {
+      var dataTreated = [];
+      this.bancos.forEach(function (data) {
+        dataTreated.push(data);
+      });
+      this.bancos.data = dataTreated;
+    }
+  },
+  methods: {
+    loadContent: function loadContent() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var url;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                url = "".concat(_this.$urlBase, "/").concat(_this.url);
+                _context.next = 3;
+                return axios.get(url).then(function (response) {
+                  _this.bancos = response.data.result;
+                  _this.bancosTreatment;
+                })["catch"](function (errors) {
+                  console.log(errors);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    insert: function insert() {
+      var _this2 = this;
+
+      this.modal = '#modalBancoInsert';
+      this.$showLoading();
+      var formData = new FormData();
+      formData.append('id', this.$store.state.item.id);
+      formData.append('descricao', this.$store.state.item.descricao);
+      var url = "".concat(this.$urlBase, "/").concat(this.url);
+      axios.post(url, formData).then(function (response) {
+        _this2.$store.state.transaction.status = 'ok';
+        _this2.$store.state.transaction.message = 'Banco incluído com sucesso.';
+        _this2.$store.state.transaction.data = '';
+        _this2.urlPaginate = 'page=1'; //limpar o campo de seleção de arquivos
+
+        _this2.loadContent();
+
+        _this2.$closeModal(_this2.modal);
+      })["catch"](function (errors) {
+        _this2.$errorTreatment(errors);
+      });
+    },
+    update: function update() {
+      var _this3 = this;
+
+      this.modal = '#modalBancoUpdate';
+      this.$showLoading();
+      var formData = new FormData();
+      formData.append('_method', 'put');
+      formData.append('id', this.$store.state.item.id);
+      formData.append('descricao', this.$store.state.item.descricao);
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.$store.state.item.id);
+      axios.post(url, formData).then(function (response) {
+        _this3.$store.state.transaction.status = 'ok';
+        _this3.$store.state.transaction.message = 'Banco atualizado com sucesso.';
+        _this3.$store.state.transaction.data = ''; //limpar o campo de seleção de arquivos
+
+        _this3.loadContent();
+
+        _this3.$closeModal(_this3.modal);
+      })["catch"](function (errors) {
+        _this3.$errorTreatment(errors);
+      });
+    },
+    remove: function remove() {
+      var _this4 = this;
+
+      this.modal = '#modalBancoRemove';
+      var formData = new FormData();
+      formData.append('_method', 'delete');
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.$store.state.item.id);
+      axios.post(url, formData).then(function (response) {
+        _this4.$store.state.transaction.status = 'ok';
+        _this4.$store.state.transaction.message = 'Banco deletado com sucesso.';
+        _this4.$store.state.transaction.data = ''; //limpar o campo de seleção de arquivos
+
+        _this4.loadContent();
+
+        _this4.$closeModal(_this4.modal);
+      })["catch"](function (errors) {
+        _this4.$errorTreatment(errors);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadContent();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=script&lang=js& ***!
@@ -7610,6 +7858,240 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.$store.state.transaction.status = 'error';
         _this2.$store.state.transaction.message = errors.response.data.message;
         _this2.$store.state.transaction.data = errors.response.data.errors;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadContent();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      formas_pagamentos: {
+        data: []
+      },
+      modal: '',
+      url: 'parametros/formas_pagamentos'
+    };
+  },
+  computed: {
+    formasPagamentosTreatment: function formasPagamentosTreatment() {
+      var dataTreated = [];
+      this.formas_pagamentos.forEach(function (data) {
+        dataTreated.push(data);
+      });
+      this.formas_pagamentos.data = dataTreated;
+    }
+  },
+  methods: {
+    loadContent: function loadContent() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var url;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                url = "".concat(_this.$urlBase, "/").concat(_this.url);
+                _context.next = 3;
+                return axios.get(url).then(function (response) {
+                  _this.formas_pagamentos = response.data.result;
+                  _this.formasPagamentosTreatment;
+                })["catch"](function (errors) {
+                  console.log(errors);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    insert: function insert() {
+      var _this2 = this;
+
+      this.modal = '#modalFormaPagamentoInsert';
+      this.$showLoading();
+      var formData = new FormData();
+      formData.append('descricao', this.$store.state.item.descricao);
+      var url = "".concat(this.$urlBase, "/").concat(this.url);
+      axios.post(url, formData).then(function (response) {
+        _this2.$store.state.transaction.status = 'ok';
+        _this2.$store.state.transaction.message = 'Forma de Pagamento incluído com sucesso.';
+        _this2.$store.state.transaction.data = '';
+        _this2.urlPaginate = 'page=1'; //limpar o campo de seleção de arquivos
+
+        _this2.loadContent();
+
+        _this2.$closeModal(_this2.modal);
+      })["catch"](function (errors) {
+        _this2.$errorTreatment(errors);
+      });
+    },
+    update: function update() {
+      var _this3 = this;
+
+      this.modal = '#modalFormaPagamentoUpdate';
+      this.$showLoading();
+      var formData = new FormData();
+      formData.append('_method', 'put');
+      formData.append('descricao', this.$store.state.item.descricao);
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.$store.state.item.id);
+      axios.post(url, formData).then(function (response) {
+        _this3.$store.state.transaction.status = 'ok';
+        _this3.$store.state.transaction.message = 'Forma de Pagamento atualizado com sucesso.';
+        _this3.$store.state.transaction.data = ''; //limpar o campo de seleção de arquivos
+
+        _this3.loadContent();
+
+        _this3.$closeModal(_this3.modal);
+      })["catch"](function (errors) {
+        _this3.$errorTreatment(errors);
+      });
+    },
+    remove: function remove() {
+      var _this4 = this;
+
+      this.modal = '#modalFormaPagamentoRemove';
+      var formData = new FormData();
+      formData.append('_method', 'delete');
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.$store.state.item.id);
+      axios.post(url, formData).then(function (response) {
+        _this4.$store.state.transaction.status = 'ok';
+        _this4.$store.state.transaction.message = 'Forma de Pagamento deletado com sucesso.';
+        _this4.$store.state.transaction.data = ''; //limpar o campo de seleção de arquivos
+
+        _this4.loadContent();
+
+        _this4.$closeModal(_this4.modal);
+      })["catch"](function (errors) {
+        _this4.$errorTreatment(errors);
       });
     }
   },
@@ -9930,9 +10412,9 @@ __webpack_require__.r(__webpack_exports__);
     loadTaxasParametros: function loadTaxasParametros() {
       var _this = this;
 
-      var url = "".concat(this.$urlBase, "/").concat(this.urlTaxasParametro);
+      var url = "".concat(this.$urlBase, "/").concat(this.urlTaxasParametro, "?ativo=true");
       axios.get(url).then(function (response) {
-        _this.taxas_parametros = response.data.result.data;
+        _this.taxas_parametros = response.data.result;
       })["catch"](function (errors) {
         _this.$errorTreatment(errors);
       });
@@ -9940,9 +10422,10 @@ __webpack_require__.r(__webpack_exports__);
     loadComissoesParametros: function loadComissoesParametros() {
       var _this2 = this;
 
-      var url = "".concat(this.$urlBase, "/").concat(this.urlComissoesParametro);
+      var url = "".concat(this.$urlBase, "/").concat(this.urlComissoesParametro, "?ativo=true");
       axios.get(url).then(function (response) {
-        _this2.comissoes_parametros = response.data.result.data;
+        console.log(response);
+        _this2.comissoes_parametros = response.data.result;
       })["catch"](function (errors) {
         _this2.$errorTreatment(errors);
       });
@@ -10266,6 +10749,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10288,15 +10777,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     vendaTreatment: function vendaTreatment() {
+      var _this = this;
+
       var dataTreated = [];
       this.vendas.data.forEach(function (data) {
         data.venda_lucro_id = data.calculos.id;
         data.indicador_id = '';
         data.indicador = '';
+        data.status_indicacao = '';
 
-        if (data.indicador_id) {
+        if (data.revendedor.indicador) {
           data.indicador_id = data.revendedor.indicador.id_revendedor;
           data.indicador = data.revendedor.indicador.nome;
+          data.status_indicacao = _this.$verifyValidadeIndicacao(data.revendedor.data_indicacao, data.revendedor.validade_indicacao);
+          data.status_indicacao = data.status_indicacao === 'ATIVO' ? "ATIVO AT\xC9 ".concat(_this.$formatDate(data.revendedor.validade_indicacao)) : "EXPIRADO EM ".concat(_this.$formatDate(data.revendedor.validade_indicacao));
+          data.status_indicacao = "INDICA\xC7\xC3O: ".concat(data.status_indicacao);
         }
 
         data.revendedor = data.revendedor.nome;
@@ -10317,7 +10812,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     loadContent: function loadContent() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var url;
@@ -10325,15 +10820,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                url = "".concat(_this.$urlBase, "/").concat(_this.url, "?") + _this.urlPaginate + _this.urlFilter;
+                url = "".concat(_this2.$urlBase, "/").concat(_this2.url, "?") + _this2.urlPaginate + _this2.urlFilter;
                 _context.next = 3;
                 return axios.get(url).then(function (response) {
-                  _this.vendas = response.data.result;
-                  _this.vendaTreatment;
+                  _this2.vendas = response.data.result;
+                  _this2.vendaTreatment;
                 })["catch"](function (errors) {
                   console.log(errors);
 
-                  _this.$errorTreatment(errors);
+                  _this2.$errorTreatment(errors);
                 });
 
               case 3:
@@ -10345,22 +10840,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     remove: function remove() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.modal = '#modalVendaRemove';
       var formData = new FormData();
       formData.append('_method', 'delete');
       var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.$store.state.item.id);
       axios.post(url, formData).then(function (response) {
-        _this2.$store.state.transaction.status = 'ok';
-        _this2.$store.state.transaction.message = 'Venda deletada';
-        _this2.$store.state.transaction.data = ''; //limpar o campo de seleção de arquivos
+        _this3.$store.state.transaction.status = 'ok';
+        _this3.$store.state.transaction.message = 'Venda deletada';
+        _this3.$store.state.transaction.data = ''; //limpar o campo de seleção de arquivos
 
-        _this2.loadContent();
+        _this3.loadContent();
 
-        _this2.$closeModal(_this2.modal);
+        _this3.$closeModal(_this3.modal);
       })["catch"](function (errors) {
-        _this2.$errorTreatment(errors);
+        _this3.$errorTreatment(errors);
       });
     },
     searchTerms: function searchTerms() {
@@ -10766,7 +11261,11 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$deactivateBancoFields = f
 };
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$verifyValidadeIndicacao = function (data_indicacao, validade_indicacao) {
-  if (data_indicacao > validade_indicacao) {
+  var today = new Date().toDateString();
+  console.log(today);
+  today = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$formatDateToUS(today);
+
+  if (today > validade_indicacao) {
     return 'EXPIRADO';
   }
 
@@ -10836,7 +11335,9 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('input-container-component
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('taxa-parametro-component', (__webpack_require__(/*! ./components/parametros/TaxaComponent.vue */ "./resources/js/components/parametros/TaxaComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('comissao-parametro-component', (__webpack_require__(/*! ./components/parametros/ComissaoComponent.vue */ "./resources/js/components/parametros/ComissaoComponent.vue")["default"])); // Outros
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('configuracao-component', (__webpack_require__(/*! ./components/outros/ConfiguracaoComponent.vue */ "./resources/js/components/outros/ConfiguracaoComponent.vue")["default"])); // Revendedores
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('configuracao-component', (__webpack_require__(/*! ./components/outros/ConfiguracaoComponent.vue */ "./resources/js/components/outros/ConfiguracaoComponent.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('banco-component', (__webpack_require__(/*! ./components/outros/BancoComponent.vue */ "./resources/js/components/outros/BancoComponent.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('forma-pagamento-component', (__webpack_require__(/*! ./components/outros/FormaPagamentoComponent.vue */ "./resources/js/components/outros/FormaPagamentoComponent.vue")["default"])); // Revendedores
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('revendedor-component', (__webpack_require__(/*! ./components/revendedor/RevendedorComponent.vue */ "./resources/js/components/revendedor/RevendedorComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('revendedor-create-component', (__webpack_require__(/*! ./components/revendedor/InsertRevendedorComponent.vue */ "./resources/js/components/revendedor/InsertRevendedorComponent.vue")["default"]));
@@ -46131,6 +46632,45 @@ component.options.__file = "resources/js/components/comissao/ComissaoComponent.v
 
 /***/ }),
 
+/***/ "./resources/js/components/outros/BancoComponent.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/outros/BancoComponent.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BancoComponent_vue_vue_type_template_id_449dd3e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BancoComponent.vue?vue&type=template&id=449dd3e4& */ "./resources/js/components/outros/BancoComponent.vue?vue&type=template&id=449dd3e4&");
+/* harmony import */ var _BancoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BancoComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/outros/BancoComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BancoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BancoComponent_vue_vue_type_template_id_449dd3e4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BancoComponent_vue_vue_type_template_id_449dd3e4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/outros/BancoComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/outros/ConfiguracaoComponent.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/outros/ConfiguracaoComponent.vue ***!
@@ -46166,6 +46706,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/outros/ConfiguracaoComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/outros/FormaPagamentoComponent.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/outros/FormaPagamentoComponent.vue ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FormaPagamentoComponent_vue_vue_type_template_id_293ea498___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormaPagamentoComponent.vue?vue&type=template&id=293ea498& */ "./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=template&id=293ea498&");
+/* harmony import */ var _FormaPagamentoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormaPagamentoComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FormaPagamentoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FormaPagamentoComponent_vue_vue_type_template_id_293ea498___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FormaPagamentoComponent_vue_vue_type_template_id_293ea498___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/outros/FormaPagamentoComponent.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -46736,6 +47315,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/outros/BancoComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/outros/BancoComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BancoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BancoComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/BancoComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BancoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=script&lang=js& ***!
@@ -46749,6 +47344,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfiguracaoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ConfiguracaoComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfiguracaoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormaPagamentoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormaPagamentoComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormaPagamentoComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -47099,6 +47710,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/outros/BancoComponent.vue?vue&type=template&id=449dd3e4&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/outros/BancoComponent.vue?vue&type=template&id=449dd3e4& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BancoComponent_vue_vue_type_template_id_449dd3e4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BancoComponent_vue_vue_type_template_id_449dd3e4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BancoComponent_vue_vue_type_template_id_449dd3e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BancoComponent.vue?vue&type=template&id=449dd3e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/BancoComponent.vue?vue&type=template&id=449dd3e4&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=template&id=4d4c399c&":
 /*!*************************************************************************************************!*\
   !*** ./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=template&id=4d4c399c& ***!
@@ -47112,6 +47740,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfiguracaoComponent_vue_vue_type_template_id_4d4c399c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfiguracaoComponent_vue_vue_type_template_id_4d4c399c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ConfiguracaoComponent.vue?vue&type=template&id=4d4c399c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=template&id=4d4c399c&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=template&id=293ea498&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=template&id=293ea498& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormaPagamentoComponent_vue_vue_type_template_id_293ea498___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormaPagamentoComponent_vue_vue_type_template_id_293ea498___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormaPagamentoComponent_vue_vue_type_template_id_293ea498___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormaPagamentoComponent.vue?vue&type=template&id=293ea498& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=template&id=293ea498&");
 
 
 /***/ }),
@@ -49257,6 +49902,547 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/BancoComponent.vue?vue&type=template&id=449dd3e4&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/BancoComponent.vue?vue&type=template&id=449dd3e4& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-6" },
+          [
+            _c("card-component", {
+              attrs: { title: "Bancos" },
+              scopedSlots: _vm._u([
+                {
+                  key: "header",
+                  fn: function () {
+                    return [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary float-end me-2 mt-2",
+                          attrs: {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#modalBancoInsert",
+                          },
+                          on: {
+                            click: function ($event) {
+                              return _vm.$setStore({
+                                id: "",
+                                descricao: "",
+                              })
+                            },
+                          },
+                        },
+                        [_vm._v("Inserir Banco")]
+                      ),
+                    ]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "alert",
+                  fn: function () {
+                    return [
+                      _vm.$store.state.transaction.status == "ok"
+                        ? _c("alert-component", {
+                            attrs: {
+                              type: "success",
+                              title: _vm.$store.state.transaction.message,
+                              details: _vm.$store.state.transaction,
+                            },
+                          })
+                        : _vm._e(),
+                    ]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "body",
+                  fn: function () {
+                    return [
+                      _c("table-component", {
+                        attrs: {
+                          titles: {
+                            id: { title: "ID", type: "text", align: "center" },
+                            descricao: {
+                              title: "Descrição",
+                              type: "text",
+                              align: "left",
+                            },
+                          },
+                          view: {
+                            active: false,
+                            dataToggle: "modal",
+                            dataTarget: "#modalBancoView",
+                          },
+                          update: {
+                            active: true,
+                            dataToggle: "modal",
+                            dataTarget: "#modalBancoUpdate",
+                          },
+                          remove: {
+                            active: true,
+                            dataToggle: "modal",
+                            dataTarget: "#modalBancoRemove",
+                          },
+                          extraButton: {
+                            active: false,
+                            name: "",
+                            dataToggle: "",
+                            dataTarget: "",
+                          },
+                          infoButton: {
+                            active: false,
+                            name: "",
+                            dataToggle: "",
+                            dataTarget: "",
+                          },
+                          data: _vm.bancos.data,
+                        },
+                      }),
+                    ]
+                  },
+                  proxy: true,
+                },
+              ]),
+            }),
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalBancoInsert", titulo: "Incluir banco" },
+        scopedSlots: _vm._u([
+          {
+            key: "alert",
+            fn: function () {
+              return [
+                _vm.$store.state.transaction.status == "error"
+                  ? _c("alert-component", {
+                      attrs: {
+                        type: "danger",
+                        title: _vm.$store.state.transaction.message,
+                        details: _vm.$store.state.transaction,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c("input-container-component", { attrs: { titulo: "ID" } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.$store.state.item.id,
+                        expression: "$store.state.item.id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      id: "insertID",
+                      "aria-describedby": "insetIDHelp",
+                      placeholder: "Número do Banco",
+                      required: "",
+                    },
+                    domProps: { value: _vm.$store.state.item.id },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.$store.state.item,
+                          "id",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Descrição" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$store.state.item.descricao,
+                          expression: "$store.state.item.descricao",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "insertDescricao",
+                        "aria-describedby": "insertDescricaoHelp",
+                        placeholder: "Nome do banco",
+                        required: "",
+                      },
+                      domProps: { value: _vm.$store.state.item.descricao },
+                      on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$store.state.item,
+                            "descricao",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.insert()
+                      },
+                    },
+                  },
+                  [_vm._v("Incluir")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalBancoUpdate", titulo: "Atualizar banco" },
+        scopedSlots: _vm._u([
+          {
+            key: "alert",
+            fn: function () {
+              return [
+                _vm.$store.state.transaction.status == "error"
+                  ? _c("alert-component", {
+                      attrs: {
+                        type: "danger",
+                        title: _vm.$store.state.transaction.message,
+                        details: _vm.$store.state.transaction,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c("input-container-component", { attrs: { titulo: "ID" } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.$store.state.item.id,
+                        expression: "$store.state.item.id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      id: "insertID",
+                      "aria-describedby": "insetIDHelp",
+                      placeholder: "Número do Banco",
+                      required: "",
+                    },
+                    domProps: { value: _vm.$store.state.item.id },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.$store.state.item,
+                          "id",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Descrição" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$store.state.item.descricao,
+                          expression: "$store.state.item.descricao",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "insertDescricao",
+                        "aria-describedby": "insertDescricaoHelp",
+                        placeholder: "Nome do banco",
+                        required: "",
+                      },
+                      domProps: { value: _vm.$store.state.item.descricao },
+                      on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$store.state.item,
+                            "descricao",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.update()
+                      },
+                    },
+                  },
+                  [_vm._v("Atualizar")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalBancoRemove", titulo: "Remover banco" },
+        scopedSlots: _vm._u([
+          {
+            key: "alert",
+            fn: function () {
+              return [
+                _vm.$store.state.transaction.status == "error"
+                  ? _c("alert-component", {
+                      attrs: {
+                        type: "danger",
+                        title: _vm.$store.state.transaction.message,
+                        details: _vm.$store.state.transaction,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c("input-container-component", { attrs: { titulo: "ID" } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.$store.state.item.id,
+                        expression: "$store.state.item.id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      id: "insertID",
+                      "aria-describedby": "insetIDHelp",
+                      placeholder: "Número do Banco",
+                      required: "",
+                    },
+                    domProps: { value: _vm.$store.state.item.id },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.$store.state.item,
+                          "id",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Descrição" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$store.state.item.descricao,
+                          expression: "$store.state.item.descricao",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "insertDescricao",
+                        "aria-describedby": "insertDescricaoHelp",
+                        placeholder: "Nome do banco",
+                        required: "",
+                      },
+                      domProps: { value: _vm.$store.state.item.descricao },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$store.state.item,
+                            "descricao",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.remove()
+                      },
+                    },
+                  },
+                  [_vm._v("Remover")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=template&id=4d4c399c&":
 /*!****************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/ConfiguracaoComponent.vue?vue&type=template&id=4d4c399c& ***!
@@ -49485,6 +50671,479 @@ var render = function () {
       ]),
     ]),
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=template&id=293ea498&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/outros/FormaPagamentoComponent.vue?vue&type=template&id=293ea498& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-6" },
+          [
+            _c("card-component", {
+              attrs: { title: "Formas de Pagamento" },
+              scopedSlots: _vm._u([
+                {
+                  key: "header",
+                  fn: function () {
+                    return [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary float-end me-2 mt-2",
+                          attrs: {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#modalFormaPagamentoInsert",
+                          },
+                          on: {
+                            click: function ($event) {
+                              return _vm.$setStore({
+                                id: "",
+                                descricao: "",
+                              })
+                            },
+                          },
+                        },
+                        [_vm._v("Inserir Forma de Pagamento")]
+                      ),
+                    ]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "alert",
+                  fn: function () {
+                    return [
+                      _vm.$store.state.transaction.status == "ok"
+                        ? _c("alert-component", {
+                            attrs: {
+                              type: "success",
+                              title: _vm.$store.state.transaction.message,
+                              details: _vm.$store.state.transaction,
+                            },
+                          })
+                        : _vm._e(),
+                    ]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "body",
+                  fn: function () {
+                    return [
+                      _c("table-component", {
+                        attrs: {
+                          titles: {
+                            id: { title: "ID", type: "text", align: "center" },
+                            descricao: {
+                              title: "Descrição",
+                              type: "text",
+                              align: "left",
+                            },
+                          },
+                          view: {
+                            active: false,
+                            dataToggle: "modal",
+                            dataTarget: "#modalFormaPagamentoView",
+                          },
+                          update: {
+                            active: true,
+                            dataToggle: "modal",
+                            dataTarget: "#modalFormaPagamentoUpdate",
+                          },
+                          remove: {
+                            active: true,
+                            dataToggle: "modal",
+                            dataTarget: "#modalFormaPagamentoRemove",
+                          },
+                          extraButton: {
+                            active: false,
+                            name: "",
+                            dataToggle: "",
+                            dataTarget: "",
+                          },
+                          infoButton: {
+                            active: false,
+                            name: "",
+                            dataToggle: "",
+                            dataTarget: "",
+                          },
+                          data: _vm.formas_pagamentos.data,
+                        },
+                      }),
+                    ]
+                  },
+                  proxy: true,
+                },
+              ]),
+            }),
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalFormaPagamentoInsert", titulo: "Incluir banco" },
+        scopedSlots: _vm._u([
+          {
+            key: "alert",
+            fn: function () {
+              return [
+                _vm.$store.state.transaction.status == "error"
+                  ? _c("alert-component", {
+                      attrs: {
+                        type: "danger",
+                        title: _vm.$store.state.transaction.message,
+                        details: _vm.$store.state.transaction,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Descrição" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$store.state.item.descricao,
+                          expression: "$store.state.item.descricao",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "insertDescricao",
+                        "aria-describedby": "insertDescricaoHelp",
+                        placeholder: "Nome do banco",
+                        required: "",
+                      },
+                      domProps: { value: _vm.$store.state.item.descricao },
+                      on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$store.state.item,
+                            "descricao",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.insert()
+                      },
+                    },
+                  },
+                  [_vm._v("Incluir")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalFormaPagamentoUpdate", titulo: "Atualizar banco" },
+        scopedSlots: _vm._u([
+          {
+            key: "alert",
+            fn: function () {
+              return [
+                _vm.$store.state.transaction.status == "error"
+                  ? _c("alert-component", {
+                      attrs: {
+                        type: "danger",
+                        title: _vm.$store.state.transaction.message,
+                        details: _vm.$store.state.transaction,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Descrição" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$store.state.item.descricao,
+                          expression: "$store.state.item.descricao",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "insertDescricao",
+                        "aria-describedby": "insertDescricaoHelp",
+                        placeholder: "Nome do banco",
+                        required: "",
+                      },
+                      domProps: { value: _vm.$store.state.item.descricao },
+                      on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$store.state.item,
+                            "descricao",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.update()
+                      },
+                    },
+                  },
+                  [_vm._v("Atualizar")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalFormaPagamentoRemove", titulo: "Remover banco" },
+        scopedSlots: _vm._u([
+          {
+            key: "alert",
+            fn: function () {
+              return [
+                _vm.$store.state.transaction.status == "error"
+                  ? _c("alert-component", {
+                      attrs: {
+                        type: "danger",
+                        title: _vm.$store.state.transaction.message,
+                        details: _vm.$store.state.transaction,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "body",
+            fn: function () {
+              return [
+                _c("input-container-component", { attrs: { titulo: "ID" } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.$store.state.item.id,
+                        expression: "$store.state.item.id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      id: "insertID",
+                      "aria-describedby": "insetIDHelp",
+                      placeholder: "Número do Banco",
+                      required: "",
+                    },
+                    domProps: { value: _vm.$store.state.item.id },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.$store.state.item,
+                          "id",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "input-container-component",
+                  { attrs: { titulo: "Descrição" } },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$store.state.item.descricao,
+                          expression: "$store.state.item.descricao",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "insertDescricao",
+                        "aria-describedby": "insertDescricaoHelp",
+                        placeholder: "Nome do banco",
+                        required: "",
+                      },
+                      domProps: { value: _vm.$store.state.item.descricao },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$store.state.item,
+                            "descricao",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "footer",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.remove()
+                      },
+                    },
+                  },
+                  [_vm._v("Remover")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
+      }),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56407,6 +58066,7 @@ var render = function () {
                           outras_despesas_valor: {},
                           outras_despesas_descricao: {},
                           venda_lucro_id: {},
+                          status_indicacao: {},
                         },
                         view: {
                           active: true,
@@ -56524,6 +58184,29 @@ var render = function () {
                 key: "body",
                 fn: function () {
                   return [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "float-end",
+                        staticStyle: { "text-decoration": "strong" },
+                      },
+                      [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$store.state.item.status_indicacao
+                                ? _vm.$store.state.item.status_indicacao
+                                : "SEM INDICAÇÃO"
+                            )
+                          ),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
                       _c(
                         "div",

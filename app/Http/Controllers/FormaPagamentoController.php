@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormaPagamentoRequest;
+use App\Models\Comissao;
 use App\Models\FormaPagamento;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -22,7 +23,11 @@ class FormaPagamentoController extends Controller
      */
     public function index()
     {
-        return $this->success($this->formaPagamento->all());
+        return $this->success(
+            $this->formaPagamento
+                ->orderBy('id')
+                ->get()
+        );
     }
 
     /**
@@ -92,6 +97,17 @@ class FormaPagamentoController extends Controller
     public function destroy($id)
     {
         $formaPagamento = $this->formaPagamento->findOrFail($id);
+
+       // Verificar se o id do banco foi utilizado em cadastro de revendedores
+       $comissoes = Comissao::where('forma_pagamento_id', $id)->get();
+
+       foreach($comissoes as $comissao) {
+           $comissao_id = $comissao->id; 
+           if ($comissao->forma_pagamento_id == $id) {
+               return $this->error("Não foi possível deletar a forma de pagamento. Foi utilizado para registrar o pagamento da comissão nº$comissao_id");
+           }
+       }
+
         return $this->success($formaPagamento->delete());
     }
 }

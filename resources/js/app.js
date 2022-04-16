@@ -172,9 +172,12 @@ Vue.prototype.$deactivateBancoFields = (operation) => {
 }
 
 Vue.prototype.$verifyValidadeIndicacao = (data_indicacao, validade_indicacao) => {
-  if (data_indicacao > validade_indicacao) {
+  let today = new Date().toDateString();
+  console.log(today);
+  today = Vue.prototype.$formatDateToUS(today);
+  if (today > validade_indicacao) {
     return 'EXPIRADO';
-  }
+  } 
 
   return 'ATIVO';
 }
@@ -246,6 +249,8 @@ Vue.component('comissao-parametro-component', require('./components/parametros/C
 
 // Outros
 Vue.component('configuracao-component', require('./components/outros/ConfiguracaoComponent.vue').default);
+Vue.component('banco-component', require('./components/outros/BancoComponent.vue').default);
+Vue.component('forma-pagamento-component', require('./components/outros/FormaPagamentoComponent.vue').default);
 
 // Revendedores
 Vue.component('revendedor-component', require('./components/revendedor/RevendedorComponent.vue').default);

@@ -84,6 +84,12 @@ class VendaController extends Controller
             'data_venda' => date('Y-m-d')
         ];
 
+        $revendedor = Revendedor::find($params['revendedor_id']);
+
+        if ($revendedor->ativo === false) {
+            return $this->error('Revendedor desativado');
+        }
+
         //Chamar venda service
         $venda = (new VendaService($params))->run();
         return $this->success($venda, 201);
@@ -139,6 +145,15 @@ class VendaController extends Controller
     public function destroy($id)
     {
         $venda = $this->venda->findOrFail($id);
+
+        $comissoes = Comissao::where('venda_id', $venda->id)->get();
+
+        foreach($comissoes as $comissao) {
+            $comissao_id = $comissao->id;
+            if ($comissao->pago == true) {
+                return $this->error("Não é possível deletar a venda. A comissão nº $comissao_id está marcado como PAGO");
+            }
+        }
         return $this->success($venda->delete());
     }
 }

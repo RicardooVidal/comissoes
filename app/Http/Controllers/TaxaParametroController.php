@@ -25,14 +25,20 @@ class TaxaParametroController extends Controller
     {
         $taxaParametroRepository = new TaxaParametroRepository($this->taxaParametro);
 
-        $taxaParametroRepository->model = $taxaParametroRepository->model->orderBy('id', 'desc');
+        $taxaParametroRepository->model = $taxaParametroRepository->model
+            ->orderBy('id', 'DESC');
+
+        if ($request->ativo) {
+            $taxaParametroRepository->model = $taxaParametroRepository->model
+            ->where('ativo', $request->ativo);
+        }
 
         if($request->has('filter')) {
             $taxaParametroRepository->filter($request->filter);
         }
 
         return $this->success(
-            $taxaParametroRepository->getResultPaginated(10)
+            $request->ativo ? $taxaParametroRepository->model->get() : $taxaParametroRepository->getResultPaginated(10)
         );
     }
 

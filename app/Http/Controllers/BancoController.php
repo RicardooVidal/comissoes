@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BancoRequest;
 use App\Models\Banco;
+use App\Models\Comissao;
+use App\Models\ContaPagamento;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 
@@ -22,8 +24,11 @@ class BancoController extends Controller
      */
     public function index()
     {
-        $bancos = Banco::all();
-        return $this->success($bancos);
+        return $this->success(
+            $this->banco
+                ->orderBy('id')
+                ->get()
+        );
     }
 
     /**
@@ -99,6 +104,17 @@ class BancoController extends Controller
     public function destroy($id)
     {
         $banco = $this->banco->findOrFail($id);
+
+        // Verificar se o id do banco foi utilizado em cadastro de revendedores
+        $contas_pagamentos = ContaPagamento::where('banco_id', $id)->get();
+
+        foreach($contas_pagamentos as $contas_pagamentos) {
+            $revendedor_id = $contas_pagamentos->revendedor_id; 
+            if ($contas_pagamentos->banco_id == $id) {
+                return $this->error("Não foi possível deletar o banco. O banco é utilizado pelo revendedor nº$revendedor_id");
+            }
+        }
+
         return $this->success($banco->delete());
     }
 }

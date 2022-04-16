@@ -73,7 +73,8 @@
                                 indicador: {},
                                 outras_despesas_valor: {},
                                 outras_despesas_descricao: {},
-                                venda_lucro_id: {}
+                                venda_lucro_id: {},
+                                status_indicacao: {}
                             }"
                             :view="{active: true, dataToggle: 'modal', dataTarget: '#modalVendaView'}"
                             :update="{active: false, dataToggle: 'modal', dataTarget: '#modalVendaUpdate'}"
@@ -109,6 +110,11 @@
                     <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
                 </template>
                 <template v-slot:body>
+                    <div class="float-end" style="text-decoration: strong">
+                        <b>{{$store.state.item.status_indicacao ? $store.state.item.status_indicacao : 'SEM INDICAÇÃO'}}</b>
+                    </div>
+                    <br>
+                    <hr>
                     <div class="row">
                         <div class="col-md-2 mb-3">
                             <input-container-component titulo="ID" id="viewId" id-help="viewIdHelp" texto-ajuda=""> 
@@ -274,9 +280,17 @@
                     data.venda_lucro_id = data.calculos.id;
                     data.indicador_id = '';
                     data.indicador = '';
-                    if (data.indicador_id) {
+                    data.status_indicacao = '';
+                    if (data.revendedor.indicador) {
                         data.indicador_id = data.revendedor.indicador.id_revendedor;
                         data.indicador = data.revendedor.indicador.nome;
+                        data.status_indicacao = this.$verifyValidadeIndicacao(
+                            data.revendedor.data_indicacao,
+                            data.revendedor.validade_indicacao
+                        );
+                        data.status_indicacao = data.status_indicacao === 'ATIVO' ? `ATIVO ATÉ ${this.$formatDate(data.revendedor.validade_indicacao)}`
+                            : `EXPIRADO EM ${this.$formatDate(data.revendedor.validade_indicacao)}`;
+                        data.status_indicacao = `INDICAÇÃO: ${data.status_indicacao}`;
                     }
                     data.revendedor = data.revendedor.nome;
                     data.revendedor_id = data.revendedor_id;

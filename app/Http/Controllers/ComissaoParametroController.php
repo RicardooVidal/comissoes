@@ -25,15 +25,21 @@ class ComissaoParametroController extends Controller
     {
         $comissaoParametroRepository = new ComissaoParametroRepository($this->comissaoParametro);
 
-        $comissaoParametroRepository->model = $comissaoParametroRepository->model->orderBy('id', 'desc');
+        $comissaoParametroRepository->model = $comissaoParametroRepository->model
+            ->orderBy('id', 'DESC');
+
+        if ($request->ativo) {
+            $comissaoParametroRepository->model = $comissaoParametroRepository->model
+                ->where('ativo', $request->ativo);
+        }
 
         if($request->has('filter')) {
             $comissaoParametroRepository->filter($request->filter);
         }
 
         return $this->success(
-            $comissaoParametroRepository->getResultPaginated(10)
-        ); 
+            $request->ativo ? $comissaoParametroRepository->model->get() : $comissaoParametroRepository->getResultPaginated(10)
+        );
     }
 
     /**

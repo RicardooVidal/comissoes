@@ -39,6 +39,9 @@ Route::middleware('jwt.auth')->group(function() {
 
     ## Parâmetros
     Route::prefix('/parametros')->group(function() {
+        ## Bancos
+        Route::apiResource('bancos', 'App\Http\Controllers\BancoController');
+
         ## Forma Pagamento
         Route::apiResource('/formas_pagamentos', 'App\Http\Controllers\FormaPagamentoController');
 
@@ -48,9 +51,6 @@ Route::middleware('jwt.auth')->group(function() {
        ## Comissões Parâmetro
        Route::apiResource('/comissoes_parametros', 'App\Http\Controllers\ComissaoParametroController');
     });
-
-    ## Bancos
-    Route::apiResource('bancos', 'App\Http\Controllers\BancoController');
 
     ## Configuracoes
     Route::prefix('/configuracoes')->group(function() {

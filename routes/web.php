@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('vendas.index'));
 });
 
 Auth::routes();
@@ -63,5 +63,12 @@ Route::group(['middleware' => ['auth']], function () {
             return view('outros.configuracoes.index');
         })->name('outros.configuracoes.index');
 
+        Route::get('/bancos', function() {
+            return view('outros.bancos.index');
+        })->name('outros.bancos.index');
+
+        Route::get('/formas_pagamentos', function() {
+            return view('outros.formas_pagamentos.index');
+        })->name('outros.formas-pagamentos.index');
     });
 });

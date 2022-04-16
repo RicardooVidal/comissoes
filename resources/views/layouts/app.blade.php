@@ -52,20 +52,15 @@
                                 <a class="nav-link" href="{{route('comissoes.index')}}">Comissões</a>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Revendedores</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{route('revendedores.index')}}">Cadastro de Revendedores</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Consulta de Indicadores</a>
-                                </div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('revendedores.index')}}">Revendedores</a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Outros</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Bancos</a>
-                                    <a class="dropdown-item" href="#">Forma de Pagamento</a>
+                                    <a class="dropdown-item" href="{{route('outros.bancos.index')}}">Bancos</a>
+                                    <a class="dropdown-item" href="{{route('outros.formas-pagamentos.index')}}">Forma de Pagamento</a>
                                     <a class="dropdown-item" href="{{route('outros.configuracoes.index')}}">Outras configurações</a>
                                 </div>
                             </li>
@@ -78,13 +73,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">Registrar</a>
                                 </li>
                             @endif
                         @else
