@@ -18,7 +18,7 @@
                                 </input-container-component>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input-container-component titulo="Recuperar descrição de anúncio" id="selectDescricaoAnuncio" id-help="ativoHelp" texto-ajuda="Se sim, durante a venda, ao inserir o link do anúncio, o sistem vai recuperar a descrição do produto"> 
+                                <input-container-component titulo="Recuperar descrição de anúncio" id="selectDescricaoAnuncio" id-help="ativoHelp" texto-ajuda="Se sim, durante a venda, ao inserir o link do anúncio, o sistema vai recuperar a descrição do produto"> 
                                     <select class="form-select" v-model="$store.state.item.recuperar_descricao_compra" required>
                                         <option value="true">SIM</option>
                                         <option value="false">NÃO</option>

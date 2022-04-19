@@ -8978,8 +8978,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       modal: '',
       url: 'revendedor',
-      urlContas: 'conta_pagamentos',
-      urlBancos: 'bancos'
+      urlContas: 'parametros/conta_pagamentos',
+      urlBancos: 'parametros/bancos'
     };
   },
   computed: {
@@ -9356,7 +9356,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       modal: '',
       url: 'revendedor',
-      urlBancos: 'bancos',
+      urlBancos: 'parametros/bancos',
       urlPaginate: 'page=1',
       urlFilter: '',
       search: {
@@ -50597,7 +50597,7 @@ var render = function () {
                                   id: "selectDescricaoAnuncio",
                                   "id-help": "ativoHelp",
                                   "texto-ajuda":
-                                    "Se sim, durante a venda, ao inserir o link do anúncio, o sistem vai recuperar a descrição do produto",
+                                    "Se sim, durante a venda, ao inserir o link do anúncio, o sistema vai recuperar a descrição do produto",
                                 },
                               },
                               [

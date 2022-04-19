@@ -17,5 +17,8 @@ class FormaPagamentoSeeder extends Seeder
         \App\Models\FormaPagamento::create(['descricao' => 'CARTÃO DÉBITO']);
         \App\Models\FormaPagamento::create(['descricao' => 'CARTÃO CRÉDITO']);
         \App\Models\FormaPagamento::create(['descricao' => 'PIX']);
+        \App\Models\FormaPagamento::create(['descricao' => 'DEPÓSITO']);
+        \App\Models\FormaPagamento::create(['descricao' => 'TRANSFERÊNCIA']);
+        \App\Models\FormaPagamento::create(['descricao' => 'OUTROS']);
     }
 }

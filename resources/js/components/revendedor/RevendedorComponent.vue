@@ -255,7 +255,7 @@
                 revendedores: { data: [] },
                 modal: '',
                 url: 'revendedor',
-                urlBancos: 'bancos',
+                urlBancos: 'parametros/bancos',
                 urlPaginate: 'page=1',
                 urlFilter: '',
                 search: {

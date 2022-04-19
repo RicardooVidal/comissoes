@@ -118,8 +118,8 @@
                 bancos: { data: [] },
                 modal: '',
                 url: 'revendedor',
-                urlContas: 'conta_pagamentos',
-                urlBancos: 'bancos',
+                urlContas: 'parametros/conta_pagamentos',
+                urlBancos: 'parametros/bancos',
             }
         },
         computed: {
