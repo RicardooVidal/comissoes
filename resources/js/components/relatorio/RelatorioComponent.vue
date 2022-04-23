@@ -78,13 +78,13 @@
                             <div class="col-md-3 mb-3">
                                 <input-container-component titulo="De:" id="inputDeDiasVendas" id-help="deDiasVendasHelp" texto-ajuda=""> 
                                     <input type="date" class="form-control" id="inputDeDiasVendas" aria-describedby="deDiasVendasHelp" placeholder="De" 
-                                        v-model="parametros_comissoes.de_dias_vendas" required>
+                                        v-model="parametros_vendas.de_dias_vendas" required>
                                 </input-container-component>
                             </div>
                              <div class="col-md-3 mb-3">
                                 <input-container-component titulo="Até:" id="inputAteDiasVendas" id-help="ateDiasVendasHelp" texto-ajuda=""> 
                                     <input type="date" class="form-control" id="inputAteDiasVendas" aria-describedby="ateDiasVendasHelp" placeholder="Até" 
-                                        v-model="parametros_comissoes.ate_dias_vendas" required>
+                                        v-model="parametros_vendas.ate_dias_vendas" required>
                                 </input-container-component>
                             </div>
                         </div>
@@ -115,17 +115,21 @@
                     de_dias_comissoes: '',
                     ate_dias_comissoes: '',
                     pago: true
+                },
+                parametros_vendas: {
+                    de_dias_vendas: '',
+                    ate_dias_vendas: '',
                 }
             }
         },
         methods: {
             generateReportSells() {
                 let revendedor = 'todos';
-                if (this.$store.state.select.id != '' || this.$store.state.select.id != null) {
+                if (this.$store.state.select.id != '') {
                     revendedor = this.$store.state.select.id;
                 }
-                let de = this.parametros_comissoes.de_dias_comissoes;
-                let ate = this.parametros_comissoes.ate_dias_comissoes;
+                let de = this.parametros_vendas.de_dias_vendas;
+                let ate = this.parametros_vendas.ate_dias_vendas;
 
                 if (de == '') {
                     de = '2000-01-01';
@@ -135,7 +139,7 @@
                     ate = this.$getTodayDateUS();
                 }
 
-                let url = `${this.$urlBase}/${this.url}/${this.urlVendas}?revendedor=${revendedor}&tipo=${tipo}&de_dias_comissoes=${de}&ate_dias_comissoes=${ate}&pago=${pago}`;
+                let url = `${this.$urlBase}/${this.url}/${this.urlVendas}?revendedor=${revendedor}&de_dias_vendas=${de}&ate_dias_vendas=${ate}`;
                 this.generateReport(url);
             },
             generateReportComissions() {

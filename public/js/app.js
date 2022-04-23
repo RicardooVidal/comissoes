@@ -8973,6 +8973,10 @@ __webpack_require__.r(__webpack_exports__);
         de_dias_comissoes: '',
         ate_dias_comissoes: '',
         pago: true
+      },
+      parametros_vendas: {
+        de_dias_vendas: '',
+        ate_dias_vendas: ''
       }
     };
   },
@@ -8980,12 +8984,12 @@ __webpack_require__.r(__webpack_exports__);
     generateReportSells: function generateReportSells() {
       var revendedor = 'todos';
 
-      if (this.$store.state.select.id != '' || this.$store.state.select.id != null) {
+      if (this.$store.state.select.id != '') {
         revendedor = this.$store.state.select.id;
       }
 
-      var de = this.parametros_comissoes.de_dias_comissoes;
-      var ate = this.parametros_comissoes.ate_dias_comissoes;
+      var de = this.parametros_vendas.de_dias_vendas;
+      var ate = this.parametros_vendas.ate_dias_vendas;
 
       if (de == '') {
         de = '2000-01-01';
@@ -8995,7 +8999,7 @@ __webpack_require__.r(__webpack_exports__);
         ate = this.$getTodayDateUS();
       }
 
-      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.urlVendas, "?revendedor=").concat(revendedor, "&tipo=").concat(tipo, "&de_dias_comissoes=").concat(de, "&ate_dias_comissoes=").concat(ate, "&pago=").concat(pago);
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.urlVendas, "?revendedor=").concat(revendedor, "&de_dias_vendas=").concat(de, "&ate_dias_vendas=").concat(ate);
       this.generateReport(url);
     },
     generateReportComissions: function generateReportComissions() {
@@ -54106,10 +54110,9 @@ var render = function () {
                                         name: "model",
                                         rawName: "v-model",
                                         value:
-                                          _vm.parametros_comissoes
-                                            .de_dias_vendas,
+                                          _vm.parametros_vendas.de_dias_vendas,
                                         expression:
-                                          "parametros_comissoes.de_dias_vendas",
+                                          "parametros_vendas.de_dias_vendas",
                                       },
                                     ],
                                     staticClass: "form-control",
@@ -54122,7 +54125,7 @@ var render = function () {
                                     },
                                     domProps: {
                                       value:
-                                        _vm.parametros_comissoes.de_dias_vendas,
+                                        _vm.parametros_vendas.de_dias_vendas,
                                     },
                                     on: {
                                       input: function ($event) {
@@ -54130,7 +54133,7 @@ var render = function () {
                                           return
                                         }
                                         _vm.$set(
-                                          _vm.parametros_comissoes,
+                                          _vm.parametros_vendas,
                                           "de_dias_vendas",
                                           $event.target.value
                                         )
@@ -54164,10 +54167,9 @@ var render = function () {
                                         name: "model",
                                         rawName: "v-model",
                                         value:
-                                          _vm.parametros_comissoes
-                                            .ate_dias_vendas,
+                                          _vm.parametros_vendas.ate_dias_vendas,
                                         expression:
-                                          "parametros_comissoes.ate_dias_vendas",
+                                          "parametros_vendas.ate_dias_vendas",
                                       },
                                     ],
                                     staticClass: "form-control",
@@ -54180,8 +54182,7 @@ var render = function () {
                                     },
                                     domProps: {
                                       value:
-                                        _vm.parametros_comissoes
-                                          .ate_dias_vendas,
+                                        _vm.parametros_vendas.ate_dias_vendas,
                                     },
                                     on: {
                                       input: function ($event) {
@@ -54189,7 +54190,7 @@ var render = function () {
                                           return
                                         }
                                         _vm.$set(
-                                          _vm.parametros_comissoes,
+                                          _vm.parametros_vendas,
                                           "ate_dias_vendas",
                                           $event.target.value
                                         )

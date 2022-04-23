@@ -22,6 +22,7 @@
             <table style="width: 100%; font-size: 75%">
                 <thead>
                     <th style="text-align: center">ID</th>
+                    <th style="text-align: center">Data</th>
                     <th style="text-align: left">Descrição</th>
                     <th style="text-align: right">Taxa Calculado</th>
                     <th style="text-align: right">Comissão</th>
@@ -34,6 +35,7 @@
                     @foreach ($venda['vendas'] as $v)
                         <tr>
                             <td style="text-align: center">{{$v['venda_id']}}</td>
+                            <td style="text-align: center">{{$v['data_venda']}}</td>
                             <td style="text-align: left">{{$v['descricao']}}</td>
                             <td style="text-align: right">R${{$v['taxa_calculado']}} ({{$v['taxa_percentual'] * 100}}%)</td>
                             <td style="text-align: right">R${{$v['comissao_calculado']}} ({{$v['comissao_percentual'] * 100}}%)</td>

@@ -177,6 +177,7 @@ class RelatorioController extends Controller
                 . $venda->revendedor->indicador['nome'];
             $vendasTreated['vendas'][$venda->revendedor_id]['vendas'][] = [
                 'venda_id' => $venda->id,
+                'data_venda' => date('d/m/Y', strtotime($venda->data_venda)),
                 'descricao' => strlen($venda->descricao) > 20 ? substr($venda->descricao, 0, 20) . '...' : $venda->descricao,
                 'taxa_percentual' => $venda->calculos->taxa_percentual,
                 'taxa_calculado' => $venda->calculos->taxa_calculado,
@@ -189,7 +190,6 @@ class RelatorioController extends Controller
                 'lucro_geral_calculado' => $venda->calculos->lucro_geral_calculado
             ];
         }
-
         // Calcular total por revendedor (depois vejo outra maneira de fazer isso mais perfomática)
         foreach($vendasTreated['vendas'] as &$venda) {
             $totalRevendedor = 0;
