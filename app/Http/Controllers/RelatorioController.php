@@ -172,9 +172,15 @@ class RelatorioController extends Controller
             $vendasTreated['vendas'][$venda->revendedor_id]['nome'] = 
                 $venda->revendedor['id'] . ' - '
                 . $venda->revendedor['nome'];
-            $vendasTreated['vendas'][$venda->revendedor_id]['nome_indicador'] = 
+            $vendasTreated['vendas'][$venda->revendedor_id]['nome_indicador'] = 'SEM INDICAÇÃO';
+
+            // Se tiver indicador, incluir no relatório
+            if ($venda->revendedor->indicador != null) {
+                $vendasTreated['vendas'][$venda->revendedor_id]['nome_indicador'] = 
                 $venda->revendedor->indicador['id_revendedor'] . ' - '
                 . $venda->revendedor->indicador['nome'];
+            }
+            
             $vendasTreated['vendas'][$venda->revendedor_id]['vendas'][] = [
                 'venda_id' => $venda->id,
                 'data_venda' => date('d/m/Y', strtotime($venda->data_venda)),

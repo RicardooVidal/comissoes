@@ -55,7 +55,7 @@
                                 id: {title: 'ID', type: 'text', align: 'center'},
                                 descricao: {},
                                 link_venda: {},
-                                revendedor: {title: 'Revendedor', type: 'text', align: 'left'},
+                                revendedor: {title: 'Revendedor', type: 'function', align: 'left', function_parameters: 'revendedor_id'},
                                 quantidade: {title: 'Quantidade', type: 'text', align: 'center'},
                                 preco_unitario: {title: 'Preço Unitário', type: 'text', align: 'right', mask: 'money'},
                                 outras_despesas_valor: {title: 'Valor Outras Despesas', type: 'text', align: 'right', mask: 'money'},
@@ -63,6 +63,7 @@
                                 total_bruto: {title: 'Total Bruto', type: 'text', align: 'right', mask: 'money'},
                                 total_liquido: {title: 'Total Liquido', type: 'text', align: 'right', mask: 'money'},
                                 revendedor_id: {},
+                                revendedor_function: {},
                                 taxa_calculado: {},
                                 taxa_percentual: {},
                                 comissao_calculado: {},
@@ -300,6 +301,7 @@
                         data.status_indicacao = `INDICAÇÃO: ${data.status_indicacao}`;
                     }
                     data.revendedor = data.revendedor.nome;
+                    data.revendedor_function = this.redirectToRevendedor;
                     data.revendedor_id = data.revendedor_id;
                     data.total_bruto = parseFloat(data.quantidade * data.preco_unitario).toFixed(2);
                     data.total_liquido = data.calculos.lucro_geral_calculado;
@@ -317,6 +319,16 @@
             }
         },
         methods: {
+            redirectToRevendedor(id) {
+                this.$showLoading();
+                window.location.href = `/revendedores?search=${id}`;
+            },
+            paginate(l) {
+                if (l.url) {
+                    this.urlPaginate = l.url.split('?')[1];
+                    this.loadContent();
+                }
+            },
             async loadContent() {
                 let url = `${this.$urlBase}/${this.url}?` + this.urlPaginate + this.urlFilter;
                 await axios.get(url)

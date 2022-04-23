@@ -7384,6 +7384,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    paginate: function paginate(l) {
+      if (l.url) {
+        this.urlPaginate = l.url.split('?')[1];
+        this.loadContent();
+      }
+    },
     redirectToVenda: function redirectToVenda(id) {
       this.$showLoading();
       this.$closeModal(this.modal);
@@ -8318,6 +8324,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8515,6 +8525,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -10992,6 +11006,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11032,6 +11047,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
 
         data.revendedor = data.revendedor.nome;
+        data.revendedor_function = _this.redirectToRevendedor;
         data.revendedor_id = data.revendedor_id;
         data.total_bruto = parseFloat(data.quantidade * data.preco_unitario).toFixed(2);
         data.total_liquido = data.calculos.lucro_geral_calculado;
@@ -11048,6 +11064,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    redirectToRevendedor: function redirectToRevendedor(id) {
+      this.$showLoading();
+      window.location.href = "/revendedores?search=".concat(id);
+    },
+    paginate: function paginate(l) {
+      if (l.url) {
+        this.urlPaginate = l.url.split('?')[1];
+        this.loadContent();
+      }
+    },
     loadContent: function loadContent() {
       var _this2 = this;
 
@@ -51101,7 +51127,10 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("modal-component", {
-        attrs: { id: "modalFormaPagamentoInsert", titulo: "Incluir banco" },
+        attrs: {
+          id: "modalFormaPagamentoInsert",
+          titulo: "Incluir Forma de Pagamento",
+        },
         scopedSlots: _vm._u([
           {
             key: "alert",
@@ -51142,7 +51171,7 @@ var render = function () {
                         type: "text",
                         id: "insertDescricao",
                         "aria-describedby": "insertDescricaoHelp",
-                        placeholder: "Nome do banco",
+                        placeholder: "Descrição da forma de pagamento",
                         required: "",
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
@@ -51203,7 +51232,10 @@ var render = function () {
       }),
       _vm._v(" "),
       _c("modal-component", {
-        attrs: { id: "modalFormaPagamentoUpdate", titulo: "Atualizar banco" },
+        attrs: {
+          id: "modalFormaPagamentoUpdate",
+          titulo: "Atualizar Forma de Pagamento",
+        },
         scopedSlots: _vm._u([
           {
             key: "alert",
@@ -51244,7 +51276,7 @@ var render = function () {
                         type: "text",
                         id: "insertDescricao",
                         "aria-describedby": "insertDescricaoHelp",
-                        placeholder: "Nome do banco",
+                        placeholder: "Descrição da forma de pagamento",
                         required: "",
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
@@ -51305,7 +51337,10 @@ var render = function () {
       }),
       _vm._v(" "),
       _c("modal-component", {
-        attrs: { id: "modalFormaPagamentoRemove", titulo: "Remover banco" },
+        attrs: {
+          id: "modalFormaPagamentoRemove",
+          titulo: "Remover Forma de Pagamento",
+        },
         scopedSlots: _vm._u([
           {
             key: "alert",
@@ -51343,7 +51378,7 @@ var render = function () {
                       type: "number",
                       id: "insertID",
                       "aria-describedby": "insetIDHelp",
-                      placeholder: "Número do Banco",
+                      placeholder: "ID",
                       required: "",
                     },
                     domProps: { value: _vm.$store.state.item.id },
@@ -51380,7 +51415,7 @@ var render = function () {
                         type: "text",
                         id: "insertDescricao",
                         "aria-describedby": "insertDescricaoHelp",
-                        placeholder: "Nome do banco",
+                        placeholder: "",
                         required: "",
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
@@ -52025,6 +52060,10 @@ var render = function () {
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
                       on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -52287,6 +52326,10 @@ var render = function () {
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
                       on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -53113,6 +53156,10 @@ var render = function () {
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
                       on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -53316,6 +53363,10 @@ var render = function () {
                       },
                       domProps: { value: _vm.$store.state.item.descricao },
                       on: {
+                        blur: function ($event) {
+                          _vm.$store.state.item.descricao =
+                            _vm.$store.state.item.descricao.toUpperCase()
+                        },
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -58980,8 +59031,9 @@ var render = function () {
                           link_venda: {},
                           revendedor: {
                             title: "Revendedor",
-                            type: "text",
+                            type: "function",
                             align: "left",
+                            function_parameters: "revendedor_id",
                           },
                           quantidade: {
                             title: "Quantidade",
@@ -59018,6 +59070,7 @@ var render = function () {
                             mask: "money",
                           },
                           revendedor_id: {},
+                          revendedor_function: {},
                           taxa_calculado: {},
                           taxa_percentual: {},
                           comissao_calculado: {},

@@ -100,7 +100,9 @@
             </template>
             <template v-slot:body>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da comissão" v-model="$store.state.item.descricao" required>
+                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da comissão" 
+                        v-model="$store.state.item.descricao" 
+                        @blur="$store.state.item.descricao = $store.state.item.descricao.toUpperCase()" required>
                 </input-container-component>
                 <input-container-component titulo="Comissão para o revendedor">
                     <input type="text" class="form-control percent" id="updateComissaoPercentual" aria-describedby="updateComissaoPercentualHelp" placeholder="Percentual da Comissão Revendedor" 
@@ -137,7 +139,9 @@
                     <input type="text" class="form-control" :value="$store.state.item.id" disabled>
                 </input-container-component>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da comissão" v-model="$store.state.item.descricao" required>
+                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da comissão" 
+                        v-model="$store.state.item.descricao" 
+                        @blur="$store.state.item.descricao = $store.state.item.descricao.toUpperCase()" required>
                 </input-container-component>
                 <input-container-component titulo="Comissão para o revendedor">
                     <input type="text" class="form-control percent" id="updateComissaoPercentual" aria-describedby="updateComissaoPercentualHelp" placeholder="Percentual da Comissão Revendedor" 

@@ -32,14 +32,14 @@
             </div>
         </div>
 
-        <!-- Inicio do modal de inclusão de banco -->
-        <modal-component id="modalFormaPagamentoInsert" titulo="Incluir banco">
+        <!-- Inicio do modal de inclusão de forma de pagamento -->
+        <modal-component id="modalFormaPagamentoInsert" titulo="Incluir Forma de Pagamento">
             <template v-slot:alert>
                 <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
             </template>
             <template v-slot:body>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Nome do banco" 
+                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Descrição da forma de pagamento" 
                         v-model="$store.state.item.descricao" 
                         @blur="$store.state.item.descricao = $store.state.item.descricao.toUpperCase()" 
                         required>
@@ -51,16 +51,16 @@
                 <button type="button" class="btn btn-primary" @click="insert()">Incluir</button>
             </template>
         </modal-component>
-        <!-- Fim do modal de inclusão de banco -->
+        <!-- Fim do modal de inclusão de forma de pagamento -->
 
         <!-- Inicio do modal de atualização de banco -->
-        <modal-component id="modalFormaPagamentoUpdate" titulo="Atualizar banco">
+        <modal-component id="modalFormaPagamentoUpdate" titulo="Atualizar Forma de Pagamento">
             <template v-slot:alert>
                 <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
             </template>
             <template v-slot:body>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Nome do banco" 
+                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Descrição da forma de pagamento" 
                         v-model="$store.state.item.descricao" 
                         @blur="$store.state.item.descricao = $store.state.item.descricao.toUpperCase()" 
                         required>
@@ -72,20 +72,20 @@
                 <button type="button" class="btn btn-primary" @click="update()">Atualizar</button>
             </template>
         </modal-component>
-        <!-- Fim do modal de atualização de banco -->
+        <!-- Fim do modal de atualização de forma de pagamento -->
 
-        <!-- Inicio do modal de remoção de banco -->
-        <modal-component id="modalFormaPagamentoRemove" titulo="Remover banco">
+        <!-- Inicio do modal de remoção de forma de pagamento -->
+        <modal-component id="modalFormaPagamentoRemove" titulo="Remover Forma de Pagamento">
             <template v-slot:alert>
                 <alert-component type="danger" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'error'"></alert-component>
             </template>
 
              <template v-slot:body>
                 <input-container-component titulo="ID">
-                    <input type="number" class="form-control" id="insertID" aria-describedby="insetIDHelp" placeholder="Número do Banco" v-model="$store.state.item.id" required>
+                    <input type="number" class="form-control" id="insertID" aria-describedby="insetIDHelp" placeholder="ID" v-model="$store.state.item.id" required>
                 </input-container-component>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Nome do banco" v-model="$store.state.item.descricao" required>
+                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="" v-model="$store.state.item.descricao" required>
                 </input-container-component>
             </template>
 
@@ -94,7 +94,7 @@
                 <button type="button" class="btn btn-danger" @click="remove()">Remover</button>
             </template>
         </modal-component>
-        <!-- Fim do modal de remoção de banco -->
+        <!-- Fim do modal de remoção de forma de pagamento -->
     </div>
 </template>
 

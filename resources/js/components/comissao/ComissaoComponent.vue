@@ -179,6 +179,12 @@ import BaixarComissaoComponent from './BaixarComissaoComponent.vue';
             }
         },
         methods: {
+            paginate(l) {
+                if (l.url) {
+                    this.urlPaginate = l.url.split('?')[1];
+                    this.loadContent();
+                }
+            },
             redirectToVenda(id) {
                 this.$showLoading();
                 this.$closeModal(this.modal);

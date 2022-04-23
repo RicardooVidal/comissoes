@@ -86,7 +86,9 @@
             </template>
             <template v-slot:body>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Descrição da taxa" v-model="$store.state.item.descricao" required>
+                    <input type="text" class="form-control" id="insertDescricao" aria-describedby="insertDescricaoHelp" placeholder="Descrição da taxa" 
+                        v-model="$store.state.item.descricao" 
+                        @blur="$store.state.item.descricao = $store.state.item.descricao.toUpperCase()" required>
                 </input-container-component>
                 <input-container-component titulo="Taxa Percentual">
                     <input type="text" class="form-control percent" id="insertTaxaPercentual" aria-describedby="insertTaxaPercentualHelp" placeholder="Percentual" 
@@ -118,7 +120,9 @@
                     <input type="text" class="form-control" :value="$store.state.item.id" disabled>
                 </input-container-component>
                 <input-container-component titulo="Descrição">
-                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da taxa" v-model="$store.state.item.descricao" required>
+                    <input type="text" class="form-control" id="updateDescricao" aria-describedby="updateDescricaoHelp" placeholder="Descrição da taxa" 
+                        v-model="$store.state.item.descricao" 
+                        @blur="$store.state.item.descricao = $store.state.item.descricao.toUpperCase()" required>
                 </input-container-component>
                 <input-container-component titulo="Taxa Percentual">
                     <input type="text" class="form-control percent" id="updateTaxaPercentual" aria-describedby="updateTaxaPercentualHelp" placeholder="Percentual" 
