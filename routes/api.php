@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('jwt.auth')->group(function() {
+    ## Relatórios
+    Route::prefix('/relatorio')->group(function() {
+        Route::get('/comissoes', 'App\Http\Controllers\RelatorioController@comissoes');
+        Route::get('/vendas', 'App\Http\Controllers\RelatorioController@vendas');
+    });
+
     ## Comissão de revendedor por venda
     Route::prefix('/comissao')->group(function() {
         Route::get('/', 'App\Http\Controllers\ComissaoController@index');

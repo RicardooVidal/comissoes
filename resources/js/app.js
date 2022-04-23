@@ -198,6 +198,15 @@ Vue.prototype.$formatDateToUS = (dateToFormat) => {
     return '  /  /    '
   }
   let date = new Date(dateToFormat.replace(/-/g, '\/').replace(/T.+/, ''));
+  console.log('date', date);
+  let day  = date.getDate().toString().padStart(2, '0');
+  let month  = (date.getMonth()+1).toString().padStart(2, '0');
+  let year  = date.getFullYear();
+  return `${year}-${month}-${day}`;
+}
+
+Vue.prototype.$getTodayDateUS = (dateToFormat) => {
+  let date = new Date();
   let day  = date.getDate().toString().padStart(2, '0');
   let month  = (date.getMonth()+1).toString().padStart(2, '0');
   let year  = date.getFullYear();
@@ -267,6 +276,9 @@ Vue.component('view-comissoes-venda-component', require('./components/venda/View
 // Comissões
 Vue.component('comissao-component', require('./components/comissao/ComissaoComponent.vue').default);
 Vue.component('baixar-comissao-component', require('./components/comissao/BaixarComissaoComponent.vue').default);
+
+// Relatórios
+Vue.component('relatorios-component', require('./components/relatorio/RelatorioComponent.vue').default);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 

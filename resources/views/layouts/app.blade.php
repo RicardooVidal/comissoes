@@ -55,6 +55,10 @@
                                 <a class="nav-link" href="{{route('revendedores.index')}}">Revendedores</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('relatorios.index')}}">Relatórios</a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Outros</a>
                                 <div class="dropdown-menu">

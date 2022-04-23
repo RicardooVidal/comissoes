@@ -8846,6 +8846,192 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      descricao_comissao: 'COMISSÃO POR VENDA',
+      descricao_indicacao_comissao: 'COMISSÃO POR INDICAÇÃO',
+      url: 'relatorio',
+      urlComissoes: 'comissoes',
+      urlVendas: 'vendas',
+      parametros_comissoes: {
+        tipo: 'todos',
+        de_dias_comissoes: '',
+        ate_dias_comissoes: '',
+        pago: true
+      }
+    };
+  },
+  methods: {
+    generateReportSells: function generateReportSells() {
+      var revendedor = 'todos';
+
+      if (this.$store.state.select.id != '' || this.$store.state.select.id != null) {
+        revendedor = this.$store.state.select.id;
+      }
+
+      var de = this.parametros_comissoes.de_dias_comissoes;
+      var ate = this.parametros_comissoes.ate_dias_comissoes;
+
+      if (de == '') {
+        de = '2000-01-01';
+      }
+
+      if (ate == '') {
+        ate = this.$getTodayDateUS();
+      }
+
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.urlVendas, "?revendedor=").concat(revendedor, "&tipo=").concat(tipo, "&de_dias_comissoes=").concat(de, "&ate_dias_comissoes=").concat(ate, "&pago=").concat(pago);
+      this.generateReport(url);
+    },
+    generateReportComissions: function generateReportComissions() {
+      var revendedor = 'todos';
+
+      if (this.$store.state.select.id != '' || this.$store.state.select.id != null) {
+        revendedor = this.$store.state.select.id;
+      }
+
+      var de = this.parametros_comissoes.de_dias_comissoes;
+      var ate = this.parametros_comissoes.ate_dias_comissoes;
+      var tipo = this.parametros_comissoes.tipo;
+      var pago = this.parametros_comissoes.pago;
+
+      if (de == '') {
+        de = '2000-01-01';
+      }
+
+      if (ate == '') {
+        ate = this.$getTodayDateUS();
+      }
+
+      var url = "".concat(this.$urlBase, "/").concat(this.url, "/").concat(this.urlComissoes, "?revendedor=").concat(revendedor, "&tipo=").concat(tipo, "&de_dias_comissoes=").concat(de, "&ate_dias_comissoes=").concat(ate, "&pago=").concat(pago);
+      this.generateReport(url);
+    },
+    generateReport: function generateReport(url) {
+      this.$showLoading();
+      window.open(url, "_blank");
+      this.$hideLoading();
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/revendedor/InsertRevendedorComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/revendedor/InsertRevendedorComponent.vue?vue&type=script&lang=js& ***!
@@ -11314,6 +11500,15 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$formatDateToUS = function
   }
 
   var date = new Date(dateToFormat.replace(/-/g, '\/').replace(/T.+/, ''));
+  console.log('date', date);
+  var day = date.getDate().toString().padStart(2, '0');
+  var month = (date.getMonth() + 1).toString().padStart(2, '0');
+  var year = date.getFullYear();
+  return "".concat(year, "-").concat(month, "-").concat(day);
+};
+
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$getTodayDateUS = function (dateToFormat) {
+  var date = new Date();
   var day = date.getDate().toString().padStart(2, '0');
   var month = (date.getMonth() + 1).toString().padStart(2, '0');
   var year = date.getFullYear();
@@ -11374,7 +11569,9 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('venda-create-component', 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('view-comissoes-venda-component', (__webpack_require__(/*! ./components/venda/ViewComissoesVendaComponent.vue */ "./resources/js/components/venda/ViewComissoesVendaComponent.vue")["default"])); // Comissões
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('comissao-component', (__webpack_require__(/*! ./components/comissao/ComissaoComponent.vue */ "./resources/js/components/comissao/ComissaoComponent.vue")["default"]));
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('baixar-comissao-component', (__webpack_require__(/*! ./components/comissao/BaixarComissaoComponent.vue */ "./resources/js/components/comissao/BaixarComissaoComponent.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('baixar-comissao-component', (__webpack_require__(/*! ./components/comissao/BaixarComissaoComponent.vue */ "./resources/js/components/comissao/BaixarComissaoComponent.vue")["default"])); // Relatórios
+
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('relatorios-component', (__webpack_require__(/*! ./components/relatorio/RelatorioComponent.vue */ "./resources/js/components/relatorio/RelatorioComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].component('example-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -46851,6 +47048,45 @@ component.options.__file = "resources/js/components/parametros/TaxaComponent.vue
 
 /***/ }),
 
+/***/ "./resources/js/components/relatorio/RelatorioComponent.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/relatorio/RelatorioComponent.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _RelatorioComponent_vue_vue_type_template_id_7fa967e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RelatorioComponent.vue?vue&type=template&id=7fa967e6& */ "./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=template&id=7fa967e6&");
+/* harmony import */ var _RelatorioComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RelatorioComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RelatorioComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RelatorioComponent_vue_vue_type_template_id_7fa967e6___WEBPACK_IMPORTED_MODULE_0__.render,
+  _RelatorioComponent_vue_vue_type_template_id_7fa967e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/relatorio/RelatorioComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/revendedor/InsertRevendedorComponent.vue":
 /*!**************************************************************************!*\
   !*** ./resources/js/components/revendedor/InsertRevendedorComponent.vue ***!
@@ -47419,6 +47655,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RelatorioComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RelatorioComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RelatorioComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/revendedor/InsertRevendedorComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************!*\
   !*** ./resources/js/components/revendedor/InsertRevendedorComponent.vue?vue&type=script&lang=js& ***!
@@ -47815,6 +48067,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TaxaComponent_vue_vue_type_template_id_7936f2bd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TaxaComponent_vue_vue_type_template_id_7936f2bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TaxaComponent.vue?vue&type=template&id=7936f2bd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/parametros/TaxaComponent.vue?vue&type=template&id=7936f2bd&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=template&id=7fa967e6&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=template&id=7fa967e6& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RelatorioComponent_vue_vue_type_template_id_7fa967e6___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RelatorioComponent_vue_vue_type_template_id_7fa967e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RelatorioComponent_vue_vue_type_template_id_7fa967e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RelatorioComponent.vue?vue&type=template&id=7fa967e6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=template&id=7fa967e6&");
 
 
 /***/ }),
@@ -53310,6 +53579,674 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=template&id=7fa967e6&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/relatorio/RelatorioComponent.vue?vue&type=template&id=7fa967e6& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-10" }, [
+          _c(
+            "div",
+            { staticClass: "card" },
+            [
+              _c("card-component", {
+                attrs: { title: "Relatórios de Comissões" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "alert",
+                    fn: function () {
+                      return [
+                        _vm.$store.state.transaction.status == "error"
+                          ? _c("alert-component", {
+                              attrs: {
+                                type: "danger",
+                                title: _vm.$store.state.transaction.message,
+                                details: _vm.$store.state.transaction,
+                              },
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.$store.state.transaction.status == "ok"
+                          ? _c("alert-component", {
+                              attrs: {
+                                type: "success",
+                                title: _vm.$store.state.transaction.message,
+                                details: _vm.$store.state.transaction,
+                              },
+                            })
+                          : _vm._e(),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                  {
+                    key: "body",
+                    fn: function () {
+                      return [
+                        _c("h4", [_vm._v("Filtros")]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-6 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "Revendedor",
+                                    id: "inputRevendedorComissoes",
+                                    "id-help": "revendedorComissoesHelp",
+                                    "texto-ajuda": "Selecione o Revendedor",
+                                  },
+                                },
+                                [
+                                  _c("input", {
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      id: "inputRevendedorComissoes",
+                                      "aria-describedby":
+                                        "revendedorComissoesHelp",
+                                      "data-bs-toggle": "modal",
+                                      "data-bs-target":
+                                        "#modalRevendedorSelect",
+                                      placeholder: "Clique para selecionar",
+                                      disabled: "",
+                                    },
+                                    domProps: {
+                                      value: _vm.$store.state.select.id
+                                        ? _vm.$store.state.select.id +
+                                          " - " +
+                                          _vm.$store.state.select.nome
+                                        : "",
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-3 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "De:",
+                                    id: "inputDeDiasComissoes",
+                                    "id-help": "deDiasComissoesHelp",
+                                    "texto-ajuda": "",
+                                  },
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.parametros_comissoes
+                                            .de_dias_comissoes,
+                                        expression:
+                                          "parametros_comissoes.de_dias_comissoes",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "date",
+                                      id: "inputDeDiasComissoes",
+                                      "aria-describedby": "deDiasComissoesHelp",
+                                      placeholder: "De",
+                                      required: "",
+                                    },
+                                    domProps: {
+                                      value:
+                                        _vm.parametros_comissoes
+                                          .de_dias_comissoes,
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.parametros_comissoes,
+                                          "de_dias_comissoes",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-3 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "Até:",
+                                    id: "inputAteDiasComissoes",
+                                    "id-help": "ateDiasComissoesHelp",
+                                    "texto-ajuda": "",
+                                  },
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.parametros_comissoes
+                                            .ate_dias_comissoes,
+                                        expression:
+                                          "parametros_comissoes.ate_dias_comissoes",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "date",
+                                      id: "inputAteDiasComissoes",
+                                      "aria-describedby":
+                                        "ateDiasComissoesHelp",
+                                      placeholder: "Até",
+                                      required: "",
+                                    },
+                                    domProps: {
+                                      value:
+                                        _vm.parametros_comissoes
+                                          .ate_dias_comissoes,
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.parametros_comissoes,
+                                          "ate_dias_comissoes",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-4 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "Tipo",
+                                    id: "selectTipoComissao",
+                                    "id-help": "tipoComissaoHelp",
+                                    "texto-ajuda": "",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.parametros_comissoes.tipo,
+                                          expression:
+                                            "parametros_comissoes.tipo",
+                                        },
+                                      ],
+                                      staticClass: "form-select",
+                                      attrs: { required: "" },
+                                      on: {
+                                        change: function ($event) {
+                                          var $$selectedVal =
+                                            Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function (o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function (o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                          _vm.$set(
+                                            _vm.parametros_comissoes,
+                                            "tipo",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        { domProps: { value: "todos" } },
+                                        [_vm._v("TODOS")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("option", { domProps: { value: 1 } }, [
+                                        _vm._v(_vm._s(_vm.descricao_comissao)),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("option", { domProps: { value: 2 } }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.descricao_indicacao_comissao
+                                          )
+                                        ),
+                                      ]),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-2 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "Pago",
+                                    id: "selectPagoComissao",
+                                    "id-help": "pagoComissaoHelp",
+                                    "texto-ajuda": "",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.parametros_comissoes.pago,
+                                          expression:
+                                            "parametros_comissoes.pago",
+                                        },
+                                      ],
+                                      staticClass: "form-select",
+                                      attrs: { required: "" },
+                                      on: {
+                                        change: function ($event) {
+                                          var $$selectedVal =
+                                            Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function (o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function (o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                          _vm.$set(
+                                            _vm.parametros_comissoes,
+                                            "pago",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        { domProps: { value: "todos" } },
+                                        [_vm._v("TODOS")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "true" } },
+                                        [_vm._v("SIM")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "false" } },
+                                        [_vm._v("NÃO")]
+                                      ),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                        ]),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                  {
+                    key: "footer",
+                    fn: function () {
+                      return [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm float-end",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.generateReportComissions()
+                              },
+                            },
+                          },
+                          [_vm._v("Emitir")]
+                        ),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                ]),
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card" },
+            [
+              _c("card-component", {
+                attrs: { title: "Relatórios de Vendas" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "alert",
+                    fn: function () {
+                      return [
+                        _vm.$store.state.transaction.status == "error"
+                          ? _c("alert-component", {
+                              attrs: {
+                                type: "danger",
+                                title: _vm.$store.state.transaction.message,
+                                details: _vm.$store.state.transaction,
+                              },
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.$store.state.transaction.status == "ok"
+                          ? _c("alert-component", {
+                              attrs: {
+                                type: "success",
+                                title: _vm.$store.state.transaction.message,
+                                details: _vm.$store.state.transaction,
+                              },
+                            })
+                          : _vm._e(),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                  {
+                    key: "body",
+                    fn: function () {
+                      return [
+                        _c("h4", [_vm._v("Filtros")]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-6 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "Revendedor",
+                                    id: "inputRevendedorVendas",
+                                    "id-help": "revendedorVendasHelp",
+                                    "texto-ajuda": "Selecione o Revendedor",
+                                  },
+                                },
+                                [
+                                  _c("input", {
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      id: "inputRevendedorVendas",
+                                      "aria-describedby":
+                                        "revendedorVendasHelp",
+                                      "data-bs-toggle": "modal",
+                                      "data-bs-target":
+                                        "#modalRevendedorSelect",
+                                      placeholder: "Clique para selecionar",
+                                      disabled: "",
+                                    },
+                                    domProps: {
+                                      value: _vm.$store.state.select.id
+                                        ? _vm.$store.state.select.id +
+                                          " - " +
+                                          _vm.$store.state.select.nome
+                                        : "",
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-3 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "De:",
+                                    id: "inputDeDiasVendas",
+                                    "id-help": "deDiasVendasHelp",
+                                    "texto-ajuda": "",
+                                  },
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.parametros_comissoes
+                                            .de_dias_vendas,
+                                        expression:
+                                          "parametros_comissoes.de_dias_vendas",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "date",
+                                      id: "inputDeDiasVendas",
+                                      "aria-describedby": "deDiasVendasHelp",
+                                      placeholder: "De",
+                                      required: "",
+                                    },
+                                    domProps: {
+                                      value:
+                                        _vm.parametros_comissoes.de_dias_vendas,
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.parametros_comissoes,
+                                          "de_dias_vendas",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-3 mb-3" },
+                            [
+                              _c(
+                                "input-container-component",
+                                {
+                                  attrs: {
+                                    titulo: "Até:",
+                                    id: "inputAteDiasVendas",
+                                    "id-help": "ateDiasVendasHelp",
+                                    "texto-ajuda": "",
+                                  },
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.parametros_comissoes
+                                            .ate_dias_vendas,
+                                        expression:
+                                          "parametros_comissoes.ate_dias_vendas",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "date",
+                                      id: "inputAteDiasVendas",
+                                      "aria-describedby": "ateDiasVendasHelp",
+                                      placeholder: "Até",
+                                      required: "",
+                                    },
+                                    domProps: {
+                                      value:
+                                        _vm.parametros_comissoes
+                                          .ate_dias_vendas,
+                                    },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.parametros_comissoes,
+                                          "ate_dias_vendas",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                        ]),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                  {
+                    key: "footer",
+                    fn: function () {
+                      return [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm float-end",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.generateReportSells()
+                              },
+                            },
+                          },
+                          [_vm._v("Emitir")]
+                        ),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                ]),
+              }),
+            ],
+            1
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("select-revendedor-component"),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/revendedor/InsertRevendedorComponent.vue?vue&type=template&id=62936500&":
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/revendedor/InsertRevendedorComponent.vue?vue&type=template&id=62936500& ***!
@@ -57378,7 +58315,8 @@ var render = function () {
                                 titulo: "Link anúncio",
                                 id: "inputAnuncio",
                                 "id-help": "anuncioHelp",
-                                "texto-ajuda": "",
+                                "texto-ajuda":
+                                  "Válido para plataformas Mercado Livre",
                               },
                             },
                             [
