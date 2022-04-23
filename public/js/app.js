@@ -10986,6 +10986,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11663,14 +11669,13 @@ axios.interceptors.response.use(function (response) {
   $('#loading').css("visibility", "hidden");
 
   if (error.response.status == 401 && error.response.data.message == 'Token has expired') {
-    axios.post('http://localhost:8000/api/refresh').then(function (response) {
-      console.log('Refresh com sucesso', response);
+    $('#alert-session').css("visibility", "visible"); // Forçar logout
 
-      if (response.data.token) {
-        document.cookie = 'token=' + response.data.token + ';SameSite=Lax';
-        console.log('Token atualizado:', response.data.token);
-        window.location.reload();
-      }
+    axios.post('http://localhost:8000/logout').then(function (response) {
+      // Redirecionar para login
+      setTimeout(function () {
+        window.location.href = "/login";
+      }, 5000);
     })["catch"](function (err) {
       console.log(err);
     });
@@ -48582,8 +48587,6 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _vm._m(0),
-                _vm._v(" "),
-                _vm._m(1),
               ]
             ),
           ]),
@@ -48593,31 +48596,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { type: "checkbox", name: "remember", id: "remember" },
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "remember" } },
-            [
-              _vm._v(
-                "\n                                        Mantenha-me conectado\n                                    "
-              ),
-            ]
-          ),
-        ]),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -59226,7 +59204,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "col-md-8 mb-3" },
+                        { staticClass: "col-md-6 mb-3" },
                         [
                           _c(
                             "input-container-component",
@@ -59249,6 +59227,39 @@ var render = function () {
                                 },
                                 domProps: {
                                   value: _vm.$store.state.item.descricao,
+                                },
+                              }),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-md-2 mb-3" },
+                        [
+                          _c(
+                            "input-container-component",
+                            {
+                              attrs: {
+                                titulo: "Quantidade",
+                                id: "viewQuantidade",
+                                "id-help": "viewQuantidadeHelp",
+                                "texto-ajuda": "",
+                              },
+                            },
+                            [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "viewQuantidade",
+                                  "aria-describedby": "viewQuantidadeHelp",
+                                  disabled: "",
+                                },
+                                domProps: {
+                                  value: _vm.$store.state.item.quantidade,
                                 },
                               }),
                             ]

@@ -55,15 +55,13 @@ axios.interceptors.response.use(
         console.log('Erro na resposta:', error.response);
         $('#loading').css("visibility", "hidden");
         if(error.response.status == 401 && error.response.data.message == 'Token has expired') {
-            axios.post('http://localhost:8000/api/refresh')
+            $('#alert-session').css("visibility", "visible");
+            
+            // Forçar logout
+            axios.post('http://localhost:8000/logout')
                 .then((response) => {
-                    console.log('Refresh com sucesso', response);
-
-                    if(response.data.token) {
-                        document.cookie = 'token=' + response.data.token + ';SameSite=Lax';
-                        console.log('Token atualizado:', response.data.token);
-                        window.location.reload();
-                    }
+                    // Redirecionar para login
+                    setTimeout(() => {window.location.href = "/login"}, 5000);
                 })
                 .catch((err) => {
                     console.log(err);

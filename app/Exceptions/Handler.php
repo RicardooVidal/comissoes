@@ -3,7 +3,9 @@
 namespace App\Exceptions;
 
 use App\Traits\ResponseTrait;
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,7 +39,18 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+
         });
+    }
+
+    public function render($request, Throwable $e) {
+        if ($e instanceof ValidationException && $request->wantsJson()) {
+
+            return response()->json([
+				'message' => 'Não foi possível prosseguir com a requisição porque:',
+				'errors' => $e->validator->getMessageBag()], 422);
+
+        }
+        return parent::render($request, $e);
     }
 }

@@ -108,7 +108,9 @@
                 </div>
             </div>
         </nav>
-
+        <div id="alert-session" class="alert alert-danger" style="padding: 1px; visibility: hidden; text-align: center">
+            <strong>Sua sessão expirou. Você será redirecionado para a tela de login em 5 (cinco) segundos.</strong>
+        </div>
         <main class="py-4">
             @yield('content')
         </main>

@@ -36,7 +36,7 @@ class RevendedorRequest extends DefaultRequest
             'agencia' => 'nullable|min:4',
             'conta' => ['nullable', 'required_unless:agencia,null', Rule::unique('contas_pagamentos', 'conta')->ignore($this->id, 'revendedor_id')],
             'digito_conta' => 'nullable|required_unless:conta,null|min:1',
-            'pix' => ['nullable', 'required_unless:agencia,null', Rule::unique('contas_pagamentos', 'pix')->ignore($this->id, 'revendedor_id')],
+            // 'pix' => ['nullable', 'required_unless:agencia,null', Rule::unique('contas_pagamentos', 'pix')->ignore($this->id, 'revendedor_id')],
             'ativo' => 'required|boolean'
         ];
 

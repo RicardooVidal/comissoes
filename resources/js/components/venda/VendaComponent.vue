@@ -122,13 +122,19 @@
                                     :value="$store.state.item.id" disabled>
                             </input-container-component>
                         </div>
-                       <div class="col-md-8 mb-3">
+                       <div class="col-md-6 mb-3">
                             <input-container-component titulo="Descrição" id="viewDescricao" id-help="viewDescricaoHelp" texto-ajuda=""> 
                                 <input type="text" class="form-control" id="viewDescricao" aria-describedby="viewDescricaoHelp"
                                     :value="$store.state.item.descricao" disabled>
                             </input-container-component>
                         </div>
-                    <div class="col-md-2 mb-3">
+                       <div class="col-md-2 mb-3">
+                            <input-container-component titulo="Quantidade" id="viewQuantidade" id-help="viewQuantidadeHelp" texto-ajuda=""> 
+                                <input type="text" class="form-control" id="viewQuantidade" aria-describedby="viewQuantidadeHelp"
+                                    :value="$store.state.item.quantidade" disabled>
+                            </input-container-component>
+                        </div>
+                        <div class="col-md-2 mb-3">
                             <input-container-component titulo="Data" id="viewData" id-help="viewDataoHelp" texto-ajuda=""> 
                                 <input type="text" class="form-control" id="viewData" aria-describedby="viewDataoHelp"
                                     :value="$formatDate($store.state.item.data_venda)" disabled>
