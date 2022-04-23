@@ -12,11 +12,11 @@ class PDF
      */
     public static function generatePdf($data, $view, $stream = false)
     {
-        $uniqid = md5(uniqid(rand(), true));
+        $uniqid = md5(uniqid(rand(), true)) . '.pdf';
         $pdf = DomPDF::loadView($view, compact('data'));
 
         if ($stream) {
-            return $pdf->setPaper('a4')->stream('relatorio.pdf');
+            return $pdf->setPaper('a4')->stream($uniqid);
         }
         return $pdf->setPaper('a4')->download($uniqid);
     }

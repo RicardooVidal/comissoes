@@ -377,7 +377,7 @@
                         this.$errorTreatment(errors);
                     })
             },
-            searchTerms() {
+            searchTerms(ignoreMasks = false) {
                 let filter = '';
 
                 for(let key in this.search) {
@@ -387,13 +387,15 @@
                             this.urlPaginate = 'page=1';
                             filter += ";";
                         }
-                        switch (key) {
-                            case 'id':
-                                this.search[key] = $('#inputCpfSearch').cleanVal();
-                                break;
-                            case 'rg':
-                                this.search[key] = $('#inputRgSearch').cleanVal();
-                                break;
+                        if (!ignoreMasks) {
+                            switch (key) {
+                                case 'id':
+                                    this.search[key] = $('#inputCpfSearch').cleanVal();
+                                    break;
+                                case 'rg':
+                                    this.search[key] = $('#inputRgSearch').cleanVal();
+                                    break;
+                            }
                         }
                         filter += key + ':ilike:' + this.$getFilter(key, this.search[key]);
                         // filter += key + ':like:' + `%${this.search[key]}%`;
@@ -429,10 +431,16 @@
             },
         },
         mounted() {
+            let urlParams = new URLSearchParams(window.location.search);
             this.$setStore({});
             this.loadBancos();
             this.verifyBanco();
-            this.loadContent();
+            if (urlParams.has('search')) {
+                this.search.id = urlParams.get('search');
+                this.searchTerms(true);
+            } else {
+                this.loadContent();
+            }
         }
     }
 </script>

@@ -7319,6 +7319,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -7369,7 +7370,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           data.forma_pagamento_descricao = data.forma_pagamento.descricao;
         }
 
-        data.cpf_nome = data.revendedor_id + ' - ' + data.revendedor.nome;
+        data.nome = data.revendedor.nome;
+        data.nome_function = _this.redirectToRevendedor;
         data.valor = data.calculos.comissao_calculado;
 
         if (data.descricao === 'COMISSÃO POR INDICAÇÃO') {
@@ -7386,6 +7388,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$showLoading();
       this.$closeModal(this.modal);
       window.location.href = "/vendas?search=".concat(id);
+    },
+    redirectToRevendedor: function redirectToRevendedor(id) {
+      this.$showLoading();
+      this.$closeModal(this.modal);
+      window.location.href = "/revendedores?search=".concat(id);
     },
     loadContent: function loadContent() {
       var _this2 = this;
@@ -9667,6 +9674,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     searchTerms: function searchTerms() {
+      var ignoreMasks = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var filter = '';
 
       for (var key in this.search) {
@@ -9677,14 +9685,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             filter += ";";
           }
 
-          switch (key) {
-            case 'id':
-              this.search[key] = $('#inputCpfSearch').cleanVal();
-              break;
+          if (!ignoreMasks) {
+            switch (key) {
+              case 'id':
+                this.search[key] = $('#inputCpfSearch').cleanVal();
+                break;
 
-            case 'rg':
-              this.search[key] = $('#inputRgSearch').cleanVal();
-              break;
+              case 'rg':
+                this.search[key] = $('#inputRgSearch').cleanVal();
+                break;
+            }
           }
 
           filter += key + ':ilike:' + this.$getFilter(key, this.search[key]); // filter += key + ':like:' + `%${this.search[key]}%`;
@@ -9735,10 +9745,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
+    var urlParams = new URLSearchParams(window.location.search);
     this.$setStore({});
     this.loadBancos();
     this.verifyBanco();
-    this.loadContent();
+
+    if (urlParams.has('search')) {
+      this.search.id = urlParams.get('search');
+      this.searchTerms(true);
+    } else {
+      this.loadContent();
+    }
   }
 });
 
@@ -49959,10 +49976,11 @@ var render = function () {
                           titles: {
                             id: { title: "ID", type: "text", align: "left" },
                             revendedor_id: {},
-                            cpf_nome: {
+                            nome: {
                               title: "Revendedor",
-                              type: "text",
+                              type: "function",
                               align: "left",
+                              function_parameters: "revendedor_id",
                             },
                             venda_id: {
                               title: "ID Venda",
@@ -50003,6 +50021,7 @@ var render = function () {
                               align: "center",
                             },
                             venda_id_function: {},
+                            nome_function: {},
                           },
                           view: {
                             active: false,

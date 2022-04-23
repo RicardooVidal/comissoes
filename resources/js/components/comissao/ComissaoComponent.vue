@@ -56,7 +56,7 @@
                             :titles="{
                                 id: {title: 'ID', type: 'text', align: 'left'},
                                 revendedor_id: {},
-                                cpf_nome: {title: 'Revendedor', type: 'text', align: 'left'},
+                                nome: {title: 'Revendedor', type: 'function', align: 'left', function_parameters: 'revendedor_id'},
                                 venda_id: {title: 'ID Venda', type: 'function', align: 'center', function_parameters: 'venda_id'},
                                 descricao: {title: 'Tipo', type: 'text', align: 'center'},
                                 data_gerado: {title: 'Data', type: 'date', align: 'center'},
@@ -65,6 +65,7 @@
                                 forma_pagamento_descricao: {title: 'Forma de Pagamento', type: 'text', align: 'center'},
                                 data_pagamento: {title: 'Data Pagamento', type: 'date', align: 'center'},
                                 venda_id_function: {},
+                                nome_function: {},
                             }"
                             :view="{active: false, dataToggle: 'modal', dataTarget: ''}"
                             :update="{active: false, dataToggle: 'modal', dataTarget: ''}"
@@ -164,7 +165,8 @@ import BaixarComissaoComponent from './BaixarComissaoComponent.vue';
                     if (data.forma_pagamento != null) {
                         data.forma_pagamento_descricao = data.forma_pagamento.descricao
                     }
-                    data.cpf_nome = data.revendedor_id + ' - ' + data.revendedor.nome;
+                    data.nome = data.revendedor.nome;
+                    data.nome_function = this.redirectToRevendedor;
                     data.valor = data.calculos.comissao_calculado;
 
                     if (data.descricao === 'COMISSÃO POR INDICAÇÃO') {
@@ -181,6 +183,11 @@ import BaixarComissaoComponent from './BaixarComissaoComponent.vue';
                 this.$showLoading();
                 this.$closeModal(this.modal);
                 window.location.href = `/vendas?search=${id}`;
+            },
+            redirectToRevendedor(id) {
+                this.$showLoading();
+                this.$closeModal(this.modal);
+                window.location.href = `/revendedores?search=${id}`;
             },
             async loadContent() {
                 let url = `${this.$urlBase}/${this.url}?` + this.urlPaginate + this.urlFilter;
