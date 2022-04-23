@@ -8972,7 +8972,7 @@ __webpack_require__.r(__webpack_exports__);
         tipo: 'todos',
         de_dias_comissoes: '',
         ate_dias_comissoes: '',
-        pago: true
+        pago: 'todos'
       },
       parametros_vendas: {
         de_dias_vendas: '',

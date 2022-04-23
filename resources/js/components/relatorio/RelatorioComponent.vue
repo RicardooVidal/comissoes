@@ -114,7 +114,7 @@
                     tipo: 'todos',
                     de_dias_comissoes: '',
                     ate_dias_comissoes: '',
-                    pago: true
+                    pago: 'todos'
                 },
                 parametros_vendas: {
                     de_dias_vendas: '',
