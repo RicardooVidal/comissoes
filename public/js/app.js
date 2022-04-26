@@ -7321,6 +7321,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -7353,7 +7354,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         revendedor_id: '',
         data_gerado: '',
         data_pagamento: '',
-        descricao: 'COMISSÃO POR VENDA'
+        descricao: ''
       }
     };
   },
@@ -8327,6 +8328,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8342,7 +8344,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         descricao: '',
         comissao_percentual: '',
         comissao_indicado_percentual: '',
-        ativo: 'true'
+        ativo: ''
       }
     };
   },
@@ -8711,7 +8713,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: '',
         descricao: '',
         taxa_percentual: '',
-        ativo: 'true'
+        ativo: ''
       }
     };
   },
@@ -9549,6 +9551,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   watch: {
     '$store.state.select.updateUrlFilter': function $storeStateSelectUpdateUrlFilter() {
@@ -9578,7 +9581,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         nome: '',
         email: '',
         celular: '',
-        ativo: 'true'
+        ativo: ''
       }
     };
   },
@@ -9587,6 +9590,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       var dataTreated = [];
+      console.log('#####', this.revendedores);
       this.revendedores.data.forEach(function (data) {
         if (data.indicador) {
           data.indicador_id = data.indicador.revendedor_id, data.indicador_function = _this.getRevendedorLink;
@@ -9598,7 +9602,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         data.conta = data.conta_pagamento.conta == null ? '' : data.conta_pagamento.conta;
         data.digito_conta = data.conta_pagamento.digito_conta == null ? '' : data.conta_pagamento.digito_conta;
         data.tipo = data.conta_pagamento.tipo;
-        data.pix = data.conta_pagamento.pix;
+        data.pix = data.conta_pagamento.pix == null ? '' : data.conta_pagamento.pix;
         dataTreated.push(data);
       });
       this.revendedores.data = dataTreated;
@@ -9798,6 +9802,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -10363,7 +10368,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var dataTreated = [];
       this.indicados.data.forEach(function (data) {
-        data.situacao_indicacao = _this.$verifyValidadeIndicacao(data.indicacao, data.validade_indicacao);
+        data.situacao_indicacao = _this.$verifyValidadeIndicacao(data.data_indicacao, data.validade_indicacao);
         dataTreated.push(data);
       });
       this.loading = false;
@@ -10646,7 +10651,6 @@ __webpack_require__.r(__webpack_exports__);
 
       var url = "".concat(this.$urlBase, "/").concat(this.urlTaxasParametro, "?ativo=true");
       axios.get(url).then(function (response) {
-        console.log('teste', response);
         _this2.taxas_parametros = response.data.result; //Definir última taxa inserida como padrão
 
         _this2.$store.state.item.taxa_parametro_id = _this2.taxas_parametros[0].id;
@@ -10659,6 +10663,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var url = "".concat(this.$urlBase, "/").concat(this.urlComissoesParametro, "?ativo=true");
       axios.get(url).then(function (response) {
+        console.log(response);
         _this3.comissoes_parametros = response.data.result; //Definir último parâmetro de comissão inserido como padrão
 
         _this3.$store.state.item.comissao_parametro_id = _this3.comissoes_parametros[0].id;
@@ -11418,7 +11423,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$setStore = function (obj)
   vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$store.state.item = obj;
 };
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$urlBase = 'http://localhost:8000/api';
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$urlBase = 'http://localhost:1102/api';
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$getToken = function () {
   var token = document.cookie.split(';').find(function (indice) {
@@ -11434,7 +11439,11 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$verifyBoolean = function 
 };
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$verifyBooleanString = function (bool) {
-  return bool === "true" ? 1 : 0;
+  if (bool === "true" || bool === true) {
+    return 1;
+  }
+
+  return 0;
 };
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$convertToDecimal = function (value) {
@@ -11514,11 +11523,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$deactivateBancoFields = f
 };
 
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$verifyValidadeIndicacao = function (data_indicacao, validade_indicacao) {
-  var today = new Date().toDateString();
-  console.log(today);
-  today = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$formatDateToUS(today);
-
-  if (today > validade_indicacao) {
+  if (data_indicacao > validade_indicacao) {
     return 'EXPIRADO';
   }
 
@@ -11543,7 +11548,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.$formatDateToUS = function
   }
 
   var date = new Date(dateToFormat.replace(/-/g, '\/').replace(/T.+/, ''));
-  console.log('date', date);
   var day = date.getDate().toString().padStart(2, '0');
   var month = (date.getMonth() + 1).toString().padStart(2, '0');
   var year = date.getFullYear();
@@ -11687,7 +11691,7 @@ axios.interceptors.response.use(function (response) {
   if (error.response.status == 401 && error.response.data.message == 'Token has expired') {
     $('#alert-session').css("visibility", "visible"); // Forçar logout
 
-    axios.post('http://localhost:8000/logout').then(function (response) {
+    axios.post('http://localhost:1102/logout').then(function (response) {
       // Redirecionar para login
       setTimeout(function () {
         window.location.href = "/login";
@@ -49879,6 +49883,10 @@ var render = function () {
                                     },
                                   },
                                   [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("TODOS"),
+                                    ]),
+                                    _vm._v(" "),
                                     _c(
                                       "option",
                                       {
@@ -51750,6 +51758,10 @@ var render = function () {
                                     },
                                   },
                                   [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("TODOS"),
+                                    ]),
+                                    _vm._v(" "),
                                     _c("option", { attrs: { value: "true" } }, [
                                       _vm._v("SIM"),
                                     ]),
@@ -52809,11 +52821,6 @@ var render = function () {
                                 },
                               },
                               [
-                                _vm._v(
-                                  " \n                                " +
-                                    _vm._s(_vm.search.ativo) +
-                                    "\n                                "
-                                ),
                                 _c(
                                   "select",
                                   {
@@ -52855,6 +52862,10 @@ var render = function () {
                                     },
                                   },
                                   [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("TODOS"),
+                                    ]),
+                                    _vm._v(" "),
                                     _c("option", { attrs: { value: "true" } }, [
                                       _vm._v("SIM"),
                                     ]),
@@ -52955,7 +52966,7 @@ var render = function () {
             _c("br"),
             _vm._v(" "),
             _c("card-component", {
-              attrs: { title: "Parâmetro de taxas" },
+              attrs: { title: "Parâmetro de taxa" },
               scopedSlots: _vm._u([
                 {
                   key: "header",
@@ -55508,6 +55519,10 @@ var render = function () {
                                     },
                                   },
                                   [
+                                    _c("option", { attrs: { value: "" } }, [
+                                      _vm._v("TODOS"),
+                                    ]),
+                                    _vm._v(" "),
                                     _c("option", { attrs: { value: "true" } }, [
                                       _vm._v("SIM"),
                                     ]),
@@ -57023,6 +57038,10 @@ var render = function () {
                                         },
                                       },
                                       [
+                                        _c("option", { attrs: { value: "" } }, [
+                                          _vm._v("TODOS"),
+                                        ]),
+                                        _vm._v(" "),
                                         _c(
                                           "option",
                                           { attrs: { value: "true" } },
@@ -72276,7 +72295,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"/Users/rvidal/Documents/html/projetos/controle-comissoes/comissoes","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","/Users/rvidal/Documents/html/projetos/controle-comissoes/comissoes"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"/Users/rvidal/Documents/html/projetos/controle-comissoes/comissoes","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

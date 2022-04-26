@@ -31,6 +31,7 @@
                                 <div class="col-md-3 mb-3">
                                     <input-container-component titulo="Tipo" id="selectDescricao" id-help="descricaoHelp" texto-ajuda=""> 
                                         <select class="form-select" v-model="search.descricao">
+                                            <option value="">TODOS</option>
                                             <option value="COMISSÃO POR VENDA">COMISSÃO POR VENDA</option>
                                             <option value="COMISSÃO POR INDICAÇÃO">COMISSÃO POR INDICAÇÃO</option>
                                         </select>
@@ -151,7 +152,7 @@ import BaixarComissaoComponent from './BaixarComissaoComponent.vue';
                     revendedor_id: '',
                     data_gerado: '',
                     data_pagamento: '',
-                    descricao: 'COMISSÃO POR VENDA'
+                    descricao: ''
                 }
             }
         },

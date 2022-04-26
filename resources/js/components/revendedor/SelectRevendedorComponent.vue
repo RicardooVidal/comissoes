@@ -40,6 +40,7 @@
                                 <div class="col-md-3 mb-3">
                                     <input-container-component titulo="Ativo" id="selectAtivoSearch" id-help="ativoSearchHelp" texto-ajuda=""> 
                                         <select class="form-select"   v-model="search.ativo" required>
+                                            <option value="">TODOS</option>
                                             <option value="true">SIM</option>
                                             <option value="false">NÃO</option>
                                         </select>

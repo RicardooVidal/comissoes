@@ -30,6 +30,7 @@
                             <div class="col-md-4 mb-3">
                                 <input-container-component titulo="Ativo" id="selectAtivo" id-help="ativoHelp" texto-ajuda="Opcional. Informe a situação"> 
                                     <select class="form-select" v-model="search.ativo" required>
+                                        <option value="">TODOS</option>
                                         <option value="true">SIM</option>
                                         <option value="false">NÃO</option>
                                     </select>
@@ -206,7 +207,7 @@
                     descricao: '',
                     comissao_percentual: '',
                     comissao_indicado_percentual: '',
-                    ativo: 'true'
+                    ativo: ''
                 }
             }
         },

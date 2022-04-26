@@ -34,6 +34,7 @@
                                 <div class="col-md-3 mb-3">
                                     <input-container-component titulo="Ativo" id="selectAtivoSearch" id-help="ativoHelp" texto-ajuda=""> 
                                         <select class="form-select"   v-model="search.ativo" required>
+                                            <option value="">TODOS</option>
                                             <option value="true">SIM</option>
                                             <option value="false">NÃO</option>
                                         </select>
@@ -266,13 +267,14 @@
                     nome: '',
                     email: '',
                     celular: '',
-                    ativo: 'true'
+                    ativo: ''
                 }
             }
         },
         computed: {
             revendedorTreatment() {
                 let dataTreated = [];
+                console.log('#####', this.revendedores);
                 this.revendedores.data.forEach((data) => {
                     if (data.indicador) {
                         data.indicador_id = data.indicador.revendedor_id,
@@ -284,7 +286,7 @@
                     data.conta = data.conta_pagamento.conta == null ? '' : data.conta_pagamento.conta;
                     data.digito_conta = data.conta_pagamento.digito_conta == null ? '' : data.conta_pagamento.digito_conta;
                     data.tipo = data.conta_pagamento.tipo;
-                    data.pix = data.conta_pagamento.pix;
+                    data.pix = data.conta_pagamento.pix == null ? '' : data.conta_pagamento.pix;
                     dataTreated.push(data);
                 })
                 this.revendedores.data = dataTreated;

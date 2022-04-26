@@ -173,7 +173,6 @@
                 let url = `${this.$urlBase}/${this.urlTaxasParametro}?ativo=true`;
                 axios.get(url)
                     .then((response) => {
-                        console.log('teste', response);
                         this.taxas_parametros = response.data.result;
 
                         //Definir última taxa inserida como padrão
@@ -187,6 +186,7 @@
                 let url = `${this.$urlBase}/${this.urlComissoesParametro}?ativo=true`;
                 axios.get(url)
                     .then((response) => {
+                        console.log(response);
                         this.comissoes_parametros = response.data.result;
 
                         //Definir último parâmetro de comissão inserido como padrão

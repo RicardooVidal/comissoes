@@ -22,8 +22,8 @@
                             </div>
                             <div class="col-md-5 mb-3">
                                 <input-container-component titulo="Ativo" id="selectAtivo" id-help="ativoHelp" texto-ajuda="Opcional. Informe a situação"> 
-                                    {{search.ativo}}
                                     <select class="form-select" v-model="search.ativo" required>
+                                        <option value="">TODOS</option>
                                         <option value="true">SIM</option>
                                         <option value="false">NÃO</option>
                                     </select>
@@ -43,7 +43,7 @@
                 </card-component>
                 <!-- fim do card de buscas -->
                 <br>
-                <card-component :title="'Parâmetro de taxas'">
+                <card-component :title="'Parâmetro de taxa'">
                     <template v-slot:header>
                         <button class="btn btn-primary float-end me-2 mt-2" data-bs-toggle="modal" data-bs-target="#modalTaxaInsert" 
                             @click="$setStore({
@@ -186,7 +186,7 @@
                     id: '',
                     descricao: '',
                     taxa_percentual: '',
-                    ativo: 'true'
+                    ativo: ''
                 }
             }
         },
@@ -277,6 +277,7 @@
             update() {
                 this.modal = '#modalTaxaUpdate';
                 this.$showLoading();
+                
                 let formData = new FormData();
                 formData.append('_method', 'put');
                 formData.append('taxa_percentual', this.$convertToDecimal(this.$store.state.item.taxa_percentual));

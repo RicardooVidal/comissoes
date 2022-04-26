@@ -72,7 +72,7 @@ Vue.prototype.$setStore = (obj) => {
     Vue.prototype.$store.state.item = obj;
 }
 
-Vue.prototype.$urlBase = 'http://localhost:8000/api';
+Vue.prototype.$urlBase = 'http://localhost:1102/api';
 Vue.prototype.$getToken = () => {
     let token = document.cookie.split(';').find(indice => {
         return indice.includes('token=');
@@ -89,7 +89,11 @@ Vue.prototype.$verifyBoolean = (bool) => {
 }
 
 Vue.prototype.$verifyBooleanString = (bool) => {
-    return bool === "true" ? 1 : 0;
+  if (bool === "true" || bool === true) {
+    return 1;
+  }
+
+  return 0;
 }
 
 Vue.prototype.$convertToDecimal = (value) => {
@@ -172,10 +176,7 @@ Vue.prototype.$deactivateBancoFields = (operation) => {
 }
 
 Vue.prototype.$verifyValidadeIndicacao = (data_indicacao, validade_indicacao) => {
-  let today = new Date().toDateString();
-  console.log(today);
-  today = Vue.prototype.$formatDateToUS(today);
-  if (today > validade_indicacao) {
+  if (data_indicacao > validade_indicacao) {
     return 'EXPIRADO';
   } 
 
@@ -198,7 +199,6 @@ Vue.prototype.$formatDateToUS = (dateToFormat) => {
     return '  /  /    '
   }
   let date = new Date(dateToFormat.replace(/-/g, '\/').replace(/T.+/, ''));
-  console.log('date', date);
   let day  = date.getDate().toString().padStart(2, '0');
   let month  = (date.getMonth()+1).toString().padStart(2, '0');
   let year  = date.getFullYear();

@@ -58,7 +58,7 @@ axios.interceptors.response.use(
             $('#alert-session').css("visibility", "visible");
             
             // Forçar logout
-            axios.post('http://localhost:8000/logout')
+            axios.post('http://localhost:1102/logout')
                 .then((response) => {
                     // Redirecionar para login
                     setTimeout(() => {window.location.href = "/login"}, 5000);

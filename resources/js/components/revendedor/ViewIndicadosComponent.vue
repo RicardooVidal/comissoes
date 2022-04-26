@@ -99,7 +99,7 @@
                 let dataTreated = [];
                 this.indicados.data.forEach((data) => {
                     data.situacao_indicacao = this.$verifyValidadeIndicacao(
-                        data.indicacao,
+                        data.data_indicacao,
                         data.validade_indicacao
                     );
 
