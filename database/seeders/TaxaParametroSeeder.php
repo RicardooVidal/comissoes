@@ -13,6 +13,10 @@ class TaxaParametroSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\TaxaParametro::factory(30)->create();
+        \App\Models\TaxaParametro::create([
+            'descricao' => 'MERCADO LIVRE PADRÃO',
+            'taxa_percentual' => 0.08,
+            'ativo' => true
+        ]);
     }
 }

@@ -40,7 +40,7 @@ class VendaController extends Controller
                         ->join('revendedores', 'indicadores.revendedor_id', '=', 'revendedores.id');
                 });
             })
-            ->orderBy('data_venda', 'desc');
+            ->orderBy('id', 'desc');
 
         if($request->has('filter')) {
             $vendaRepository->filter($request->filter);

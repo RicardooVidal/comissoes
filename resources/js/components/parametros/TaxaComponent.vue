@@ -45,7 +45,12 @@
                 <br>
                 <card-component :title="'Parâmetro de taxas'">
                     <template v-slot:header>
-                        <button class="btn btn-primary float-end me-2 mt-2" data-bs-toggle="modal" data-bs-target="#modalTaxaInsert" @click="$setStore({descricao: '', taxa_percentual: 0, ativo: 1})">Inserir Taxa</button>
+                        <button class="btn btn-primary float-end me-2 mt-2" data-bs-toggle="modal" data-bs-target="#modalTaxaInsert" 
+                            @click="$setStore({
+                                descricao: '',
+                                taxa_percentual: 0,
+                                ativo: 'true'})"
+                            >Inserir Taxa</button>
                     </template>
                     <template v-slot:alert>
                         <alert-component type="success" :title="$store.state.transaction.message" :details="$store.state.transaction" v-if="$store.state.transaction.status == 'ok'"></alert-component>
@@ -181,7 +186,7 @@
                     id: '',
                     descricao: '',
                     taxa_percentual: '',
-                    ativo: ''
+                    ativo: 'true'
                 }
             }
         },
@@ -224,12 +229,12 @@
                 if (filter != '') {
                     this.urlFilter = '&filter=' + filter 
                 }
-                console.log(this.urlFilter);
+
                 this.loadContent();
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             async loadContent() {
                 let url = `${this.$urlBase}/${this.url}?` + this.urlPaginate + this.urlFilter;

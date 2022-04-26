@@ -156,22 +156,22 @@
                         </input-container-component>
                     </div>
                     <div class="col-md-2 mb-3">
-                        <input-container-component titulo="Agência" id="updateAgencia" id-help="updateAgenciaHelp" texto-ajuda=""> 
-                            <input type="text" class="form-control agencia" id="updateAgencia" aria-describedby="updateAgenciaHelp" placeholder="Ag" v-model="$store.state.item.agencia" required>
+                        <input-container-component titulo="Agência" id="inputAgencia" id-help="updateAgenciaHelp" texto-ajuda=""> 
+                            <input type="text" class="form-control agencia" id="inputAgencia" aria-describedby="updateAgenciaHelp" placeholder="Agência" v-model="$store.state.item.agencia" required>
                         </input-container-component>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input-container-component titulo="Conta" id="updateConta" id-help="updateContaHelp" texto-ajuda=""> 
-                            <input type="text" class="form-control conta_banco" id="updateConta" aria-describedby="updateContaHelp" placeholder="Conta" v-model="$store.state.item.conta" required>
+                        <input-container-component titulo="Conta" id="inputConta" id-help="updateContaHelp" texto-ajuda=""> 
+                            <input type="text" class="form-control conta_banco" id="inputConta" aria-describedby="updateContaHelp" placeholder="Conta" v-model="$store.state.item.conta" required>
                         </input-container-component>
                     </div>
                     <div class="col-md-1 mb-3">
-                        <input-container-component titulo="Dígito" id="updateDigitoAgencia" id-help="updateDigitoAgenciaHelp" texto-ajuda=""> 
-                            <input type="text" class="form-control digito" id="updateDigitoAgencia" aria-describedby="updateDigitoAgenciaHelp" placeholder="Digito" v-model="$store.state.item.digito_conta" required>
+                        <input-container-component titulo="Dígito" id="inputDigitoAgencia" id-help="updateDigitoAgenciaHelp" texto-ajuda=""> 
+                            <input type="text" class="form-control digito" id="inputDigitoAgencia" aria-describedby="updateDigitoAgenciaHelp" placeholder="Digito" v-model="$store.state.item.digito_conta" required>
                         </input-container-component>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input-container-component titulo="Tipo de Conta" id="updateTipoConta" id-help="updateTipoContaHelp" texto-ajuda=""> 
+                        <input-container-component titulo="Tipo de Conta" id="inputTipoConta" id-help="updateTipoContaHelp" texto-ajuda=""> 
                             <select class="form-select" v-model="$store.state.item.tipo" required>
                                 <option value="NI">NÃO INFORMADO</option>
                                 <option value="CORRENTE">CORRENTE</option>
@@ -247,6 +247,9 @@
                 this.urlFilter = this.$store.state.select.updateUrlFilter;
 
                 this.loadContent();
+            },
+            '$store.state.item.banco': function() {
+                this.verifyBanco();
             }
         },
         data() {
@@ -263,7 +266,7 @@
                     nome: '',
                     email: '',
                     celular: '',
-                    ativo: ''
+                    ativo: 'true'
                 }
             }
         },
@@ -277,7 +280,7 @@
                         data.indicador = data.indicador.nome;
                     }
                     data.banco = data.conta_pagamento.banco_id;
-                    data.agencia = data.conta_pagamento.agencia == null ? '' : data.conta_pagamento.conta;
+                    data.agencia = data.conta_pagamento.agencia == null ? '' : data.conta_pagamento.agencia;
                     data.conta = data.conta_pagamento.conta == null ? '' : data.conta_pagamento.conta;
                     data.digito_conta = data.conta_pagamento.digito_conta == null ? '' : data.conta_pagamento.digito_conta;
                     data.tipo = data.conta_pagamento.tipo;
@@ -302,8 +305,11 @@
         methods: {
             verifyBanco() {
                 this.$activateBancoFields();
-                if (this.$store.state.item.banco == 999) {
-                    this.$deactivateBancoFields();
+                if (this.$store.state.item.banco === 999) {
+                    this.$store.state.item.agencia = '';
+                    this.$store.state.item.conta = '';
+                    this.$store.state.item.digito = '';
+                    this.$deactivateBancoFields('');
                 }
             },
             loadBancos() {
@@ -326,8 +332,8 @@
                 this.modal = '#modalRevendedorUpdate';
                 this.$showLoading();
 
-                if (this.$store.state.item.banco == 999) {
-                    this.$store.state.item.banco = '';
+                if (this.$store.state.item.banco == null) {
+                    this.$store.state.item.banco = 999;
                 }
 
                 let formData = new FormData();
@@ -410,9 +416,9 @@
 
                 this.loadContent();
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             getRevendedorLink(cpf) {
                 this.urlFilter = '&filter=' + 'id' + ':ilike:' + this.$getFilter('cpf', cpf);

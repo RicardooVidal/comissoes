@@ -103,6 +103,10 @@ class BancoController extends Controller
      */
     public function destroy($id)
     {
+        if ($id == 999) {
+            return $this->error('Parâmetro padrão. Não pode ser deletado');
+        }
+
         $banco = $this->banco->findOrFail($id);
 
         // Verificar se o id do banco foi utilizado em cadastro de revendedores

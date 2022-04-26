@@ -107,8 +107,8 @@
     export default {
         data() {
             return {
-                taxas_parametros: { data: [] },
-                comissoes_parametros: { data: [] },
+                taxas_parametros: {},
+                comissoes_parametros: {},
                 modal: '',
                 url: 'venda',
                 urlRevendedor: 'revendedor',
@@ -169,17 +169,15 @@
                 let total = (quantidade * preco_unitario) + (+outras_despesas_valor);
                 this.$store.state.item.preco_total = parseFloat(total).toFixed(2);
             }, 
-            verifyBanco() {
-                this.$activateBancoFields();
-                if (this.$store.state.item.banco == 999) {
-                    this.$deactivateBancoFields();
-                }
-            },
             loadTaxasParametros() {
                 let url = `${this.$urlBase}/${this.urlTaxasParametro}?ativo=true`;
                 axios.get(url)
                     .then((response) => {
+                        console.log('teste', response);
                         this.taxas_parametros = response.data.result;
+
+                        //Definir última taxa inserida como padrão
+                        this.$store.state.item.taxa_parametro_id = this.taxas_parametros[0].id;
                     })
                     .catch(errors => {
                         this.$errorTreatment(errors);
@@ -190,6 +188,9 @@
                 axios.get(url)
                     .then((response) => {
                         this.comissoes_parametros = response.data.result;
+
+                        //Definir último parâmetro de comissão inserido como padrão
+                        this.$store.state.item.comissao_parametro_id = this.comissoes_parametros[0].id;
                     })
                     .catch(errors => {
                         this.$errorTreatment(errors);

@@ -151,7 +151,7 @@ import BaixarComissaoComponent from './BaixarComissaoComponent.vue';
                     revendedor_id: '',
                     data_gerado: '',
                     data_pagamento: '',
-                    descricao: ''
+                    descricao: 'COMISSÃO POR VENDA'
                 }
             }
         },
@@ -244,9 +244,9 @@ import BaixarComissaoComponent from './BaixarComissaoComponent.vue';
 
                 this.loadContent();
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             estornarComissao() {
                 let url = `${this.$urlBase}/${this.urlEstornar}`;

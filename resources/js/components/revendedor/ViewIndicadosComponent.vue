@@ -146,9 +146,9 @@
 
                 this.loadContent(this.cpf);
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             selectRevendedor(id, nome) {
                 this.$emptyUrlFilter();

@@ -14,19 +14,29 @@ class BancoSeeder extends Seeder
     public function run()
     {
         $bancos = [
-            001 => "001 - Banco do Brasil S.A.", 
-            033 => "033 - Banco Santander (Brasil) S.A.",
-            104 => "104 - Caixa Econômica Federal",
-            237 => "237 - Banco Bradesco S.A.",
-            341 => "341 - Banco Itaú S.A.",
-            356 => "356 - Banco Real S.A. (antigo)",
-            389 => "389 - Banco Mercantil do Brasil S.A.",
-            399 => "399 - HSBC Bank Brasil S.A. – Banco Múltiplo",
-            422 => "422 - Banco Safra S.A.",
-            453 => "453 - Banco Rural S.A.",
-            633 => "633 - Banco Rendimento S.A.",
-            652 => "652 - Itaú Unibanco Holding S.A.",
-            745 => "745 - Banco Citibank S.A."
+            '001' => "BANCO DO BRASIL S.A (BB)",
+            '237' => "BANCO BRADESCO S.A",
+            '335' => "BANCO DIGIO S.A",
+            '260' => "NU PAGAMENTOS S.A (NUBANK)",
+            '290' => "PAGSEGURO INTERNET S.A (PagBank)",
+            '380' => "PICPAY SERVICOS S.A",
+            '323' => "MERCADO PAGO",
+            '1237' => "NEXT BANK (BRADESCO)",
+            '077' => "BANCO INTER S.A",
+            '096' => "BANCO B3 S.A",
+            '341' => "ITAÚ UNIBANCO S.A",
+            '104' => "CAIXA ECONÔMICA FEDERAL (CEF)",
+            '033' => "BANCO SANTANDER BRASIL S.A",
+            '212' => "BANCO ORIGINAL S.A",
+            '756' => "BANCOOB (BANCO COOPERATIVO DO BRASIL)",
+            '389' => "BANCO MERCANTIL DO BRASIL S.A",
+            '422' => "BANCO SAFRA S.A",
+            '739' => "BANCO CETELEM S.A",
+            '743' => "BANCO SEMEAR S.A",
+            '712' => "BANCO OURINVEST S.A",
+            '336' => "BANCO C6 S.A - C6 BANK",
+            '654' => "BANCO DIGIMAIS S.A",
+            '999' => "NÃO INFORMADO"
         ];
 
         foreach ($bancos as $key => $banco) {

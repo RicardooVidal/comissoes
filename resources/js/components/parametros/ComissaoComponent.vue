@@ -56,7 +56,7 @@
                                 descricao: '',
                                 comissao_percentual: 0,
                                 comissao_indicado_percentual: 0,
-                                ativo: 1
+                                ativo: 'true'
                             })"
                         >Inserir Parâmetro de Comissão</button>
                     </template>
@@ -206,7 +206,7 @@
                     descricao: '',
                     comissao_percentual: '',
                     comissao_indicado_percentual: '',
-                    ativo: ''
+                    ativo: 'true'
                 }
             }
         },
@@ -254,9 +254,9 @@
                 }
                 this.loadContent();
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             async loadContent() {
                 let url = `${this.$urlBase}/${this.url}?` + this.urlPaginate + this.urlFilter;

@@ -13,6 +13,11 @@ class ComissaoParametroSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\ComissaoParametro::factory(30)->create();
+        \App\Models\ComissaoParametro::create([
+            'descricao' => 'MERCADO LIVRE PADRÃO',
+            'comissao_percentual' => 0.10,
+            'comissao_indicado_percentual' => 0.03,
+            'ativo' => true
+        ]);
     }
 }

@@ -130,22 +130,25 @@
                     rg: '',
                     nome: '',
                     email: '',
-                    banco: '999',
+                    banco: 999,
                     agencia: '',
                     conta: '',
                     digito_conta: '',
                     tipo: 'NI',
                     pix: '',
                     celular: '',
-                    ativo: 1
+                    ativo: 'true'
                 }
             },
         },
         methods: {
             verifyBanco() {
                 this.$activateBancoFields();
-                if (this.$store.state.item.banco == 999) {
-                    this.$deactivateBancoFields();
+                if (this.$store.state.item.banco === 999) {
+                    this.$store.state.item.agencia = '';
+                    this.$store.state.item.conta = '';
+                    this.$store.state.item.digito = '';
+                    this.$deactivateBancoFields('');
                 }
             },
             loadBancos() {
@@ -163,9 +166,9 @@
                 this.$store.state.item.rg = $('#inputRg').cleanVal();
                 this.$showLoading();
 
-                if (this.$store.state.item.banco == 999) {
-                    this.$store.state.item.banco = '';
-                }
+                // if (this.$store.state.item.banco == 999) {
+                //     this.$store.state.item.banco = '';
+                // }
 
                 this.$store.state.item.indicador_id = 0;
 

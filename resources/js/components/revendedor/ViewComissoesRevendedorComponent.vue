@@ -108,7 +108,7 @@
                     venda_id: '',
                     data_gerado: '',
                     data_pagamento: '',
-                    descricao: ''
+                    descricao: 'COMISSÃO POR VENDA'
                 }
             }
         },
@@ -184,9 +184,9 @@
 
                 this.loadContent(this.cpf);
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             async loadContent(cpf) {
                 let url = `${this.$urlBase}/${this.url}?revendedor_id=${cpf}&` + this.urlPaginate + this.urlFilter; 

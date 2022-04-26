@@ -195,7 +195,7 @@ class RevendedorController extends Controller
         
         if ($revendedor->save()) {
             $paramsConta = [
-                'banco_id' => $request->get('banco_id'),
+                'banco_id' => $request->get('banco_id') == null ? 999 : $request->get('banco_id'),
                 'agencia' => $request->get('agencia'),
                 'conta' => $request->get('conta'),
                 'digito_conta' => $request->get('digito_conta'),

@@ -7129,6 +7129,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.next = 3;
                 return axios.get(url).then(function (response) {
                   _this2.revendedor_dados_bancarios = response.data.result[0];
+                  _this2.revendedor_dados_bancarios.pix = _this2.revendedor_dados_bancarios.pix == null ? 'NÃO INFORMADO' : _this2.revendedor_dados_bancarios.pix;
                   _this2.$store.state.item.forma_pagamento_id = 1;
                 })["catch"](function (errors) {
                   _this2.$errorTreatment(errors);
@@ -7352,7 +7353,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         revendedor_id: '',
         data_gerado: '',
         data_pagamento: '',
-        descricao: ''
+        descricao: 'COMISSÃO POR VENDA'
       }
     };
   },
@@ -7466,11 +7467,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      this.loadContent();
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     estornarComissao: function estornarComissao() {
       var _this3 = this;
@@ -8343,7 +8342,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         descricao: '',
         comissao_percentual: '',
         comissao_indicado_percentual: '',
-        ativo: ''
+        ativo: 'true'
       }
     };
   },
@@ -8393,11 +8392,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      this.loadContent();
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     loadContent: function loadContent() {
       var _this = this;
@@ -8695,6 +8692,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8709,7 +8711,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: '',
         descricao: '',
         taxa_percentual: '',
-        ativo: ''
+        ativo: 'true'
       }
     };
   },
@@ -8754,12 +8756,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      console.log(this.urlFilter);
-      this.loadContent();
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     loadContent: function loadContent() {
       var _this = this;
@@ -9201,14 +9200,14 @@ __webpack_require__.r(__webpack_exports__);
         rg: '',
         nome: '',
         email: '',
-        banco: '999',
+        banco: 999,
         agencia: '',
         conta: '',
         digito_conta: '',
         tipo: 'NI',
         pix: '',
         celular: '',
-        ativo: 1
+        ativo: 'true'
       };
     }
   },
@@ -9216,8 +9215,11 @@ __webpack_require__.r(__webpack_exports__);
     verifyBanco: function verifyBanco() {
       this.$activateBancoFields();
 
-      if (this.$store.state.item.banco == 999) {
-        this.$deactivateBancoFields();
+      if (this.$store.state.item.banco === 999) {
+        this.$store.state.item.agencia = '';
+        this.$store.state.item.conta = '';
+        this.$store.state.item.digito = '';
+        this.$deactivateBancoFields('');
       }
     },
     loadBancos: function loadBancos() {
@@ -9235,11 +9237,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$store.state.item.id = $('#inputCpf').cleanVal();
       this.$store.state.item.rg = $('#inputRg').cleanVal();
-      this.$showLoading();
-
-      if (this.$store.state.item.banco == 999) {
-        this.$store.state.item.banco = '';
-      }
+      this.$showLoading(); // if (this.$store.state.item.banco == 999) {
+      //     this.$store.state.item.banco = '';
+      // }
 
       this.$store.state.item.indicador_id = 0; // Verificar se algum revendedor foi selecionado como indicador
 
@@ -9555,6 +9555,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.urlPaginate = 'page=1';
       this.urlFilter = this.$store.state.select.updateUrlFilter;
       this.loadContent();
+    },
+    '$store.state.item.banco': function $storeStateItemBanco() {
+      this.verifyBanco();
     }
   },
   data: function data() {
@@ -9575,7 +9578,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         nome: '',
         email: '',
         celular: '',
-        ativo: ''
+        ativo: 'true'
       }
     };
   },
@@ -9591,7 +9594,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
 
         data.banco = data.conta_pagamento.banco_id;
-        data.agencia = data.conta_pagamento.agencia == null ? '' : data.conta_pagamento.conta;
+        data.agencia = data.conta_pagamento.agencia == null ? '' : data.conta_pagamento.agencia;
         data.conta = data.conta_pagamento.conta == null ? '' : data.conta_pagamento.conta;
         data.digito_conta = data.conta_pagamento.digito_conta == null ? '' : data.conta_pagamento.digito_conta;
         data.tipo = data.conta_pagamento.tipo;
@@ -9613,8 +9616,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     verifyBanco: function verifyBanco() {
       this.$activateBancoFields();
 
-      if (this.$store.state.item.banco == 999) {
-        this.$deactivateBancoFields();
+      if (this.$store.state.item.banco === 999) {
+        this.$store.state.item.agencia = '';
+        this.$store.state.item.conta = '';
+        this.$store.state.item.digito = '';
+        this.$deactivateBancoFields('');
       }
     },
     loadBancos: function loadBancos() {
@@ -9639,8 +9645,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.modal = '#modalRevendedorUpdate';
       this.$showLoading();
 
-      if (this.$store.state.item.banco == 999) {
-        this.$store.state.item.banco = '';
+      if (this.$store.state.item.banco == null) {
+        this.$store.state.item.banco = 999;
       }
 
       var formData = new FormData();
@@ -9721,11 +9727,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      this.loadContent();
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     getRevendedorLink: function getRevendedorLink(cpf) {
       this.urlFilter = '&filter=' + 'id' + ':ilike:' + this.$getFilter('cpf', cpf);
@@ -9947,11 +9951,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       console.log(this.urlFilter);
-      this.loadContent();
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     loadContent: function loadContent() {
       var _this = this;
@@ -10119,7 +10121,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         venda_id: '',
         data_gerado: '',
         data_pagamento: '',
-        descricao: ''
+        descricao: 'COMISSÃO POR VENDA'
       }
     };
   },
@@ -10198,11 +10200,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      this.loadContent(this.cpf);
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(this.cpf); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     loadContent: function loadContent(cpf) {
       var _this2 = this;
@@ -10407,11 +10407,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      this.loadContent(this.cpf);
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(this.cpf); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     },
     selectRevendedor: function selectRevendedor(id, nome) {
       this.$emptyUrlFilter();
@@ -10580,12 +10578,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      taxas_parametros: {
-        data: []
-      },
-      comissoes_parametros: {
-        data: []
-      },
+      taxas_parametros: {},
+      comissoes_parametros: {},
       modal: '',
       url: 'venda',
       urlRevendedor: 'revendedor',
@@ -10647,19 +10641,15 @@ __webpack_require__.r(__webpack_exports__);
       var total = quantidade * preco_unitario + +outras_despesas_valor;
       this.$store.state.item.preco_total = parseFloat(total).toFixed(2);
     },
-    verifyBanco: function verifyBanco() {
-      this.$activateBancoFields();
-
-      if (this.$store.state.item.banco == 999) {
-        this.$deactivateBancoFields();
-      }
-    },
     loadTaxasParametros: function loadTaxasParametros() {
       var _this2 = this;
 
       var url = "".concat(this.$urlBase, "/").concat(this.urlTaxasParametro, "?ativo=true");
       axios.get(url).then(function (response) {
-        _this2.taxas_parametros = response.data.result;
+        console.log('teste', response);
+        _this2.taxas_parametros = response.data.result; //Definir última taxa inserida como padrão
+
+        _this2.$store.state.item.taxa_parametro_id = _this2.taxas_parametros[0].id;
       })["catch"](function (errors) {
         _this2.$errorTreatment(errors);
       });
@@ -10669,7 +10659,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var url = "".concat(this.$urlBase, "/").concat(this.urlComissoesParametro, "?ativo=true");
       axios.get(url).then(function (response) {
-        _this3.comissoes_parametros = response.data.result;
+        _this3.comissoes_parametros = response.data.result; //Definir último parâmetro de comissão inserido como padrão
+
+        _this3.$store.state.item.comissao_parametro_id = _this3.comissoes_parametros[0].id;
       })["catch"](function (errors) {
         _this3.$errorTreatment(errors);
       });
@@ -11152,11 +11144,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.urlFilter = '&filter=' + filter;
       }
 
-      this.loadContent();
-
-      for (var _key in this.search) {
-        this.search[_key] = '';
-      }
+      this.loadContent(); // for(let key in this.search) {
+      //     this.search[key] = '';
+      // }
     }
   },
   mounted: function mounted() {
@@ -49156,7 +49146,7 @@ var render = function () {
                               "aria-describedby": "viewRevendedorHelp",
                               disabled: "",
                             },
-                            domProps: { value: _vm.$store.state.item.cpf_nome },
+                            domProps: { value: _vm.$store.state.item.nome },
                           }),
                         ]
                       ),
@@ -51880,7 +51870,7 @@ var render = function () {
                                 descricao: "",
                                 comissao_percentual: 0,
                                 comissao_indicado_percentual: 0,
-                                ativo: 1,
+                                ativo: "true",
                               })
                             },
                           },
@@ -52984,7 +52974,7 @@ var render = function () {
                               return _vm.$setStore({
                                 descricao: "",
                                 taxa_percentual: 0,
-                                ativo: 1,
+                                ativo: "true",
                               })
                             },
                           },
@@ -56130,7 +56120,7 @@ var render = function () {
                         {
                           attrs: {
                             titulo: "Agência",
-                            id: "updateAgencia",
+                            id: "inputAgencia",
                             "id-help": "updateAgenciaHelp",
                             "texto-ajuda": "",
                           },
@@ -56148,9 +56138,9 @@ var render = function () {
                             staticClass: "form-control agencia",
                             attrs: {
                               type: "text",
-                              id: "updateAgencia",
+                              id: "inputAgencia",
                               "aria-describedby": "updateAgenciaHelp",
-                              placeholder: "Ag",
+                              placeholder: "Agência",
                               required: "",
                             },
                             domProps: { value: _vm.$store.state.item.agencia },
@@ -56182,7 +56172,7 @@ var render = function () {
                         {
                           attrs: {
                             titulo: "Conta",
-                            id: "updateConta",
+                            id: "inputConta",
                             "id-help": "updateContaHelp",
                             "texto-ajuda": "",
                           },
@@ -56200,7 +56190,7 @@ var render = function () {
                             staticClass: "form-control conta_banco",
                             attrs: {
                               type: "text",
-                              id: "updateConta",
+                              id: "inputConta",
                               "aria-describedby": "updateContaHelp",
                               placeholder: "Conta",
                               required: "",
@@ -56234,7 +56224,7 @@ var render = function () {
                         {
                           attrs: {
                             titulo: "Dígito",
-                            id: "updateDigitoAgencia",
+                            id: "inputDigitoAgencia",
                             "id-help": "updateDigitoAgenciaHelp",
                             "texto-ajuda": "",
                           },
@@ -56252,7 +56242,7 @@ var render = function () {
                             staticClass: "form-control digito",
                             attrs: {
                               type: "text",
-                              id: "updateDigitoAgencia",
+                              id: "inputDigitoAgencia",
                               "aria-describedby": "updateDigitoAgenciaHelp",
                               placeholder: "Digito",
                               required: "",
@@ -56288,7 +56278,7 @@ var render = function () {
                         {
                           attrs: {
                             titulo: "Tipo de Conta",
-                            id: "updateTipoConta",
+                            id: "inputTipoConta",
                             "id-help": "updateTipoContaHelp",
                             "texto-ajuda": "",
                           },

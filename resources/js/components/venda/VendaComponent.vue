@@ -392,9 +392,9 @@
 
                 this.loadContent();
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
         },
         mounted() {

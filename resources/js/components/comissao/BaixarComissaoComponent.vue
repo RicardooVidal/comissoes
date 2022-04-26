@@ -24,7 +24,7 @@
                         <div class="col-md-8 mb-3">
                                 <input-container-component titulo="Revendedor" id="viewRevendedor" id-help="viewRevendedorHelp" texto-ajuda=""> 
                                     <input type="text" class="form-control" id="viewRevendedor" aria-describedby="viewRevendedorHelp"
-                                        :value="$store.state.item.cpf_nome" disabled>
+                                        :value="$store.state.item.nome" disabled>
                                 </input-container-component>
                             </div>
                         <div class="col-md-7 mb-3">
@@ -140,6 +140,7 @@
                 await axios.get(url)
                     .then(response => {
                         this.revendedor_dados_bancarios = response.data.result[0];
+                        this.revendedor_dados_bancarios.pix = this.revendedor_dados_bancarios.pix == null ? 'NÃO INFORMADO' : this.revendedor_dados_bancarios.pix;
                         this.$store.state.item.forma_pagamento_id = 1;
                     })
                     .catch(errors => {

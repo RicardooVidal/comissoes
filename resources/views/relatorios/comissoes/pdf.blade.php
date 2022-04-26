@@ -43,14 +43,10 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="width: 100%">
-                <p style="text-align: right;"><strong>Total Revendedor: R${{number_format($revendedor['total_revendedor'], 2, ',', '.')}}</strong></p>
-            </div>
+            <p style="text-align: right;"><strong>Total Revendedor: R${{number_format($revendedor['total_revendedor'], 2, ',', '.')}}</strong></p>
             <hr>
         @endforeach
-        <div class="width: 100%">
-            <p style="text-align: right;"><strong>Total Geral Período: R${{number_format($data['total_geral'], 2, ',', '.')}}</strong></p>
-        </div>
+        <p style="text-align: right;"><strong>Total Geral Período: R${{number_format($data['total_geral'], 2, ',', '.')}}</strong></p>
     @else
         Nada encontrado.
     @endif

@@ -149,9 +149,9 @@
                 console.log(this.urlFilter);
                 this.loadContent();
 
-                for(let key in this.search) {
-                    this.search[key] = '';
-                }
+                // for(let key in this.search) {
+                //     this.search[key] = '';
+                // }
             },
             async loadContent() {
                 let url = `${this.$urlBase}/${this.url}?` + this.urlPaginate + this.urlFilter;
